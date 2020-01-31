@@ -2,6 +2,7 @@ let forward = {
   Zodiac: {
     astrologersAxis: { astralSign: 0 },
     astralSign: { },
+    alignment: { binaryFire: 1, binaryIce: 1, binaryVolt: 1  },
     pulseStar: { binaryFire: 1, binaryIce: 1, binaryVolt: 1 },
     binaryFire: { meteorRain: 3 },
     binaryIce: { meteorRain: 3 },
@@ -15,7 +16,6 @@ let forward = {
     cosmicGleam: { asteroidBelt: 2 },
     asteroidBelt: { nebulaResurgence: 2 },
     nebulaResurgence: { aspectedVeil: 2 },
-    alignment: { },
     aspectedVeil: { prophecy: 1 },
     prophecy: { },
     celestialReturn: { darkMatter: 2, aetherLeak: 2 },

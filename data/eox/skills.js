@@ -48,15 +48,24 @@ let skills = {
       stats: [],
       dep: { },
       maxLevel: 8,
-      coords: { x: 0, y: 2 }
+      coords: { x: 0, y: 1.5 }
+    },
+    alignment: {
+      name_en: "Alignment",
+      name_jp: "炎の先見術",
+      desc: "If the skill used on this turn is of a different element from the last one used, it gains the element of the last one used and has its damage increased.",
+      stats: [],
+      dep: { },
+      maxLevel: 6,
+      coords: { x: 0, y: 2.5 }
     },
     binaryFire: {
       name_en: "Binary Fire",
       name_jp: "炎の連星術",
       desc: "Deals ranged fire damage to all enemies. For three turns, enemies will take more damage from fire attacks. This debuff can make them weak to that attribute.",
       stats: ["INT"],
-      dep: { pulseStar: 1 },
-      maxLevel: 10,
+      dep: { pulseStar: 1, alignment:1 },
+      maxLevel: 8,
       coords: { x: 1, y: 1 }
     },
     binaryIce: {
@@ -64,8 +73,8 @@ let skills = {
       name_jp: "氷の連星術",
       desc: "Deals ranged ice damage to all enemies. For three turns, enemies will take more damage from ice attacks. This debuff can make them weak to that attribute.",
       stats: ["INT"],
-      dep: { pulseStar: 1 },
-      maxLevel: 10,
+      dep: { pulseStar: 1, alignment:1 },
+      maxLevel: 8,
       coords: { x: 1, y: 2 }
     },
     binaryVolt: {
@@ -73,17 +82,27 @@ let skills = {
       name_jp: "雷の連星術",
       desc: "Deals ranged volt damage to all enemies. For three turns, enemies will take more damage from volt attacks. This debuff can make them weak to that attribute.",
       stats: ["INT"],
-      dep: { pulseStar: 1 },
-      maxLevel: 10,
+      dep: { pulseStar: 1, alignment:1 },
+      maxLevel: 8,
       coords: { x: 1, y: 3 }
+    },
+    meteorRain: {
+      name_en: "Meteor Rain",
+      name_jp: "メテオ",
+      desc: "Deals 5-10 instances of ranged random elemental damage to random targets.",
+      stats: ["INT"],
+      dep: { binaryFire: 3, binaryIce: 3, binaryVolt: 3 },
+      maxLevel: 8,
+      coords: { x: 2, y: 2 }
     },
     astralFire: {
       name_en: "Astral Fire",
       name_jp: "炎の星術",
-      desc: "Deals ranged fire damage to one target. Applies Astral Fire on the user, increasing damage for ? turns. This skill cannot be used again for 3 turns.[On the next turn, if the user uses an elemental skill, follows up with a ranged Int-based Cut+Element attack on all enemies hit with an element by the user.]",
+      desc: "Deals ranged fire damage to one target. Applies Astral Fire on the user, increasing damage for 5 turns. This skill cannot be used again for 3 turns.",
+      //[On the next turn, if the user uses an elemental skill, follows up with a ranged Int-based Cut+Element attack on all enemies hit with an element by the user.]
       stats: ["INT"],
       dep: { meteorRain:2 },
-      maxLevel: 10,
+      maxLevel: 8,
       coords: { x: 3, y: 1.25 }
     },
     umbralIce: {
@@ -92,26 +111,18 @@ let skills = {
       desc: "Requires Astral Fire. Deals ranged ice damage to one target. Recovers some TP and removes Astral Fire after use.",
       stats: ["INT"],
       dep: { astralFire: 2 },
-      maxLevel: 10,
+      maxLevel: 8,
       coords: { x: 4, y: 0.75 }
     },
     solsticeVolt: {
       name_en: "Solstice Volt",
       name_jp: "雷の星術",
-      desc: "Requires Astral Fire. Deals ranged volt damage to one target, and ignores resistances. Removes Astral Fire after use.",
+      desc: "Requires Astral Fire. Deals ranged volt damage to one target. Removes Astral Fire after use.",
+      //, and ignores resistances
       stats: ["INT"],
       dep: { astralFire: 2 },
-      maxLevel: 10,
+      maxLevel: 8,
       coords: { x: 4, y: 1.75 }
-    },
-    meteorRain: {
-      name_en: "Meteor Rain",
-      name_jp: "メテオ",
-      desc: "Deals 5-10 instances of ranged random elemental damage to random targets.",
-      stats: ["INT"],
-      dep: { binaryFire: 3, binaryIce: 3, binaryVolt: 3 },
-      maxLevel: 10,
-      coords: { x: 2, y: 2 }
     },
     distortionNova: {
       //name_en: "Distortion Nova",
@@ -120,7 +131,7 @@ let skills = {
       desc: "Three turns after casting, deals ranged INT-based bash damage to one enemy. During this time, for each time the target's weakness is hit, this skills damage is increased, up to 10 stacks. Multi-hit attacks will trigger multiple stacks.",
       stats: [],
       dep: { meteorRain: 2 },
-      maxLevel: 6,
+      maxLevel: 8,
       coords: { x: 3, y: 2.75 }
     },
     singularity: {
@@ -142,7 +153,8 @@ let skills = {
       coords: { x: 1, y: 4 }
     },
     asteroidBelt: {
-      name_en: "Asteroid Belt", /*Spacial Distortion*/
+      name_en: "Asteroid Belt",
+       /*Spacial Distortion*/
       name_jp: "アンチエーテル",
       desc: "Provides a chance to nullify elemental attacks against the user's row.",
       stats: [],
@@ -156,22 +168,14 @@ let skills = {
       desc: "When the user hits an enemy's weakness, their Force gauge is increased.",
       stats: [],
       dep: { asteroidBelt: 2 },
-      maxLevel: 6,
+      maxLevel: 8,
       coords: { x: 3, y: 4 }
-    },
-    alignment: {
-      name_en: "Alignment",
-      name_jp: "炎の先見術",
-      desc: "If the skill used on this turn is of a different element from the last one used, it gains the element of the last one used and has its damage increased.",
-      stats: [],
-      dep: { },
-      maxLevel: 6,
-      coords: { x: 3, y: 0 }
     },
     aspectedVeil: {
       name_en: "Aspected Veil",
       name_jp: "氷の先見術",
-      desc: "For a set number of turns, imbue an ally's weapon with fire/ice/volt and make them automatically counterattacks enemies who attacks them.",
+      desc: "For a set number of turns, imbue an ally's weapon with fire/ice/volt and whenever they are attacked by an enemy, they will counterattack.",
+      //desc: "For a set number of turns, imbue an ally's weapon with fire/ice/volt and make them automatically counterattack enemies who attacks them.",
       stats: [],
       dep: { nebulaResurgence: 2 },
       maxLevel: 6,
@@ -192,7 +196,7 @@ let skills = {
       desc: "Restores TP to the user when hitting a weakness.",
       stats: [],
       dep: { },
-      maxLevel: 4,
+      maxLevel: 6,
       coords: { x: 0, y: 5 }
     },
     aetherLeak: {
@@ -217,7 +221,8 @@ let skills = {
     darkMatter: {
       name_en: "Dark Matter",
       name_jp: "ダークエーテル",
-      desc: "Reduce TP usage for one row this turn, [while also increasing the users damage until the end of the next turn.] [. The user absorbs some of it, recovering their own.]",
+      desc: "Reduce TP usage for one row this turn, while increasing the users damage until the end of the next turn.",
+      // [. The user absorbs some of it, recovering their own.]
       stats: [],
       dep: { celestialReturn: 2 },
       maxLevel: 6,
@@ -229,7 +234,7 @@ let skills = {
       desc: "Increases attack based on the number of TP spent on the previous turn. Does not activate if TP spent last turn is too low.",
       stats: [],
       dep: { darkMatter: 2 },
-      maxLevel: 10,
+      maxLevel: 8,
       coords: { x: 2, y: 5 }
     },
     pulsarFeedback: {
