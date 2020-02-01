@@ -98,7 +98,7 @@ let skills = {
     astralFire: {
       name_en: "Astral Fire",
       name_jp: "炎の星術",
-      desc: "Deals ranged fire damage to one target. Applies Astral Fire on the user, increasing damage for 5 turns. This skill cannot be used again for 3 turns.",
+      desc: "Deals ranged fire damage to one target. Applies the Astral Fire stance on the user, increasing damage for 5 turns. This skill cannot be used again for 3 turns.",
       //[On the next turn, if the user uses an elemental skill, follows up with a ranged Int-based Cut+Element attack on all enemies hit with an element by the user.]
       stats: ["INT"],
       dep: { meteorRain:2 },
@@ -126,7 +126,8 @@ let skills = {
     },
     distortionNova: {
       //name_en: "Distortion Nova",
-      name_en: "Refraction Spark",
+      //name_en: "Refraction Spark",
+      name_en: "Refraction Nova",
       name_jp: "雷の先見術",
       desc: "Three turns after casting, deals ranged INT-based bash damage to one enemy. During this time, for each time the target's weakness is hit, this skills damage is increased, up to 10 stacks. Multi-hit attacks will trigger multiple stacks.",
       stats: [],
@@ -154,7 +155,7 @@ let skills = {
     },
     asteroidBelt: {
       name_en: "Asteroid Belt",
-       /*Spacial Distortion*/
+       //Spacial Distortion
       name_jp: "アンチエーテル",
       desc: "Provides a chance to nullify elemental attacks against the user's row.",
       stats: [],
@@ -174,7 +175,7 @@ let skills = {
     aspectedVeil: {
       name_en: "Aspected Veil",
       name_jp: "氷の先見術",
-      desc: "For a set number of turns, imbue an ally's weapon with fire/ice/volt and whenever they are attacked by an enemy, they will counterattack.",
+      desc: "For a set number of turns, imbue an ally's weapon with fire/ice/volt and have them counterattack whenever the row they're in is attacked by an enemy.",
       //desc: "For a set number of turns, imbue an ally's weapon with fire/ice/volt and make them automatically counterattack enemies who attacks them.",
       stats: [],
       dep: { nebulaResurgence: 2 },
@@ -221,7 +222,7 @@ let skills = {
     darkMatter: {
       name_en: "Dark Matter",
       name_jp: "ダークエーテル",
-      desc: "Reduce TP usage for one row this turn, while increasing the users damage until the end of the next turn.",
+      desc: "Reduce TP usage for one row this turn, while increasing Zodiac skill damage until the end of the next turn.",
       // [. The user absorbs some of it, recovering their own.]
       stats: [],
       dep: { celestialReturn: 2 },
