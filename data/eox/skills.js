@@ -35,45 +35,37 @@ let skills = {
     pulseStar: {
       name_en: "Pulse Star",
       name_jp: "エーテルシュート",
-      desc: "Deals ranged, INT-based damage to one enemy with the user's weapon. [ Reduces their elemental defense for a set number of turns. ]",
+      desc: "Deals ranged, INT-based damage to one enemy with the user's weapon. Reduces their elemental defense for a set number of turns.",
       stats: ["INT, Arms"],
       dep: { },
       maxLevel: 8,
       coords: { x: 0, y: 2 }
     },
-    alignment: {
-      name_en: "???",
-      name_jp: "炎の先見術",
-      desc: "If the skill used on this turn is of a different element from the last one used, it gains the element of the last one used and has its damage increased.",
-      stats: [],
-      dep: { },
-      maxLevel: 6,
-      coords: { x: 3, y: 0 }
-    },
     binaryFire: {
       name_en: "Binary Fire",
       name_jp: "炎の連星術",
-      desc: "Deals ranged fire damage to all enemies. [For three turns, enemies will take more damage from fire attacks. This debuff can make them weak to that attribute. /  Replaces the element of the next skill with fire. ]",
+      desc: "Deals ranged fire damage to all enemies.",
+      //  Replaces the element of the next skill with fire. [For three turns, enemies will take more damage from fire attacks./ Slightly increases the power of Zodiac attack skills until the next turn.
       stats: ["INT, Head"],
-      dep: { pulseStar: 1 },
+      dep: { pulseStar: 3 },
       maxLevel: 8,
       coords: { x: 1, y: 1 }
     },
     binaryIce: {
       name_en: "Binary Ice",
       name_jp: "氷の連星術",
-      desc: "Deals ranged ice damage to all enemies. [For three turns, enemies will take more damage from ice attacks. This debuff can make them weak to that attribute. /  Replaces the element of the next skill with ice. ]",
+      desc: "Deals ranged ice damage to all enemies.",
       stats: ["INT, Head"],
-      dep: { pulseStar: 1 },
+      dep: { pulseStar: 3 },
       maxLevel: 8,
       coords: { x: 1, y: 2 }
     },
     binaryVolt: {
       name_en: "Binary Volt",
       name_jp: "雷の連星術",
-      desc: "Deals ranged volt damage to all enemies. [For three turns, enemies will take more damage from volt attacks. This debuff can make them weak to that attribute. /  Replaces the element of the next skill with volt. ]",
+      desc: "Deals ranged volt damage to all enemies.",
       stats: ["INT, Head"],
-      dep: { pulseStar: 1 },
+      dep: { pulseStar: 3 },
       maxLevel: 8,
       coords: { x: 1, y: 3 }
     },
@@ -86,14 +78,14 @@ let skills = {
       maxLevel: 10,
       coords: { x: 2, y: 2.5 }
     },
-    distortionNova: {
+    refractionNova: {
       //name_en: "Distortion Nova",
       //name_en: "Refraction Spark",
       name_en: "Refraction Nova",
       name_jp: "雷の先見術",
-      desc: "On the third turn after using this skill, ranged bash damage is dealt to one target. During this time, for each time the target's weakness is hit, this skills damage is increased up to 10 stacks. Multi-hit attacks will trigger multiple stacks.",
+      desc: "On the third turn after using this skill, ranged almighty damage is dealt to one target. During this time, for each time the target's weakness is hit, this skills damage is increased up to 10 stacks. Multi-hit attacks will trigger multiple stacks.",
       stats: ["INT, Head"],
-      dep: { meteorRain: 2 },
+      dep: { meteorRain: 4 },
       maxLevel: 10,
       coords: { x: 3, y: 2.5 }
     },
@@ -112,7 +104,7 @@ let skills = {
       desc: "Deals ranged fire damage to one target. Applies the Astral Fire stance on the user, increasing damage for a set number of turns. This skill cannot be used again for 3 turns.",
       //[On the next turn, if the user uses an elemental skill, follows up with a ranged Int-based Cut+Element attack on all enemies hit with an element by the user.]
       stats: ["INT, Head"],
-      dep: { guidingStar:1 },
+      dep: { guidingStar: 3 },
       maxLevel: 6,
       coords: { x: 3, y: 1.5 }
     },
@@ -121,7 +113,7 @@ let skills = {
       name_jp: "氷の星術",
       desc: "Requires Astral Fire. Deals ranged ice damage to one target. Recovers some TP and removes Astral Fire after use.",
       stats: ["INT, Head"],
-      dep: { astralFire: 2 },
+      dep: { astralFire: 3 },
       maxLevel: 6,
       coords: { x: 4, y: 1 }
     },
@@ -131,14 +123,14 @@ let skills = {
       desc: "Requires Astral Fire. Deals ranged volt damage to one target. Removes Astral Fire after use.",
       //, and ignores resistances
       stats: ["INT, Head"],
-      dep: { astralFire: 2 },
+      dep: { astralFire: 3 },
       maxLevel: 10,
       coords: { x: 4, y: 2 }
     },
     singularity: {
       name_en: "Singularity",
       name_jp: "特異点定理",
-      desc: "Increases damage dealt when hitting weaknesses.",
+      desc: "Increases damage dealt when hitting weaknesses. In addition, the previous skill's element is now added into your attacks.",
       stats: [],
       dep: { },
       maxLevel: 6,
@@ -189,7 +181,16 @@ let skills = {
       stats: [],
       dep: { aspectedVeil: 4 },
       maxLevel: 6,
-      coords: { x: 5, y: 4 }
+      coords: { x: 5, y: 3.5 }
+    },
+    fluxAbsorption: {
+      name_en: "Flux Absorption",
+      name_jp: "炎の先見術",
+      desc: "Absorb one instance of elemental damage against all party members.",
+      stats: [],
+      dep: { aspectedVeil: 4 },
+      maxLevel: 6,
+      coords: { x: 5, y: 4.5 }
     },
     celestialReturn: {
       name_en: "Celestial Return",
