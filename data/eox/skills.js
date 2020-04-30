@@ -1,4 +1,288 @@
 let skills = {
+  Medic: {
+    steadyHands: {
+      name_en: "Steady Hands",
+      name_jp: "集中治療",
+      desc: "For 3 turns, increases the action speed of all actions, and the healing power of healing skills (including items). The TP cost of healing skills is halved.",
+      stats: [],
+      unique: true,
+      type: "Boost",
+      dep: { },
+      maxLevel: 0,
+      coords: { x: 0, y: 0 }
+    },
+    medicalMiracle: {
+      name_en: "Medical Miracle",
+      name_jp: "超医術",
+      desc: "Revives and removes ailments, binds and debuffs from all party members, and restores their HP.",
+      stats: ["WIS"],
+      unique: true,
+      type: "Break",
+      dep: { steadyHands: 0 },
+      maxLevel: 0,
+      coords: { x: 1, y: 0 }
+    },
+    lineHeal: {
+      name_en: "Line Heal",
+      name_jp: "ラインヒール",
+      desc: "Restores HP to one row.",
+      stats: ["WIS"],
+      dep: { },
+      maxLevel: 8,
+      coords: { x: 0, y: 1.5 }
+    },
+    refresh: {
+      name_en: "Refresh",
+      name_jp: "リフレッシュ",
+      desc: "Removes ailments from one ally. Higher level increases range to one row.",
+      stats: [],
+      dep: { lineHeal:2 },
+      maxLevel: 4,
+      coords: { x: 1, y: 1 }
+    },
+    unbind: {
+      name_en: "Unbind",
+      name_jp: "バインドリカバリ",
+      desc: "Removes binds from one ally. Higher levels increase range to one row.",
+      stats: [],
+      dep: { lineHeal:2 },
+      maxLevel: 4,
+      coords: { x: 1, y: 2 }
+    },
+    delayedHeal: {
+      name_en: "Delayed Heal",
+      name_jp: "ディレイヒール",
+      desc: "Restores HP to all party members at the start of the next turn. Cannot be used on consecutive turns. Ineffective if the user dies before the skill activates.",
+      stats: ["WIS"],
+      dep: { refresh: 2 },
+      maxLevel: 8,
+      coords: { x: 2, y: 1 }
+    },
+    chaseHeal: {
+      name_en: "*Chase Heal",
+      name_jp: "チェイスヒール",
+      // for a set number of times
+      desc: "For one turn, automatically restores HP to allies when they are attacked. Every time this skill activates, its chance of activating decreases.",
+      stats: ["WIS"],
+      dep: { unbind: 3 },
+      maxLevel: 8,
+      coords: { x: 2, y: 2 }
+    },
+    overheal: {
+      name_en: "Overheal",
+      name_jp: "オーバーヒール",
+      desc: "Medic skills in battle can restore HP over party members' maximum HP by a set percentage. The overhealed amount is removed at the end of turn.",
+      stats: [],
+      dep: { delayedHeal:2, chaseHeal:2 },
+      maxLevel: 6,
+      coords: { x: 3, y: 1.5 }
+    },
+    defender: {
+      name_en: "Defender",
+      name_jp: "警戒斥候",
+      desc: "Increases the party's physical and bind defense for a set number of turns.",
+      stats: [],
+      dep: { },
+      maxLevel: 8,
+      coords: { x: 0, y: 3 }
+    },
+    immunize: {
+      name_en: "Immunize",
+      name_jp: "属性防御ブースト",
+      desc: "Increases the party's elemental and ailment defense for a set number of turns.",
+      stats: [],
+      dep: { defender:2 },
+      maxLevel: 8,
+      coords: { x: 1, y: 3 }
+    },
+    indomitability: {
+      //Rouse
+      name_en: "Indomitability",
+      name_jp: "エリアヒール",
+      desc: "Increases the party's physical and elemental attack for a set number of turns.",
+      stats: ["WIS"],
+      dep: { immunize:2 },
+      maxLevel: 8,
+      coords: { x: 2, y: 3 }
+    },
+    succor: {
+      name_en: "Succor",
+      name_jp: "ヒーリング",
+      //desc: "When the user is alive, party members with buffs will recover HP when taking damage.",
+      desc: "When the user is alive, party members with buffs will recover HP when they act.",
+      stats: ["WIS"],
+      dep: { indomitability: 2 },
+      maxLevel: 6,
+      coords: { x: 3, y: 3 }
+    },
+    // scavenge: {
+    //   name_en: "Skanda Ensemble",
+    //   name_jp: "博識",
+    //   desc: "For one turn, all allies with a buff will have their action speed increased.",
+    //   stats: [],
+    //   dep: {  },
+    //   maxLevel: 4,
+    //   coords: { x: 5, y: 3 }
+    // },
+    // healing: {
+    //   name_en: "CPR/Appease Spirits/Benevolence",
+    //   name_jp: "ヒーリング",
+    //   desc: "This turn, the selected target(s) may endure fatal damage. / When the Shaman is alive, party members with buffs will recover HP when they act. / While the Shaman is alive, party members with buffs will recover HP when taking damage.",
+    //   stats: ["WIS"],
+    //   dep: { },
+    //   maxLevel: 8,
+    //   coords: { x: 0, y: 3 }
+    // },
+    groupTherapy: {
+      name_en: "Group Therapy",
+      name_jp: "一斉救護",
+      desc: "For a set number of turns, increases the range of the user's healing skills, but decreases healing power and action speed.",
+      stats: [],
+      dep: { overheal:2, succor:2 },
+      maxLevel: 8,
+      coords: { x: 4, y: 1.75 }
+    },
+    healDejaVu: {
+      name_en: "Heal Deja Vu",
+      name_jp: "ヒールデジャヴ",
+      desc: "For a set number of turns, at the end of each turn, all party members will receive again the effect of the last Medic active skill they received, provided that they received at least one Medic active skill while Heal Deja Vu is active.",
+      stats: [],
+      dep: { overheal:2, succor:2 },
+      maxLevel: 8,
+      coords: { x: 4, y: 2.75 }
+    },
+    aglaophotis: {
+      name_en: "Aglaophotis",
+      name_jp: "博識",
+      desc: "Increases the duration of all buffs on all party members.",
+      stats: [],
+      dep: { groupTherapy: 2, healDejaVu: 2 },
+      maxLevel: 6,
+      coords: { x: 5, y: 2.25 }
+    },
+    caduceus: {
+      name_en: "Caduceus",
+      name_jp: "ヘッドドロップ",
+      desc: "Deals melee bash damage to one target. Attempts to inflict stun and head bind.",
+      stats: ["STR", "LUC"],
+      dep: { },
+      maxLevel: 8,
+      coords: { x: 0, y: 4 }
+    },
+    mendingBlow: {
+      name_en: "Mending Blow",
+      name_jp: "スタードロップ",
+      desc: "Deal melee bash damage to one target. Restores HP to the users row.",
+      stats: ["STR", "LUC"],
+      dep: { caduceus: 3 },
+      maxLevel: 8,
+      coords: { x: 1, y: 4 }
+    },
+    heavyStrike: {
+      //*Heavy Strike Knockout Blow
+      name_en: "Fierce Strike",
+      name_jp: "ヘヴィストライク",
+      desc: "Deals melee bash damage to one target. The user is inflicted with paralysis afterwards.",
+      stats: ["STR", "LUC"],
+      dep: { mendingBlow: 3 },
+      maxLevel: 8,
+      coords: { x: 2, y: 4 }
+    },
+    starDrop: {
+      name_en: "Star Drop",
+      name_jp: "杖マスタリー",
+      desc: "Deals melee bash damage to one target and increases damage that target takes for the rest of the turn.",
+      stats: [],
+      dep: { heavyStrike: 2 },
+      maxLevel: 8,
+      coords: { x: 3, y: 4 }
+    },
+    vitalHit: {
+      name_en: "Vital Hit",
+      name_jp: "メディカルロッド",
+      desc: "Deals melee bash damage to one enemy. Damage is multiplied by the party's current average HP compared to their normal max.",
+      stats: ["STR", "LUC"],
+      dep: { starDrop: 2 },
+      maxLevel: 8,
+      coords: { x: 4, y: 4 }
+    },
+    // scavenge: {
+    //   //name_en: "Salve",
+    //   name_en: "Phantom Pain",
+    //   name_jp: "博識",
+    //   //desc: "Restores HP to ???. This restoration can heal beyond maximum HP. Overhealed HP will disappear at the end of the turn.",
+    //   desc: "For a set number of turns, at the end of each turn, all enemies will receive again the effect of the last Medic active skill they received, provided that they received at least one Medic active skill while Phantom Pain is active.",
+    //   stats: [],
+    //   dep: { staffMastery: 3 },
+    //   maxLevel: 4,
+    //   coords: { x: 5, y: 4.5 }
+    // },
+    revive: {
+      name_en: "Revive",
+      name_jp: "リザレクション",
+      desc: "Revives one ally.",
+      stats: [],
+      dep: { },
+      maxLevel: 8,
+      coords: { x: 1, y: 5.5 }
+    },
+    finalGift: {
+      name_en: "Final Gift",
+      name_jp: "最後の癒し",
+      desc: "When the user dies, restores HP to all allies.",
+      stats: ["WIS"],
+      dep: { revive: 3 },
+      maxLevel: 6,
+      coords: { x: 2, y: 6 }
+    },
+    autoRevive: {
+      name_en: "Auto-Revive",
+      name_jp: "オートリザレクト",
+      desc: "When an ally dies, there is a chance to automatically revive that ally.",
+      stats: [],
+      dep: { finalGift: 2 },
+      maxLevel: 10,
+      coords: { x: 3, y: 6 }
+    },
+    patchUp: {
+      name_en: "Patch Up",
+      name_jp: "戦後手当",
+      desc: "Restores HP to all allies at the end of battle. Does not activate if the party flees.",
+      stats: ["WIS"],
+      dep: { revive: 3 },
+      maxLevel: 8,
+      coords: { x: 2, y: 5 }
+    },
+    antibodies: {
+      name_en: "Antibodies",
+      name_jp: "抗体",
+      desc: "Increases the user's rate of recovery from binds and ailments.",
+      stats: [],
+      dep: { patchUp: 3 },
+      maxLevel: 6,
+      coords: { x: 3, y: 5 }
+    },
+    physick: {
+      name_en: "Physick",
+      name_jp: "抗体",
+      desc: "Increases all healing done by your party.",
+      stats: [],
+      dep: { antibodies: 3 },
+      maxLevel: 6,
+      coords: { x: 4, y: 5 }
+    },
+    take: {
+      name_en: "Take",
+      name_jp: "採取",
+      desc: "Occasionally gains more items when using Take points.",
+      stats: [],
+      unique: true,
+      dep: { },
+      maxLevel: 1,
+      coords: { x: 0, y: 6 }
+    }
+  },
+
   Shogun: {
     fullCombatForm: {
       name_en: "Full Combat Form",
@@ -29,34 +313,7 @@ let skills = {
       stats: [],
       dep: { },
       maxLevel: 6,
-      coords: { x: 0, y: 1.75 }
-    },
-    trickStance: {
-      name_en: "*Trick Stance",
-      name_jp: "明星",
-      desc: "For the next three turns, when you attack your allies on the same row will also attack.",
-      stats: ["STR"],
-      dep: { parryingBlade: 2 },
-      maxLevel: 6,
-      coords: { x: 1, y: 2.5 }
-    },
-    wickedTalons: {
-      name_en: "*Wicked Talons",
-      name_jp: "禍時",
-      desc: "Normal attacks now recover TP.",
-      stats: ["STR"],
-      dep: { trickStance: 2 },
-      maxLevel: 6,
-      coords: { x: 2, y: 2.5 }
-    },
-    peerlessDemon: {
-      name_en: "Peerless Demon",
-      name_jp: "介錯",
-      desc: "Increases damage dealt based on the number of attacks.",
-      stats: [],
-      dep: { wickedTalons: 2 },
-      maxLevel: 4,
-      coords: { x: 3, y: 2.5 }
+      coords: { x: 0, y: 1.85 }
     },
     spiritFlow: {
       name_en: "Spirit Flow",
@@ -68,7 +325,7 @@ let skills = {
       coords: { x: 1, y: 1 }
     },
     twinSparrow: {
-      name_en: "Twin Sparrow",
+      name_en: "Twin Sparrow/???",
       name_jp: "双燕",
       desc: "Deals melee damage to one target with the user's weapon. If two weapons are equipped, this skill will hit twice. First hit will be from the katana, while the second hit will be from the other weapon.",
       stats: ["STR"],
@@ -95,7 +352,6 @@ let skills = {
       coords: { x: 2, y: 1.5 }
     },
     fellingBird: {
-      //Onslaught
       name_en: "Gnashing Fang",
       name_jp: "飛鳥落とし",
       desc: "Deals melee damage to one target with the user's weapon. If that enemy is killed and a second weapon is equipped, attack all enemies.",
@@ -131,6 +387,33 @@ let skills = {
       maxLevel: 4,
       coords: { x: 5, y: 2 }
     },
+    trickStance: {
+      name_en: "*Trick Stance",
+      name_jp: "明星",
+      desc: "For the next three turns, when you attack your allies on the same row will also attack.",
+      stats: ["STR"],
+      dep: { parryingBlade: 2 },
+      maxLevel: 6,
+      coords: { x: 1, y: 2.65 }
+    },
+    wickedTalons: {
+      name_en: "*Wicked Talons",
+      name_jp: "禍時",
+      desc: "Normal attacks now recover TP.",
+      stats: ["STR"],
+      dep: { trickStance: 2 },
+      maxLevel: 6,
+      coords: { x: 2, y: 2.65 }
+    },
+    peerlessDemon: {
+      name_en: "Peerless Demon",
+      name_jp: "介錯",
+      desc: "Increases damage dealt based on the number of attacks.",
+      stats: [],
+      dep: { wickedTalons: 2 },
+      maxLevel: 4,
+      coords: { x: 3, y: 2.65 }
+    },
     blitzCommand: {
       name_en: "Blitz Command",
       name_jp: "乱れ竜の陣",
@@ -138,16 +421,16 @@ let skills = {
       stats: ["STR"],
       dep: { },
       maxLevel: 10,
-      coords: { x: 0, y: 3.75 }
+      coords: { x: 0, y: 3.85 }
     },
     baitCommand: {
-      name_en: "Bait Command",
+      name_en: "Bait Command/???",
       name_jp: "据え虎の陣",
       desc: "This turn, when the user is attacked, all allies other than the user will counterattack with their weapons. Does not activate against counterattacks.",
       stats: ["STR"],
       dep: { blitzCommand: 2 },
       maxLevel: 6,
-      coords: { x: 1, y: 3.75 }
+      coords: { x: 1, y: 3.85 }
     },
     counterCommand: {
       name_en: "*Counter Command",
@@ -156,7 +439,7 @@ let skills = {
       stats: ["STR"],
       dep: { baitCommand: 2 },
       maxLevel: 8,
-      coords: { x: 2, y: 3.75 }
+      coords: { x: 2, y: 3.85 }
     },
     rushCommand: {
       name_en: "*Rush Command",
@@ -165,25 +448,25 @@ let skills = {
       stats: ["STR"],
       dep: { counterCommand: 3 },
       maxLevel: 6,
-      coords: { x: 3, y: 3.75 }
+      coords: { x: 3, y: 3.85 }
     },
     chaseStance: {
       name_en: "*Chase Stance",
       name_jp: "刺客寄せ",
       desc: "For the next three turns you will chase attacks made by your allies on the same row.",
       stats: [],
-      dep: { rushCommand: 3 },
+      dep: { rushCommand: 3, peerlessDemon: 2 },
       maxLevel: 6,
-      coords: { x: 4, y: 3.75 }
+      coords: { x: 4, y: 3.25 }
     },
     warriorMight: {
-      name_en: "Warrior Might",
+      name_en: "*?Warrior Might",
       name_jp: "一騎当千",
-      desc: "This turn, the user will chase all attacks from all allies, but will lose HP for every chase. Links, chases and counterattacks cannot be chased. Only one chase will be made for each action.",
+      desc: "This turn, the user will chase all attacks from all allies, but will lose HP for every chase. Links, chases and counterattacks cannot be chased. Only one chase will be made for each action. / Chases all attacks made by allies and enemies this turn. Deals melee, STR-based Cut damage to targets.",
       stats: ["STR"],
       dep: { chaseStance: 2 },
       maxLevel: 10,
-      coords: { x: 5, y: 3.75 }
+      coords: { x: 5, y: 3.25 }
     },
     moraleBoost: {
       name_en: "Morale Boost",
@@ -260,6 +543,7 @@ let skills = {
     greatGeneral: {
       name_en: "*Great General",
       name_jp: "大武辺者",
+      //desc: "For a set number of turns, increases the users attack, defense and chance of being targeted.",
       desc: "For a set number of turns, increases one ally's physical attack and chance of being targeted.",
       stats: [],
       dep: { voltSpirit: 2 },
@@ -529,6 +813,269 @@ let skills = {
       name_en: "Chop",
       name_jp: "伐採",
       desc: "Occasionally gains more items when using Chop points.",
+      stats: [],
+      unique: true,
+      dep: { },
+      maxLevel: 1,
+      coords: { x: 0, y: 6 }
+    }
+  },
+  Imperial: {
+    ignition: {
+      name_en: "Ignition",
+      name_jp: "イグニッション",
+      desc: "For 3 turns, the user's drive skills will not activate the overheat state.",
+      stats: [],
+      unique: true,
+      type: "Boost",
+      dep: { },
+      maxLevel: 0,
+      coords: { x: 0, y: 0 }
+    },
+    conversion: {
+      name_en: "Overdrive",
+      name_jp: "コンバージョン",
+      desc: "Deals ranged cut/almighty damage to all enemies, and restores TP to the user based on damage dealt.",
+      stats: ["STR"],
+      unique: true,
+      type: "Break",
+      dep: { ignition: 0 },
+      maxLevel: 0,
+      coords: { x: 1, y: 0 }
+    },
+    sharpEdge: {
+      name_en: "Sharp Edge",
+      name_jp: "シャープエッジ",
+      desc: "Activation skill. Deals melee cut damage to one target. Reduces overheat duration by 1 turn.",
+      stats: ["STR"],
+      dep: { },
+      maxLevel: 6,
+      coords: { x: 0, y: 1 }
+    },
+    bloodEdge: {
+      name_en: "Blood Edge",
+      name_jp: "ブラッドエッジ",
+      desc: "Connecting skill. Deals melee cut damage to one target. Restores HP to the user based on the amount of damage dealt. Can only be used if an activation skill was used on the previous turn.",
+      stats: ["STR"],
+      dep: { sharpEdge: 2  },
+      maxLevel: 8,
+      coords: { x: 1, y: 1 }
+    },
+    massiveEdge: {
+      name_en: "Massive Edge",
+      name_jp: "マッシブエッジ",
+      desc: "Activation skill. Deals melee cut damage to one target, with splash damage.",
+      stats: ["STR"],
+      dep: { bloodEdge: 3 },
+      maxLevel: 8,
+      coords: { x: 2, y: 0.5 }
+    },
+    tripEdge: {
+      name_en: "Trip Edge",
+      name_jp: "トリップエッジ",
+      desc: "Activation skill. Deals melee cut damage to one target. Attempts to inflict leg bind.",
+      stats: ["STR", "LUC"],
+      dep: { bloodEdge: 3 },
+      maxLevel: 8,
+      coords: { x: 2, y: 1.5 }
+    },
+    coolEdge: {
+      name_en: "Cool Edge",
+      name_jp: "クールエッジ",
+      desc: "Connecting skill. Deals melee cut damage to one target. Reduces duration of overheat by 2 turns. Can only be used if an activation skill was used on the previous turn.",
+      stats: ["STR"],
+      dep: { massiveEdge: 2, tripEdge: 2 },
+      maxLevel: 6,
+      coords: { x: 3, y: 1 }
+    },
+    impulseEdge: {
+      name_en: "*Impulse Edge",
+      name_jp: "インパルスエッジ",
+      desc: "Connecting skill. Deals melee cut damage to one target. Restores TP and Force to the user. Can only be used if an activation skill was used on the previous turn.",
+      stats: ["STR"],
+      dep: { coolEdge: 2 },
+      maxLevel: 8,
+      coords: { x: 4, y: 1 }
+    },
+    chargeEdge: {
+      name_en: "Charge Edge",
+      name_jp: "チャージエッジ",
+      desc: "Terminating skill. Deals melee cut damage to one target. Until the end of the next turn, increases the user's attack. Can only be used if an activation skill or connecting skill was used on the previous turn.",
+      stats: ["STR"],
+      dep: { impulseEdge: 2 },
+      maxLevel: 8,
+      coords: { x: 5, y: 1 }
+    },
+    assaultDrive: {
+      name_en: "*Assault Drive",
+      name_jp: "アサルトドライブ",
+      desc: "Deals melee cut damage to one target, and places the user in the overheat state for 5 turns. Cannot be used while overheated. When cast, doubles this skills TP cost and damage until the user's death.",
+      stats: ["STR"],
+      dep: { },
+      maxLevel: 10,
+      coords: { x: 0, y: 2.75 }
+    },
+    heatSink: {
+      name_en: "Heat Sink",
+      name_jp: "強制排熱",
+      desc: "Reduces overheat duration by a set number of turns. Can only be used while overheated.",
+      stats: [],
+      dep: { assaultDrive: 3 },
+      maxLevel: 8,
+      coords: { x: 1, y: 2.75 }
+    },
+    intercooler: {
+      //Amped Blade, Condensed Heat, Heated Blade
+      name_en: "Zero Sum",
+      name_jp: "インタークーラー",
+      desc: "Increases your damage for the rest of combat (or until you are killed) every time your Driveblade overheats.",
+      stats: [],
+      dep: { heatSink: 1 },
+      maxLevel: 8,
+      coords: { x: 2, y: 2.75 }
+    },
+    flameDrive: {
+      name_en: "Flame Drive",
+      name_jp: "フレイムドライブ",
+      desc: "Deals melee cut+fire damage to one target, and places the user in the overheat state for 6 turns. Cannot be used while overheated. The user will take 2x more damage until the skill activates.",
+      stats: ["STR"],
+      dep: { intercooler: 3 },
+      maxLevel: 6,
+      coords: { x: 3, y: 2.25 }
+    },
+    freezeDrive: {
+      name_en: "Freeze Drive",
+      name_jp: "フリーズドライブ",
+      desc: "Deals melee cut+ice damage to one target, and places the user in the overheat state for 6 turns. Cannot be used while overheated. The user will take 2x more damage until the skill activates.",
+      stats: ["STR"],
+      dep: { intercooler: 3 },
+      maxLevel: 6,
+      coords: { x: 3, y: 3.25 }
+    },
+    shockDrive: {
+      name_en: "Shock Drive",
+      name_jp: "ショックドライブ",
+      desc: "Deals melee cut+volt damage to one target, and places the user in the overheat state for 6 turns. Cannot be used while overheated. The user will take 2x more damage until the skill activates.",
+      stats: ["STR"],
+      dep: { flameDrive: 1, freezeDrive: 1 },
+      maxLevel: 6,
+      coords: { x: 4, y: 2.75 }
+    },
+    accelDrive: {
+      name_en: "Blade Recoil",
+      name_jp: "アクセルドライブ",
+      desc: "Deals melee cut damage to one target. If the user used an elemental attack on the last turn, also adds a follow-up attack of that element. The user will take 2x more damage until the skill activates.",
+      stats: ["STR"],
+      weapon: ["Drive Blade"],
+      bodyParts: ["Arms"],
+      dep: { shockDrive: 1 },
+      maxLevel: 10,
+      coords: { x: 5, y: 2.75 }
+    },
+    overheatGuard: {
+      name_en: "Overheat Guard",
+      name_jp: "過熱の守り",
+      desc: "While overheated, increases the user's defense.",
+      stats: [],
+      dep: { assaultDrive: 3 },
+      maxLevel: 6,
+      coords: { x: 1, y: 4.5 }
+    },
+    roughDivide: {
+      name_en: "Rough Divide",
+      name_jp: "属性攻撃ブースト",
+      desc: "Activation skill. Reduces physical damage to the user's row for one turn. If Rough Divide is activated by enemy damage, the user will use their equipped weapon to counterattack the source of the damage.",
+      stats: [],
+      dep: { overheatGuard: 2 },
+      maxLevel: 8,
+      coords: { x: 2, y: 4 }
+    },
+    rearGuard: {
+      name_en: "Rear Guard",
+      name_jp: "リアガード",
+      desc: "For a set number of turns, increases defense for one ally, but that ally will move last each turn.",
+      stats: [],
+      dep: { overheatGuard: 2 },
+      maxLevel: 6,
+      coords: { x: 2, y: 5 }
+    },
+    solidBarrel: {
+      name_en: "Solid Barrel",
+      name_jp: "属性攻撃ブースト",
+      desc: "Connecting skill. Deals melee cut damage to one target and, for that turn, increases the user's chance of being targeted. Preserves the effect of last turn's Rough Divide.",
+      stats: [],
+      dep: { roughDivide: 2, rearGuard: 2  },
+      maxLevel: 8,
+      coords: { x: 3, y: 4.5 }
+    },
+    keenFlurry: {
+      name_en: "Keen Flurry",
+      name_jp: "抑制防御ブースト",
+      desc: "Terminating skill. Attempts to nullify physical attacks directed at the user's row for one turn. Each time an attack is nullified, the chance of it triggering again on that turn is reduced.",
+      stats: [],
+      dep: { solidBarrel: 2 },
+      maxLevel: 8,
+      coords: { x: 4, y: 4 }
+    },
+    sentinelShell: {
+      name_en: "Sentinel Shell",
+      name_jp: "フォースエッジ",
+      desc: "Terminating skill. Reduces all damage to all party members and sets their defensive values to the user's for one turn.",
+      stats: ["STR"],
+      dep: { solidBarrel: 2 },
+      maxLevel: 8,
+      coords: { x: 4, y: 5 }
+    },
+    driveRevenge: {
+      //Amped Blade, Condensed/Compressed Heat, Heated Blade, Discharge
+      name_en: "Amped Discharge",
+      name_jp: "属性攻撃ブースト",
+      desc: "Increases the damage of Drive skills after activating Rough Divide, Keen Flurry or Sentinel Shell.",
+      stats: [],
+      dep: { keenFlurry: 2, sentinelShell: 2 },
+      maxLevel: 10,
+      coords: { x: 5, y: 4.5 }
+    },
+    naturalEdge: {
+      name_en: "Bloodfest",
+      name_jp: "ナチュラルエッジ",
+      desc: "When an ally dies or an enemy is killed by the user, restore HP.",
+      stats: ["STR"],
+      dep: { },
+      maxLevel: 8,
+      coords: { x: 1, y: 6 }
+    },
+    hpUp: {
+      name_en: "*Wide Effect",
+      name_jp: "ＨＰブースト",
+      desc: "Single-target skills have a chance to affect neighboring enemies. The chance is rolled for each enemy individually if there are two enemies next to the target, rather than once for both.",
+      stats: [],
+      dep: { },
+      maxLevel: 8,
+      coords: { x: 2, y: 6 }
+    },
+    absorber: {
+      name_en: "*Finisher",
+      name_jp: "コンバーター",
+      desc: "When the user kills an enemy, their TP is restored.",
+      stats: [],
+      dep: { },
+      maxLevel: 10,
+      coords: { x: 3, y: 6 }
+    },
+    avenger: {
+      name_en: "*Force Energy",
+      name_jp: "アベンジャー",
+      desc: "Passively restores a percentage of the user's maximum TP plus a static amount while they are in the Force Boost state.",
+      stats: [],
+      dep: { },
+      maxLevel: 4,
+      coords: { x: 4, y: 6 }
+    },
+    mine: {
+      name_en: "Mine",
+      name_jp: "採掘",
+      desc: "Occasionally gains more items when using Mine points.",
       stats: [],
       unique: true,
       dep: { },
