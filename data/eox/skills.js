@@ -563,9 +563,9 @@ let skills = {
   },
   Protectorv2: {
     shieldProtect: {
-      name_en: "???",
+      name_en: "Tempered Will",
       name_jp: "大盾の守護",
-      desc: "For 3 turns, ??? and increases aggro chance.",
+      desc: "For 3 turns, pauses the duration of all buffs on the party and prevents enemies from dispelling buffs. Increases aggro chance.",
       stats: [],
       unique: true,
       type: "Boost",
@@ -719,50 +719,77 @@ let skills = {
       maxLevel: 10,
       coords: { x: 3, y: 4 }
     },
-    shieldSiphon: {
-      name_en: "Shield Siphon",
-      name_jp: "物理防御ブースト",
-      desc: "Deals melee bash damage to one target. Doubles damage when lower health than your target and drains HP. Damage is based on the user's shield's DEF.",
-      stats: ["STR"],
-      dep: {  },
+    shieldSmite: {
+      name_en: "Shield Smite",
+      name_jp: "ＨＰブースト",
+      desc: "Deals melee bash damage to one target. Attempts to inflict arm bind. Damage is based on the user's shield's DEF.",
+      stats: [],
+      dep: { },
       maxLevel: 6,
       coords: { x: 0, y: 5 }
     },
+    // shieldSiphon: {
+    //   name_en: "Shield Siphon",
+    //   name_jp: "物理防御ブースト",
+    //   desc: "Deals melee bash damage to one target. Doubles damage when lower health than your target and drains HP. Damage is based on the user's shield's DEF.",
+    //   stats: ["STR"],
+    //   dep: {  },
+    //   maxLevel: 6,
+    //   coords: { x: 0, y: 5 }
+    // },
     shieldRush: {
       name_en: "*Shield Rush",
       name_jp: "シールドラッシュ",
       desc: "Deals melee bash damage to all enemies, and reduces their physical attack for a set number of turns. Damage is based on the user's shield's DEF.",
       stats: ["STR"],
-      dep: { shieldSiphon: 3 },
+      dep: { shieldSmite: 3 },
       maxLevel: 8,
       coords: { x: 1, y: 5 }
     },
-    shieldBreak: {
-      name_en: "Shield Break",
-      name_jp: "属性防御ブースト",
-      desc: "Deals melee bash damage to one target. Damages user. Damage is based on the user's shield's DEF.",
-      stats: ["STR"],
-      dep: { shieldRush: 3 },
-      maxLevel: 8,
-      coords: { x: 2, y: 5 }
-    },
+    // shieldBreak: {
+    //   name_en: "Shield Break",
+    //   name_jp: "属性防御ブースト",
+    //   desc: "Deals melee bash damage to one target. Damages user. Damage is based on the user's shield's DEF.",
+    //   stats: ["STR"],
+    //   dep: { shieldRush: 3 },
+    //   maxLevel: 8,
+    //   coords: { x: 2, y: 5 }
+    // },
     shieldTaboo: {
       name_en: "Shield Taboo",
       name_jp: "シールドスマイト",
       desc: "Deals melee bash damage to one target. Increases the duration of the user's buffs. Damage is based on the user's shield's DEF.",
       stats: ["STR"],
-      dep: { shieldBreak: 3 },
+      dep: { shieldRush: 3 },
       maxLevel: 6,
-      coords: { x: 3, y: 5 }
+      coords: { x: 2, y: 5 }
     },
     shieldFlare: {
-      name_en: "*Shield Flare",
+      name_en: "Shield Flare",
       name_jp: "シールドフレア",
-      desc: "Until the end of the next turn, when the user is attacked, they will counterattack with ranged fire damage. Ignores resistances. Damage is based on the user's shield's DEF.",
+      desc: "Until the end of the next turn, when the user is attacked, they will counterattack with ranged fire damage. Damage is based on the user's shield's DEF.",
       stats: ["STR"],
       dep: { shieldTaboo: 3 },
       maxLevel: 8,
+      coords: { x: 3, y: 5 }
+    },
+    firelight: {
+      name_en: "Firelight",
+      name_jp: "ＨＰブースト",
+      desc: "At the end of the turn, deals ranged fire damage to the target of \"Shield\" skills, to any enemies that activated Light Tincture, or whenever the user uses an Oath.",
+      stats: [],
+      dep: { shieldFlare: 2 },
+      maxLevel: 6,
       coords: { x: 4, y: 5 }
+    },
+    lightTincture: {
+      name_en: "Light Tincture",
+      name_jp: "ＨＰブースト",
+      desc: "Nullifies damage to the user/target for one turn. Each time Light Tincture activates, the chance if it activating again on that turn is reduced.",
+      stats: [],
+      dep: { fireCircle: 2, iceCircle: 2, voltCircle: 2 },
+      maxLevel: 6,
+      coords: { x: 4, y: 1.5 }
     },
     provoke: {
       name_en: "Provoke",
@@ -792,18 +819,19 @@ let skills = {
       coords: { x: 3, y: 6 }
     },
     autoOath: {
-      name_en: "Auto Oath",
+      name_en: "Oath Mastery",
       name_jp: "フリーズガード",
-      desc: "Has a chance to apply a random Oath skill that the user knows at the start of battle. The chance to activate depends on the number of Oath skills the user knows.",
+      //desc: "Has a chance to apply a random Oath skill that the user knows at the start of battle. The chance to activate depends on the number of Oath skills the user knows.",
+      desc: "Increases the speed of Oath skills, and reduces their TP costs based on a static amount and a percentage of the skill's TP cost. Increases their turn count by 1 at max.",
       stats: [],
       dep: { wideOath: 2 },
       maxLevel: 10,
       coords: { x: 4, y: 6 }
     },
     hpUp: {
-      name_en: "???",
+      name_en: "Last Bastion",
       name_jp: "ＨＰブースト",
-      desc: "",
+      desc: "Requires 3 buffs. Removes all of them and, in exchange, the user will attack an enemy dealing melee bash damage and reducing the target's damage until the end of the turn.",
       stats: [],
       dep: { },
       maxLevel: 6,
