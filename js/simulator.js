@@ -349,13 +349,13 @@ class Simulator {
     enNameTitle.textContent = "Name";
     nameTitleRow.appendChild(enNameTitle);
 
-    let jpNameTitle = document.createElement("th");
-    jpNameTitle.textContent = "名前";
-    nameTitleRow.appendChild(jpNameTitle);
+    // let jpNameTitle = document.createElement("th");
+    // jpNameTitle.textContent = "名前";
+    // nameTitleRow.appendChild(jpNameTitle);
 
     let usesTitle = document.createElement("th");
     usesTitle.textContent = "Uses";
-    usesTitle.colSpan = maxLevel;
+    usesTitle.colSpan = maxLevel + 2;
     nameTitleRow.appendChild(usesTitle);
 
     infoTable.appendChild(nameTitleRow);
@@ -366,15 +366,15 @@ class Simulator {
     enName.textContent = skill.name_en;
     nameRow.appendChild(enName);
 
-    let jpName = document.createElement("td");
-    jpName.textContent = skill.name_jp;
-    nameRow.appendChild(jpName);
+    // let jpName = document.createElement("td");
+    // jpName.textContent = skill.name_jp;
+    // nameRow.appendChild(jpName);
 
     let usesText = skill.stats.concat(skill.weapon || []).concat(skill.bodyParts || []).join(", ") || "N/A";
 
     let uses = document.createElement("td");
     uses.textContent = usesText;
-    uses.colSpan = tableLength - 2;
+    uses.colSpan = tableLength /*- 2*/;
     nameRow.appendChild(uses);
 
     infoTable.appendChild(nameRow);
