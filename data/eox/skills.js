@@ -586,78 +586,89 @@ let skills = {
       maxLevel: 0,
       coords: { x: 1, y: 0 }
     },
-    massiveEdge: {
-      name_en: "*Massive Edge",
-      desc: "Activation skill. Deals melee cut damage to one target, with splash damage. Reduces overheat duration by 1 turn.",
-      stats: ["STR"],
-      dep: {  },
+    tripEdge: {
+      name_en: "*Trip Edge",
+      desc: "Starter skill. Deals melee cut damage to one target. Attempts to inflict leg bind. Reduces overheat duration by 1 turn.",
+      stats: ["STR", "LUC", "Arms", "Driveblade"],
+      dep: { },
       maxLevel: 8,
       coords: { x: 0, y: 1 }
     },
-    tripEdge: {
-      name_en: "*Trip Edge",
-      desc: "Activation skill. Deals melee cut damage to one target. Attempts to inflict leg bind. Reduces overheat duration by 1 turn.",
-      stats: ["STR", "LUC"],
-      dep: { massiveEdge: 3 },
+    galeEdge: {
+      name_en: "Gale Edge",
+      desc: "Starter skill. Deals melee cut damage to one target. Reduces overheat duration by 1 turn.",
+      stats: ["STR", "Arms", "Driveblade"],
+      dep: { tripEdge: 3  },
       maxLevel: 8,
       coords: { x: 1, y: 1 }
     },
     bloodEdge: {
       name_en: "*Blood Edge",
-      desc: "Connecting skill. Deals melee cut damage to one target. Restores HP to the user based on the amount of damage dealt. Can only be used if an activation skill was used on the previous turn. Reduces overheat duration by 1 turn.",
-      stats: ["STR"],
-      dep: { tripEdge: 2  },
+      desc: "Starter and Combo skill. Deals melee cut damage to one target. Restores HP to the user based on the amount of damage dealt. Reduces overheat duration by 2 turns. Can only be used if an Starter skill was used on the previous turn.",
+      stats: ["STR", "Arms", "Driveblade"],
+      dep: { galeEdge: 2  },
       maxLevel: 8,
-      coords: { x: 2, y: 0.5 }
-    },
-    coolEdge: {
-      name_en: "Cool Edge",
-      desc: "Connecting skill. Deals melee cut damage to one target. Reduces duration of overheat by 2 turns. Can only be used if an activation skill was used on the previous turn.",
-      stats: ["STR"],
-      dep: { tripEdge: 2 },
-      maxLevel: 6,
-      coords: { x: 2, y: 1.5 }
+      coords: { x: 2, y: 1 }
     },
     impulseEdge: {
       name_en: "*Impulse Edge",
-      desc: "Connecting skill. Deals melee cut damage to one target. Restores TP and Force to the user. Can only be used if an activation skill was used on the previous turn.",
-      stats: ["STR"],
-      dep: { bloodEdge: 2, coolEdge: 2 },
+      desc: "Starter and Combo skill. Deals melee cut damage to one target. Restores TP and Force to the user. Reduces overheat duration by 1 turn. Can only be used if an Starter skill was used on the previous turn.",
+      stats: ["STR", "Arms", "Driveblade"],
+      dep: { bloodEdge: 2 },
       maxLevel: 8,
       coords: { x: 3, y: 1 }
     },
     smashEdge: {
       name_en: "Smash Edge",
-      desc: "Connecting skill. Deals melee cut damage to one target. Each cast multiplies the damage by 50% and is reset upon the user's death. Reduces overheat duration by 1 turn.",
-      stats: ["STR"],
+      desc: "Starter and Combo skill. Deals melee cut damage to one target. Each cast multiplies the damage by 50% and is reset upon the user's death. Reduces overheat duration by 1 turn. Can only be used if an Starter skill was used on the previous turn.",
+      stats: ["STR", "Arms", "Driveblade"],
       dep: { impulseEdge: 2 },
-      maxLevel: 6,
-      coords: { x: 4, y: 1 }
+      maxLevel: 8,
+      coords: { x: 4, y: 0.5 }
+    },
+    thermalCell: {
+      name_en: "Thermal Cell",
+      desc: "Passively restores a percentage of the user's maximum TP plus a static amount while they are in the Force Boost state.",
+      stats: [],
+      dep: { impulseEdge: 2 },
+      maxLevel: 8,
+      coords: { x: 4, y: 1.5 }
     },
     chargeEdge: {
       name_en: "Charge Edge",
-      desc: "Terminating skill. Deals melee cut damage to one target. Until the end of the next turn, increases the user's attack. Can only be used if an activation skill or connecting skill was used on the previous turn.",
-      stats: ["STR"],
-      dep: { smashEdge: 2 },
+      desc: "Final skill. Deals melee cut damage to one target. Until the end of the next turn, increases the user's attack. Can only be used if an Starter skill or Combo skill was used on the previous turn.",
+      stats: ["STR", "Arms", "Driveblade"],
+      dep: { smashEdge: 2, thermalCell: 2 },
       maxLevel: 8,
       coords: { x: 5, y: 1 }
     },
-    assaultDrive: {
+    bulwarkDrive: {
       name_en: "Bulwark Drive",
       //Deals melee cut damage to one target, and places the user in the overheat state for 5 turns. Cannot be used while overheated. When cast, doubles this skills TP cost and damage until the user's death. |
-      desc: "Deals melee cut damage to one target, and increases defense for all allies until it executes. Places the user in the overheat state for 5 turns and cannot be used while overheated. ",
-      stats: ["STR"],
+      //Deals melee cut damage to one target, and places the user in the overheat state for 5 turns. Cannot be used while overheated. Damage is reduced when used consecutively, and the TP cost is reduced based on the amount of TP used before this skill was cast.
+      desc: "Deals melee cut damage to one target, and increases defense for all allies until it executes. Places the user in the overheat state for 5 turns. Cannot be used while overheated or when current TP is below the original TP cost. The TP cost is reduced based on the amount of TP used before this skill was cast.",
+      //desc: "Deals melee cut damage to one target, and increases defense for all allies until it executes. Places the user in the overheat state for 5 turns and cannot be used while overheated. ",
+      stats: ["STR", "Arms", "Driveblade"],
       dep: { },
       maxLevel: 8,
-      coords: { x: 0, y: 3.5 }
+      coords: { x: 0, y: 3.875 }
     },
     heatSink: {
-      name_en: "Heat Sink",
-      desc: "Reduces overheat duration by a set number of turns. Can only be used while overheated.",
-      stats: [],
-      dep: { assaultDrive: 3 },
+      name_en: "*Heat Sink",
+      // desc: "Reduces overheat duration by a set number of turns and increases the users defense until the end of the next turn. Can only be used while overheated.",
+      desc: "Starter skill. Reduces overheat duration by a set number of turns and restores Force to the user. Can only be used while overheated.",
+      stats: ["Head", "Driveblade"],
+      dep: { bulwarkDrive: 3 },
       maxLevel: 8,
-      coords: { x: 1, y: 2.75 }
+      coords: { x: 1, y: 2.25 }
+    },
+    wideEffect: {
+      name_en: "Wide Effect",
+      desc: "Single-target skills have a chance to affect neighboring enemies. The chance is rolled for each enemy individually if there are two enemies next to the target, rather than once for both.",
+      stats: [],
+      dep: { bulwarkDrive: 3 },
+      maxLevel: 8,
+      coords: { x: 1, y: 3.25 }
     },
     // intercooler: {
     //   //Amped Blade, Condensed Heat, Heated Blade
@@ -670,94 +681,114 @@ let skills = {
     // },
     flameDrive: {
       name_en: "Flame Drive",
-      desc: "Deals melee cut+fire damage to one target, and places the user in the overheat state for 6 turns. Cannot be used while overheated. The user will take 2x more damage until the skill activates.",
-      stats: ["STR"],
-      dep: { heatSink: 3 },
+      desc: "Deals melee cut+fire damage to one target, and places the user in the overheat state for 6 turns. Cannot be used while overheated or when current TP is below the original TP cost. The TP cost is reduced based on the amount of TP used before this skill was cast. The user will take 2x more damage until the skill activates.",
+      stats: ["STR", "Arms", "Driveblade"],
+      dep: { heatSink: 3, wideEffect: 3 },
       maxLevel: 6,
       coords: { x: 2, y: 2.75 }
     },
     freezeDrive: {
       name_en: "Freeze Drive",
-      desc: "Deals melee cut+ice damage to one target, and places the user in the overheat state for 6 turns. Cannot be used while overheated. The user will take 2x more damage until the skill activates.",
-      stats: ["STR"],
+      desc: "Deals melee cut+ice damage to one target, and places the user in the overheat state for 6 turns. Cannot be used while overheated or when current TP is below the original TP cost. The TP cost is reduced based on the amount of TP used before this skill was cast. The user will take 2x more damage until the skill activates.",
+      stats: ["STR", "Arms", "Driveblade"],
       dep: { flameDrive: 1 },
       maxLevel: 6,
       coords: { x: 3, y: 2.25 }
     },
     shockDrive: {
       name_en: "Shock Drive",
-      desc: "Deals melee cut+volt damage to one target, and places the user in the overheat state for 6 turns. Cannot be used while overheated. The user will take 2x more damage until the skill activates.",
-      stats: ["STR"],
+      desc: "Deals melee cut+volt damage to one target, and places the user in the overheat state for 6 turns. Cannot be used while overheated or when current TP is below the original TP cost. The TP cost is reduced based on the amount of TP used before this skill was cast. The user will take 2x more damage until the skill activates.",
+      stats: ["STR", "Arms", "Driveblade"],
       dep: { flameDrive: 1 },
       maxLevel: 6,
       coords: { x: 3, y: 3.25 }
     },
-    intercooler: {
-      //Amped Blade, Condensed Heat, Heated Blade
-      name_en: "???",
-      desc: "???",
-      stats: [],
+    bladeRecoil: {
+      name_en: "Blade Recoil",
+      // Cannot be used below the original TP cost. The TP cost is reduced based on the amount of TP used before this skill was cast.
+      desc: "Deals melee cut damage to one target. If the user used an elemental attack on the last turn, also adds a follow-up attack of that element. The user will take 2x more damage until the skill activates.",
+      stats: ["STR", "Arms", "Driveblade"],
       dep: { shockDrive: 3, freezeDrive: 3 },
       maxLevel: 8,
       coords: { x: 4, y: 2.75 }
     },
-    accelDrive: {
-      name_en: "Blade Recoil",
-      desc: "Deals melee cut damage to one target. If the user used an elemental attack on the last turn, also adds a follow-up attack of that element. The user will take 2x more damage until the skill activates.",
-      stats: ["STR"],
-      weapon: ["Drive Blade"],
-      bodyParts: ["Arms"],
-      dep: { intercooler: 3 },
-      maxLevel: 10,
+    finisher: {
+      name_en: "Finisher",
+      desc: "When the user kills an enemy, their TP is restored.",
+      stats: [],
+      dep: { bladeRecoil: 4 },
+      maxLevel: 8,
       coords: { x: 5, y: 2.75 }
     },
+    // driveStake: {
+    //   //Amped Blade, Condensed Heat, Heated Blade
+    //   name_en: "Drivestake Blast",
+    //   desc: "Any enemies hit with Drive skills are hit again with an attack of the same element at the end of the turn.",
+    //   stats: [],
+    //   dep: { bladeRecoil: 4 },
+    //   maxLevel: 8,
+    //   coords: { x: 5, y: 2.75 }
+    // },
     overheatGuard: {
       name_en: "Overheat Guard",
       desc: "While overheated, increases the user's defense.",
       stats: [],
-      dep: { assaultDrive: 3 },
+      dep: { bulwarkDrive: 3 },
       maxLevel: 6,
       coords: { x: 1, y: 4.5 }
     },
+    bloodfest: {
+      name_en: "Avenger",
+      //name_en: "Bloodfest",
+      desc: "When an ally dies, restore HP and TP.",
+      //desc: "When the user uses a skill, restore HP.",
+      //desc: "When an ally dies or an enemy is killed by the user, restore HP.",
+      //desc: "Combo skill. Deals melee cut damage to one target, heals the party for 25% of the damage dealt and increases the user's chance of being targeted. Reduces overheat duration by 1 turn.",
+      stats: [],
+      dep: { bulwarkDrive: 2 },
+      maxLevel: 6,
+      coords: { x: 1, y: 5.5 }
+    },
     roughDivide: {
       name_en: "Rough Divide",
-      desc: "Activation skill. Reduces physical damage to the user's row for one turn. If Rough Divide is activated by enemy damage, the user will use their equipped weapon to counterattack the source of the damage. Reduces overheat duration by 1 turn.",
-      stats: [],
+      desc: "Starter skill. Reduces physical damage to the user's row for one turn. If Rough Divide is activated by enemy damage, the user will use their equipped weapon to counterattack the source of the damage. Reduces overheat duration by 1 turn.",
+      stats: ["STR", "Arms", "Driveblade"],
       dep: { overheatGuard: 2 },
       maxLevel: 8,
-      coords: { x: 2, y: 4 }
+      coords: { x: 2, y: 4.5 }
     },
     rearGuard: {
       name_en: "Rear Guard",
-      desc: "For a set number of turns, increases defense for one ally, but that ally will move last each turn. Reduces overheat duration by 2 turns.",
-      stats: [],
-      dep: { overheatGuard: 2 },
+      desc: "Starter skill. For a set number of turns, increases defense for one ally, but that ally will move last each turn. Reduces overheat duration by 2 turns.",
+      stats: ["Head"],
+      dep: { bloodfest: 2 },
       maxLevel: 6,
-      coords: { x: 2, y: 5 }
+      coords: { x: 2, y: 5.5 }
     },
     solidBarrel: {
       name_en: "Solid Barrel",
-      desc: "Connecting skill. Deals melee cut damage to one target and, for that turn, increases the user's chance of being targeted. Preserves the effect of last turn's Rough Divide. Reduces overheat duration by 2 turns.",
-      stats: [],
+      //desc: "Combo skill. Deals melee cut damage to one target and, for that turn, increases the user's chance of being targeted. Preserves the effect of last turn's Rough Divide. Reduces overheat duration by 2 turns.",
+      desc: "Combo skill. Deals melee cut damage to one target and heals the party for 15% of the damage dealt. Preserves the effect of last turn's Rough Divide. Reduces overheat duration by 1 turn.",
+      stats: ["STR", "Arms", "Driveblade"],
       dep: { roughDivide: 2, rearGuard: 2  },
-      maxLevel: 8,
-      coords: { x: 3, y: 4.5 }
+      maxLevel: 6,
+      coords: { x: 3, y: 5 }
     },
     keenFlurry: {
       name_en: "Keen Flurry",
-      desc: "Terminating skill. Attempts to nullify physical attacks directed at the user's row for one turn. Each time an attack is nullified, the chance of it triggering again on that turn is reduced.",
-      stats: [],
+      desc: "Final skill. Attempts to nullify physical attacks directed at the user's row for one turn. Each time an attack is nullified, the chance of it triggering again on that ally is reduced.",
+      stats: ["Arms", "Driveblade"],
       dep: { solidBarrel: 2 },
-      maxLevel: 8,
-      coords: { x: 4, y: 4 }
+      maxLevel: 6,
+      coords: { x: 4, y: 4.5 }
     },
     sentinelShell: {
       name_en: "Sentinel Shell",
-      desc: "Terminating skill. Reduces all damage to all party members and sets their defensive values to the user's for one turn.",
-      stats: ["STR"],
+      desc: "Final skill. Reduces all damage to all party members and sets their defensive values to the user's for one turn.",
+      stats: ["Arms", "Driveblade"],
       dep: { solidBarrel: 2 },
       maxLevel: 8,
-      coords: { x: 4, y: 5 }
+      coords: { x: 4, y: 5.5 }
     },
     driveRevenge: {
       //Amped Blade, Condensed/Compressed Heat, Heated Blade, Discharge
@@ -765,40 +796,8 @@ let skills = {
       desc: "Increases the damage of Drive skills after activating Rough Divide, Keen Flurry or Sentinel Shell.",
       stats: [],
       dep: { keenFlurry: 2, sentinelShell: 2 },
-      maxLevel: 10,
-      coords: { x: 5, y: 4.5 }
-    },
-    bloodfest: {
-      name_en: "Bloodfest",
-      desc: "When an ally dies or an enemy is killed by the user, restore HP.",
-      stats: ["STR"],
-      dep: { },
       maxLevel: 8,
-      coords: { x: 1, y: 6 }
-    },
-    wideEffect: {
-      name_en: "Wide Effect",
-      desc: "Single-target skills have a chance to affect neighboring enemies. The chance is rolled for each enemy individually if there are two enemies next to the target, rather than once for both.",
-      stats: [],
-      dep: { bloodfest: 3 },
-      maxLevel: 8,
-      coords: { x: 2, y: 6 }
-    },
-    forceEnergy: {
-      name_en: "Force Energy",
-      desc: "Passively restores a percentage of the user's maximum TP plus a static amount while they are in the Force Boost state.",
-      stats: [],
-      dep: { wideEffect: 3 },
-      maxLevel: 4,
-      coords: { x: 3, y: 6 }
-    },
-    finisher: {
-      name_en: "Finisher",
-      desc: "When the user kills an enemy, their TP is restored.",
-      stats: [],
-      dep: { forceEnergy: 3 },
-      maxLevel: 10,
-      coords: { x: 4, y: 6 }
+      coords: { x: 5, y: 5 }
     },
     mine: {
       name_en: "Mine",
