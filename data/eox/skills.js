@@ -565,10 +565,10 @@ let skills = {
       coords: { x: 0, y: 6 }
     }
   },
-  Imperial: {
-    ignition: {
-      name_en: "Ignition",
-      desc: "For 3 turns, the user's drive skills will not activate the overheat state.",
+  Pugilist: {
+    sealRush: {
+      name_en: "Seal Rush",
+      desc: "For 3 turns, increases the user's bind infliction chance, and chases any of the user's attacks against an enemy with binds, ailments or stun. Multi-hit attacks will only be chased once.",
       stats: [],
       unique: true,
       type: "Boost",
@@ -576,238 +576,237 @@ let skills = {
       maxLevel: 0,
       coords: { x: 0, y: 0 }
     },
-    conversion: {
-      name_en: "Overdrive",
-      desc: "Deals ranged cut/almighty damage to all enemies, and restores TP to the user based on damage dealt.",
-      stats: ["STR"],
+    finalBlow: {
+      name_en: "Final Blow",
+      desc: "Deals melee bash damage to one target. Attempts to inflict head bind, arm bind and leg bind.",
+      stats: ["STR", "LUC"],
       unique: true,
       type: "Break",
-      dep: { ignition: 0 },
+      dep: { sealRush: 0 },
       maxLevel: 0,
       coords: { x: 1, y: 0 }
     },
-    tripEdge: {
-      name_en: "*Trip Edge",
-      desc: "Starter skill. Deals melee cut damage to one target. Attempts to inflict leg bind. Reduces overheat duration by 1 turn.",
-      stats: ["STR", "LUC", "Arms", "Driveblade"],
+    concussion: {
+      name_en: "Concussion",
+      desc: "Deals melee bash damage to one target. Attempts to inflict head bind.",
+      stats: ["STR", "LUC"],
       dep: { },
-      maxLevel: 8,
+      maxLevel: 6,
       coords: { x: 0, y: 1 }
     },
-    galeEdge: {
-      name_en: "Gale Edge",
-      desc: "Starter skill. Deals melee cut damage to one target. Reduces overheat duration by 1 turn.",
-      stats: ["STR", "Arms", "Driveblade"],
-      dep: { tripEdge: 3  },
+    armBreaker: {
+      name_en: "Arm Breaker",
+      desc: "Deals melee bash damage to one target. Attempts to inflict arm bind.",
+      stats: ["STR", "LUC"],
+      dep: { },
+      maxLevel: 6,
+      coords: { x: 0, y: 2 }
+    },
+    lowBlow: {
+      name_en: "Low Blow",
+      desc: "Deals melee bash damage to one target. Attempts to inflict leg bind on the target.",
+      stats: ["STR", "LUC"],
+      dep: { },
+      maxLevel: 6,
+      coords: { x: 0, y: 3 }
+    },
+    oneTwoPunch: {
+      name_en: "*One-Two Punch",
+      desc: "Deals melee bash damage to one target. May follow up with Concussion, Arm Breaker, and Low Blow if the target does not have the respective bind.",
+      // Follow-up skills deal reduced damage.
+      stats: ["STR", "LUC"],
+      dep: { concussion: 1, armBreaker: 1, lowBlow: 1 },
+      maxLevel: 6,
+      coords: { x: 1, y: 2 }
+    },
+    corkscrew: {
+      name_en: "*Corkscrew",
+      desc: "Deals melee bash damage to one target. Attempts to inflict paralysis on the target.",
+      stats: ["STR", "LUC"],
+      dep: { },
       maxLevel: 8,
       coords: { x: 1, y: 1 }
     },
-    bloodEdge: {
-      name_en: "*Blood Edge",
-      desc: "Starter and Combo skill. Deals melee cut damage to one target. Restores HP to the user based on the amount of damage dealt. Reduces overheat duration by 2 turns. Can only be used if an Starter skill was used on the previous turn.",
-      stats: ["STR", "Arms", "Driveblade"],
-      dep: { galeEdge: 2  },
-      maxLevel: 8,
-      coords: { x: 2, y: 1 }
-    },
-    impulseEdge: {
-      name_en: "*Impulse Edge",
-      desc: "Starter and Combo skill. Deals melee cut damage to one target. Restores TP and Force to the user. Reduces overheat duration by 1 turn. Can only be used if an Starter skill was used on the previous turn.",
-      stats: ["STR", "Arms", "Driveblade"],
-      dep: { bloodEdge: 2 },
-      maxLevel: 8,
-      coords: { x: 3, y: 1 }
-    },
-    smashEdge: {
-      name_en: "Smash Edge",
-      desc: "Starter and Combo skill. Deals melee cut damage to one target. Each cast multiplies the damage by 50% and is reset upon the user's death. Reduces overheat duration by 1 turn. Can only be used if an Starter skill was used on the previous turn.",
-      stats: ["STR", "Arms", "Driveblade"],
-      dep: { impulseEdge: 2 },
-      maxLevel: 8,
-      coords: { x: 4, y: 0.5 }
-    },
-    thermalCell: {
-      name_en: "Thermal Cell",
-      desc: "Passively restores a percentage of the user's maximum TP plus a static amount while they are in the Force Boost state.",
+    addedBlow: {
+      name_en: "Added Blow",
+      desc: "When the user inflicts a bind on an enemy, there is a chance to follow up with Corkscrew.",
       stats: [],
-      dep: { impulseEdge: 2 },
+      dep: { oneTwoPunch: 2, corkscrew: 2 },
+      maxLevel: 6,
+      coords: { x: 2, y: 1.5 }
+    },
+    leadingBlow: {
+      name_en: "*Leading Blow",
+      desc: "Deals melee bash damage to one target. For every bind the target has, follows up with the corresponding Pugilist skill. For any ailment the target has, follows up with Corkscrew.",
+      stats: ["STR"],
+      dep: { addedBlow: 2 },
+      maxLevel: 8,
+      coords: { x: 3, y: 1.5 }
+    },
+    clinch: {
+      name_en: "Clinch",
+      desc: "Attempts to inflict head bind, arm bind, and leg bind on both the user and the target.",
+      stats: ["LUC"],
+      dep: { leadingBlow: 2 },
       maxLevel: 8,
       coords: { x: 4, y: 1.5 }
     },
-    chargeEdge: {
-      name_en: "Charge Edge",
-      desc: "Final skill. Deals melee cut damage to one target. Until the end of the next turn, increases the user's attack. Can only be used if an Starter skill or Combo skill was used on the previous turn.",
-      stats: ["STR", "Arms", "Driveblade"],
-      dep: { smashEdge: 2, thermalCell: 2 },
-      maxLevel: 8,
-      coords: { x: 5, y: 1 }
-    },
-    bulwarkDrive: {
-      name_en: "Bulwark Drive",
-      //Deals melee cut damage to one target, and places the user in the overheat state for 5 turns. Cannot be used while overheated. When cast, doubles this skills TP cost and damage until the user's death. |
-      //Deals melee cut damage to one target, and places the user in the overheat state for 5 turns. Cannot be used while overheated. Damage is reduced when used consecutively, and the TP cost is reduced based on the amount of TP used before this skill was cast.
-      desc: "Deals melee cut damage to one target, and increases defense for all allies until it executes. Places the user in the overheat state for 5 turns. Cannot be used while overheated or when current TP is below the original TP cost. The TP cost is reduced based on the amount of TP used before this skill was cast.",
-      //desc: "Deals melee cut damage to one target, and increases defense for all allies until it executes. Places the user in the overheat state for 5 turns and cannot be used while overheated. ",
-      stats: ["STR", "Arms", "Driveblade"],
+    howlingFist: {
+      //Fist God/
+      name_en: "Howling Fist",
+      //desc: "Enables Cestus skills to crit. Increase Critical Chance",  Increase Critical chance against bound enemies.
+      desc: "Enables Cestus skills to crit. Increase Critical chance against bound enemies.",
+      stats: [],
       dep: { },
-      maxLevel: 8,
-      coords: { x: 0, y: 3.875 }
+      maxLevel: 10,
+      coords: { x: 0, y: 4.5 }
     },
-    heatSink: {
-      name_en: "*Heat Sink",
-      // desc: "Reduces overheat duration by a set number of turns and increases the users defense until the end of the next turn. Can only be used while overheated.",
-      desc: "Starter skill. Reduces overheat duration by a set number of turns and restores Force to the user. Can only be used while overheated.",
-      stats: ["Head", "Driveblade"],
-      dep: { bulwarkDrive: 3 },
-      maxLevel: 8,
-      coords: { x: 1, y: 2.25 }
-    },
-    wideEffect: {
-      name_en: "Wide Effect",
-      desc: "Single-target skills have a chance to affect neighboring enemies. The chance is rolled for each enemy individually if there are two enemies next to the target, rather than once for both.",
-      stats: [],
-      dep: { bulwarkDrive: 3 },
-      maxLevel: 8,
-      coords: { x: 1, y: 3.25 }
-    },
-    // intercooler: {
-    //   //Amped Blade, Condensed Heat, Heated Blade
-    //   name_en: "Zero Sum",
-    //   desc: "Increases your damage for the rest of combat (or until you are killed) every time your Driveblade overheats.",
-    //   stats: [],
-    //   dep: { heatSink: 1 },
-    //   maxLevel: 8,
-    //   coords: { x: 2, y: 2.75 }
-    // },
-    flameDrive: {
-      name_en: "Flame Drive",
-      desc: "Deals melee cut+fire damage to one target, and places the user in the overheat state for 6 turns. Cannot be used while overheated or when current TP is below the original TP cost. The TP cost is reduced based on the amount of TP used before this skill was cast. The user will take 2x more damage until the skill activates.",
-      stats: ["STR", "Arms", "Driveblade"],
-      dep: { heatSink: 3, wideEffect: 3 },
+    axeKick: {
+      name_en: "Axe Kick",
+      //name_en: "Breaking Waves",Crimson Rouge
+      desc: "Deals melee bash damage to one target, with splash damage. If the target has binds or paralysis, attempts to spread the them to adjacent enemies.",
+      stats: ["STR"],
+      dep: { howlingFist: 2 },
       maxLevel: 6,
-      coords: { x: 2, y: 2.75 }
+      coords: { x: 1, y: 3.5 }
     },
-    freezeDrive: {
-      name_en: "Freeze Drive",
-      desc: "Deals melee cut+ice damage to one target, and places the user in the overheat state for 6 turns. Cannot be used while overheated or when current TP is below the original TP cost. The TP cost is reduced based on the amount of TP used before this skill was cast. The user will take 2x more damage until the skill activates.",
-      stats: ["STR", "Arms", "Driveblade"],
-      dep: { flameDrive: 1 },
+    faultBlocker: {
+      name_en: "*Fault Blocker",
+      desc: "For 3 turns, increases ailment/bind resistance and recovery for the user's row.",
+      stats: [],
+      dep: { axeKick: 2  },
       maxLevel: 6,
-      coords: { x: 3, y: 2.25 }
+      coords: { x: 2, y: 3 }
     },
-    shockDrive: {
-      name_en: "Shock Drive",
-      desc: "Deals melee cut+volt damage to one target, and places the user in the overheat state for 6 turns. Cannot be used while overheated or when current TP is below the original TP cost. The TP cost is reduced based on the amount of TP used before this skill was cast. The user will take 2x more damage until the skill activates.",
-      stats: ["STR", "Arms", "Driveblade"],
-      dep: { flameDrive: 1 },
+    adrenaline: {
+      name_en: "Adrenaline",
+      desc: "Restores TP to the user when they inflict a bind, ailment or stun. Inflicting something on multiple enemies will not increase the effect of this skill.",
+      stats: [],
+      dep: { faultBlocker: 2  },
       maxLevel: 6,
-      coords: { x: 3, y: 3.25 }
+      coords: { x: 3, y: 3 }
     },
-    bladeRecoil: {
-      name_en: "Blade Recoil",
-      // Cannot be used below the original TP cost. The TP cost is reduced based on the amount of TP used before this skill was cast.
-      desc: "Deals melee cut damage to one target. If the user used an elemental attack on the last turn, also adds a follow-up attack of that element. The user will take 2x more damage until the skill activates.",
-      stats: ["STR", "Arms", "Driveblade"],
-      dep: { shockDrive: 3, freezeDrive: 3 },
+    meditation: {
+      name_en: "Meditation",
+      desc: "Until the end of the next turn, increases user's chance of inflicting binds and ailments.",
+      stats: [],
+      dep: { adrenaline: 2 },
+      maxLevel: 6,
+      coords: { x: 4, y: 3 }
+    },
+    thunderFist: {
+      name_en: "Thunder Fist",
+      //Unbrindled Strength Rushing Blood Punching Bag
+      //If it kills, recover TP. If the attack does not kill the target,
+      desc: "Deals melee bash+volt damage to one target. If that enemy was killed with Thunder Fist, attempt to inflict paralysis on all enemies, otherwise the user takes damage.",
+      stats: [],
+      dep: { meditation: 2 },
       maxLevel: 8,
-      coords: { x: 4, y: 2.75 }
+      coords: { x: 5, y: 3 }
     },
-    finisher: {
-      name_en: "Finisher",
-      desc: "When the user kills an enemy, their TP is restored.",
+    doublePunch: {
+      name_en: "Double Punch",
+      desc: "When any single-action, single-target Pugilist skill is used, Corkscrew is used via Added Blow, or Cross Counter is used, if the skill fails to inflict their bind or ailment, there is a chance it will be repeated.",
+      // desc: "When any single-action, single-target Pugilist skill is used, or when Corkscrew is used via Added Blow, or when Cross Counter is used (despite what the description claims), if the skill fails to inflict their bind or ailment, there is a chance it will be repeated.",
       stats: [],
-      dep: { bladeRecoil: 4 },
-      maxLevel: 8,
-      coords: { x: 5, y: 2.75 }
-    },
-    // driveStake: {
-    //   //Amped Blade, Condensed Heat, Heated Blade
-    //   name_en: "Drivestake Blast",
-    //   desc: "Any enemies hit with Drive skills are hit again with an attack of the same element at the end of the turn.",
-    //   stats: [],
-    //   dep: { bladeRecoil: 4 },
-    //   maxLevel: 8,
-    //   coords: { x: 5, y: 2.75 }
-    // },
-    overheatGuard: {
-      name_en: "Overheat Guard",
-      desc: "While overheated, increases the user's defense.",
-      stats: [],
-      dep: { bulwarkDrive: 3 },
+      dep: { axeKick: 2 },
       maxLevel: 6,
-      coords: { x: 1, y: 4.5 }
+      coords: { x: 2, y: 4 }
     },
-    bloodfest: {
-      name_en: "Avenger",
-      //name_en: "Bloodfest",
-      desc: "When an ally dies, restore HP and TP.",
-      //desc: "When the user uses a skill, restore HP.",
-      //desc: "When an ally dies or an enemy is killed by the user, restore HP.",
-      //desc: "Combo skill. Deals melee cut damage to one target, heals the party for 25% of the damage dealt and increases the user's chance of being targeted. Reduces overheat duration by 1 turn.",
+    breather: {
+      name_en: "?Breather",
+      desc: "Removes binds and ailment from an ally. If successful, increases the users attack until the end of the next turn.",
+      //desc: "Removes binds and ailment from the user, and increases attack until the end of the next turn. Cannot be used if the user has no binds or ailments.",
       stats: [],
-      dep: { bulwarkDrive: 2 },
+      dep: { doublePunch: 2 },
+      maxLevel: 6,
+      coords: { x: 3, y: 4 }
+    },
+    crossCounter: {
+      name_en: "Cross Counter",
+      desc: "This turn, when a party member on the user's row is attacked, counterattacks with melee damage with the users weapon and attempts to inflict the corresponding bind on the target. Does not activate if the counterattack cannot reach the enemy.",
+      stats: ["STR", "LUC"],
+      dep: { breather: 2 },
+      maxLevel: 8,
+      coords: { x: 4, y: 4 }
+    },
+    vajraForm: {
+      name_en: "Vajra Form",
+      //Raging Waves
+      //desc: "Increases damage dealt based on the number of binds and ailments the target has.",
+      desc: "For a set number of turns, increase the users critical chance and defence but decrease ailment/bind infliction chance.",
+      stats: [],
+      dep: { howlingFist: 2 },
       maxLevel: 6,
       coords: { x: 1, y: 5.5 }
     },
-    roughDivide: {
-      name_en: "Rough Divide",
-      desc: "Starter skill. Reduces physical damage to the user's row for one turn. If Rough Divide is activated by enemy damage, the user will use their equipped weapon to counterattack the source of the damage. Reduces overheat duration by 1 turn.",
-      stats: ["STR", "Arms", "Driveblade"],
-      dep: { overheatGuard: 2 },
+   resonanceBlow: {
+      name_en: "*Resonance Blow",
+      desc: "Deals multiple instances of melee bash damage to one target. The number of hits increases based on the number of turns since Resonance Blow was last used.",
+      stats: ["STR"],
+      dep: { vajraForm: 2 },
+      maxLevel: 6,
+      coords: { x: 2, y: 5 }
+    },
+    flowingStrikes: {
+      name_en: "Greased Lightning",
+      //Relentless Strikes / Flowing Strikes
+      desc: "Increases damage dealt based on the number of attacks.",
+      stats: [],
+      dep: { resonanceBlow: 2 },
       maxLevel: 8,
-      coords: { x: 2, y: 4.5 }
-    },
-    rearGuard: {
-      name_en: "Rear Guard",
-      desc: "Starter skill. For a set number of turns, increases defense for one ally, but that ally will move last each turn. Reduces overheat duration by 2 turns.",
-      stats: ["Head"],
-      dep: { bloodfest: 2 },
-      maxLevel: 6,
-      coords: { x: 2, y: 5.5 }
-    },
-    solidBarrel: {
-      name_en: "Solid Barrel",
-      //desc: "Combo skill. Deals melee cut damage to one target and, for that turn, increases the user's chance of being targeted. Preserves the effect of last turn's Rough Divide. Reduces overheat duration by 2 turns.",
-      desc: "Combo skill. Deals melee cut damage to one target and heals the party for 15% of the damage dealt. Preserves the effect of last turn's Rough Divide. Reduces overheat duration by 1 turn.",
-      stats: ["STR", "Arms", "Driveblade"],
-      dep: { roughDivide: 2, rearGuard: 2  },
-      maxLevel: 6,
       coords: { x: 3, y: 5 }
     },
-    keenFlurry: {
-      name_en: "Keen Flurry",
-      desc: "Final skill. Attempts to nullify physical attacks directed at the user's row for one turn. Each time an attack is nullified, the chance of it triggering again on that ally is reduced.",
-      stats: ["Arms", "Driveblade"],
-      dep: { solidBarrel: 2 },
-      maxLevel: 6,
-      coords: { x: 4, y: 4.5 }
-    },
-    sentinelShell: {
-      name_en: "Sentinel Shell",
-      desc: "Final skill. Reduces all damage to all party members and sets their defensive values to the user's for one turn.",
-      stats: ["Arms", "Driveblade"],
-      dep: { solidBarrel: 2 },
+    lashOut: {
+      name_en: "*Lash Out",
+      desc: "Deals multiple instances of melee bash damage to one target. The number of hits is equal to the number of hits made on the previous turn. No matter how many attacks Lash Out makes, it will always count as 1 attack for the purpose of this skill.",
+      stats: ["STR"],
+      dep: { flowingStrikes: 2 },
       maxLevel: 8,
-      coords: { x: 4, y: 5.5 }
+      coords: { x: 4, y: 5 }
     },
-    driveRevenge: {
-      //Amped Blade, Condensed/Compressed Heat, Heated Blade, Discharge
-      name_en: "Amped Discharge",
-      desc: "Increases the damage of Drive skills after activating Rough Divide, Keen Flurry or Sentinel Shell.",
-      stats: [],
-      dep: { keenFlurry: 2, sentinelShell: 2 },
+    breakfireFist: {
+      name_en: "Breakfire Rush",
+      //Weaving Flurry
+      //desc: "After using an attack skill, if at least one of the skill's targets has a bind, there is a chance to repeat the skill.", Deals multiple instances of melee bash+fire damage to random targets.
+      desc: "This turn, if the designated target is hit by a Fire or Bash attack, follow up with a melee Fire+Bash attack. The chance of a Chain activating starts at 100%, and decreases with each activation.",
+      stats: ["STR"],
+      dep: { vajraForm: 2 },
       maxLevel: 8,
-      coords: { x: 5, y: 5 }
+      coords: { x: 2, y: 6 }
     },
-    mine: {
-      name_en: "Mine",
-      desc: "Occasionally gains more items when using Mine points.",
+    chainRush: {
+      name_en: "Chain Rush",
+      desc: "When an enemy is killed with Breakfire Rush, the user will attack another enemy with melee bash damage.",
+      stats: ["STR"],
+      dep: { breakfireFist: 2 },
+      maxLevel: 8,
+      coords: { x: 3, y: 6 }
+    },
+    cursedFist: {
+      name_en: "Duplex Rush",
+      //Duplex Suplex (????)
+      desc: "Gives a chance for an extra follow-up attack on Breakfire Rush activation.",
+      stats: ["STR"],
+      dep: { chainRush: 2 },
+      maxLevel: 8,
+      coords: { x: 4, y: 6 }
+    },
+    chop: {
+      name_en: "Chop",
+      desc: "Occasionally gains more items when using Chop points.",
       stats: [],
       unique: true,
       dep: { },
       maxLevel: 1,
       coords: { x: 0, y: 6 }
     }
+      //Onslaught / Shoulder Tackle / Triple Strike / Cursed Fist
+      //desc: "Whenever an enemy gets inflicted by a bind, follow up with an attack.
+      // Deals 3 instances of melee bash damage to one enemy. Each hit attempts to inflict head/arm/leg bind. If the target is bound by one of the attacks, the remaining attacks will not be made.",
+      //Deals multiple instances of melee bash+fire damage to random targets. For 3 turns, increases the user's attack but decreases ailment/bind infliction.
+      //Deals melee bash damage to one target. Attempts to inflict curse on the target. Clears ailments and for 3 turns, the enemy will negate ailments and have their ailment recovery reduced.
+      //Toxic Jab |(Attempts to inflict poison on the target. 1% Chance and 200+ Poison damage)
   },
 
 
