@@ -87,13 +87,13 @@ let forward = {
     doublePunch: { breather: 2 },
     breather: { crossCounter: 2 },
     crossCounter: { },
-    vajraForm: { breakfireFist: 2, resonanceBlow: 2 },
+    vajraForm: { hundredFists: 2, resonanceBlow: 2 },
     resonanceBlow: { flowingStrikes: 2 },
     flowingStrikes: { lashOut: 2 },
     lashOut: { },
-    breakfireFist: { chainRush: 2 },
-    chainRush: { cursedFist: 2 },
-    cursedFist: { },
+    hundredFists: { breakfireRush: 2 },
+    breakfireRush: { haymaker: 2 },
+    haymaker: {  },
     chop: { }
   },
 

@@ -648,7 +648,7 @@ let skills = {
       desc: "Attempts to inflict head bind, arm bind, and leg bind on both the user and the target.",
       stats: ["LUC"],
       dep: { leadingBlow: 2 },
-      maxLevel: 8,
+      maxLevel: 6,
       coords: { x: 4, y: 1.5 }
     },
     howlingFist: {
@@ -691,7 +691,7 @@ let skills = {
       desc: "Until the end of the next turn, increases user's chance of inflicting binds and ailments.",
       stats: [],
       dep: { adrenaline: 2 },
-      maxLevel: 6,
+      maxLevel: 8,
       coords: { x: 4, y: 3 }
     },
     thunderFist: {
@@ -715,7 +715,7 @@ let skills = {
     },
     breather: {
       name_en: "?Breather",
-      desc: "Removes binds and ailment from an ally. If successful, increases the users attack until the end of the next turn.",
+      desc: "Removes binds and ailment from an ally. If successful, increases the user's attack until the end of the next turn.",
       //desc: "Removes binds and ailment from the user, and increases attack until the end of the next turn. Cannot be used if the user has no binds or ailments.",
       stats: [],
       dep: { doublePunch: 2 },
@@ -724,7 +724,7 @@ let skills = {
     },
     crossCounter: {
       name_en: "Cross Counter",
-      desc: "This turn, when a party member on the user's row is attacked, counterattacks with melee damage with the users weapon and attempts to inflict the corresponding bind on the target. Does not activate if the counterattack cannot reach the enemy.",
+      desc: "This turn, when a party member on the user's row is attacked, counterattacks with melee damage with the user's weapon and attempts to inflict the corresponding bind on the target. Does not activate if the counterattack cannot reach the enemy.",
       stats: ["STR", "LUC"],
       dep: { breather: 2 },
       maxLevel: 8,
@@ -734,7 +734,7 @@ let skills = {
       name_en: "Vajra Form",
       //Raging Waves
       //desc: "Increases damage dealt based on the number of binds and ailments the target has.",
-      desc: "For a set number of turns, increase the users critical chance and defence but decrease ailment/bind infliction chance.",
+      desc: "For 3 turns, increase the user's critical chance and defence but decrease ailment/bind infliction chance.",
       stats: [],
       dep: { howlingFist: 2 },
       maxLevel: 6,
@@ -765,30 +765,35 @@ let skills = {
       maxLevel: 8,
       coords: { x: 4, y: 5 }
     },
-    breakfireFist: {
-      name_en: "Breakfire Rush",
-      //Weaving Flurry
-      //desc: "After using an attack skill, if at least one of the skill's targets has a bind, there is a chance to repeat the skill.", Deals multiple instances of melee bash+fire damage to random targets.
-      desc: "This turn, if the designated target is hit by a Fire or Bash attack, follow up with a melee Fire+Bash attack. The chance of a Chain activating starts at 100%, and decreases with each activation.",
+    hundredFists: {
+      name_en: "Hundred Fists",
+      //Flurry of Fists
+      //desc: "When an enemy is killed with Breakfire Rush, the user will attack another enemy with melee bash damage.",
+      desc: "At the beginning of the next turn, deals multiple instances of melee bash damage to random enemies. Can hit the same target 4 times at most.",
       stats: ["STR"],
       dep: { vajraForm: 2 },
       maxLevel: 8,
       coords: { x: 2, y: 6 }
     },
-    chainRush: {
-      name_en: "Chain Rush",
-      desc: "When an enemy is killed with Breakfire Rush, the user will attack another enemy with melee bash damage.",
+    breakfireRush: {
+      name_en: "Breakfire Rush",
+      //Weaving Flurry
+      //desc: "After using an attack skill, if at least one of the skill's targets has a bind, there is a chance to repeat the skill.", Deals multiple instances of melee bash+fire damage to random targets.
+      //desc: "This turn, if the designated target is hit by a Fire or Bash attack, follow up with a melee Fire+Bash attack. The chance of a Chain activating starts at 100%, and decreases with each activation.",
+      desc: "Deals multiple instances of melee fire damage to an enemy row. Decreases the users critical rate for 1 turn after use.",
       stats: ["STR"],
-      dep: { breakfireFist: 2 },
+      dep: { hundredFists: 2 },
       maxLevel: 8,
       coords: { x: 3, y: 6 }
     },
-    cursedFist: {
-      name_en: "Duplex Rush",
+    haymaker: {
+      name_en: "Haymaker",
       //Duplex Suplex (????)
-      desc: "Gives a chance for an extra follow-up attack on Breakfire Rush activation.",
+      //desc: "Gives a chance for an extra follow-up attack on Breakfire Rush activation.",
+      /// Activates Breakfire Rush, Resonance Blow, and Lash Out all at once. Applies a multiplier-based reduction to each skill's damage. The user's buffs are dispelled after Peerless Combo's use.
+      desc: "This turn, when the selected ally is attacked, counterattack with multiple instances of melee bash damage.",
       stats: ["STR"],
-      dep: { chainRush: 2 },
+      dep: { breakfireRush: 2 },
       maxLevel: 8,
       coords: { x: 4, y: 6 }
     },
