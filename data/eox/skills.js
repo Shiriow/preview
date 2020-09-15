@@ -565,10 +565,10 @@ let skills = {
       coords: { x: 0, y: 6 }
     }
   },
-  Pugilist: {
-    sealRush: {
-      name_en: "Seal Rush",
-      desc: "For 3 turns, increases the user's bind infliction chance, and chases any of the user's attacks against an enemy with binds, ailments or stun. Multi-hit attacks will only be chased once.",
+  Nightseeker: {
+    killerStance: {
+      name_en: "Killer Stance",
+      desc: "For 3 turns, increases attack and ailment infliction chance for the user.",
       stats: [],
       unique: true,
       type: "Boost",
@@ -576,226 +576,224 @@ let skills = {
       maxLevel: 0,
       coords: { x: 0, y: 0 }
     },
-    finalBlow: {
-      name_en: "Final Blow",
-      desc: "Deals melee bash damage to one target. Attempts to inflict head bind, arm bind and leg bind.",
-      stats: ["STR", "LUC"],
+    disaster: {
+      name_en: "Disaster",
+      desc: "Deals melee cut damage to one target. If the target has an ailment, increases the ailment's duration.",
+      stats: ["STR"],
       unique: true,
       type: "Break",
-      dep: { sealRush: 0 },
+      dep: { killerStance: 0 },
       maxLevel: 0,
       coords: { x: 1, y: 0 }
     },
-    concussion: {
-      name_en: "Concussion",
-      desc: "Deals melee bash damage to one target. Attempts to inflict head bind.",
+    curseThrow: {
+      name_en: "?Abyssal Curse",
+      //powder, Flask, Phial, Vial / Curse Bomb, Umbral Curse
+      desc: "Umbral skill. Deals ranged bash damage to one target and increases Creeping Darkness's damage. Attempts to inflict curse.",
       stats: ["STR", "LUC"],
       dep: { },
-      maxLevel: 6,
-      coords: { x: 0, y: 1 }
-    },
-    armBreaker: {
-      name_en: "Arm Breaker",
-      desc: "Deals melee bash damage to one target. Attempts to inflict arm bind.",
-      stats: ["STR", "LUC"],
-      dep: { },
-      maxLevel: 6,
+      maxLevel: 8,
       coords: { x: 0, y: 2 }
     },
-    lowBlow: {
-      name_en: "Low Blow",
-      desc: "Deals melee bash damage to one target. Attempts to inflict leg bind on the target.",
+    sandThrow: {
+      name_en: "Shadowflame",
+      // Umbral Flare / Necrotic+ / +Sign / Noxious / Effluvium / Spark / Umbra / Smoke Bomb / Dark Haze / Shade / Obscurity / Paranoia / Nocturne / Oblivion / Abyssal / Nightmare
+      //desc: "Attempt to inflict blind on one target. If the enemy is hit by a fire element, follow up with another fire attack.",
+      desc: "Umbral skill. Attempt to inflict blind on one target. If the enemy is hit by fire damage, follow up with ranged fire damage that reduces their accuracy for 3 turns.",
       stats: ["STR", "LUC"],
-      dep: { },
-      maxLevel: 6,
-      coords: { x: 0, y: 3 }
-    },
-    oneTwoPunch: {
-      name_en: "*One-Two Punch",
-      desc: "Deals melee bash damage to one target. May follow up with Concussion, Arm Breaker, and Low Blow if the target does not have the respective bind.",
-      // Follow-up skills deal reduced damage.
-      stats: ["STR", "LUC"],
-      dep: { concussion: 1, armBreaker: 1, lowBlow: 1 },
-      maxLevel: 6,
-      coords: { x: 1, y: 2 }
-    },
-    corkscrew: {
-      name_en: "*Corkscrew",
-      desc: "Deals melee bash damage to one target. Attempts to inflict paralysis on the target.",
-      stats: ["STR", "LUC"],
-      dep: { },
+      dep: { curseThrow: 3  },
       maxLevel: 8,
-      coords: { x: 1, y: 1 }
+      coords: { x: 1, y: 1.25 }
     },
-    addedBlow: {
-      name_en: "Added Blow",
-      desc: "When the user inflicts a bind on an enemy, there is a chance to follow up with Corkscrew.",
-      stats: [],
-      dep: { oneTwoPunch: 2, corkscrew: 2 },
-      maxLevel: 6,
-      coords: { x: 2, y: 1.5 }
-    },
-    leadingBlow: {
-      name_en: "*Leading Blow",
-      desc: "Deals melee bash damage to one target. For every bind the target has, follows up with the corresponding Pugilist skill. For any ailment the target has, follows up with Corkscrew.",
-      stats: ["STR"],
-      dep: { addedBlow: 2 },
+    nerveThrow: {
+      name_en: "Shockgrasp",
+      //, Nerve Bomb, Umbral Spark / Vacuum
+      //desc: "Attempt to inflict paralysis on one target. If the enemy is hit by a volt element, follow up with another volt attack that purges all buffs from hit targets. Damage is doubled for each buff removed, up to 6x for three buffs.",
+      //and the user's row has increased evasion for a set number of turns
+      desc: "Umbral skill. Attempt to inflict paralysis on one target. If the enemy is hit by volt damage, follow up with ranged volt damage that attempts to instantly empty their remaining HP if that enemy is at 40% HP or below. If the HP emptying succeeds, restores a percentage of the HP emptied to the user.",
+      stats: ["STR", "LUC"],
+      dep: { sandThrow: 3 },
       maxLevel: 8,
-      coords: { x: 3, y: 1.5 }
+      coords: { x: 2, y: 1.25 }
     },
-    clinch: {
-      name_en: "Clinch",
-      desc: "Attempts to inflict head bind, arm bind, and leg bind on both the user and the target.",
-      stats: ["LUC"],
-      dep: { leadingBlow: 2 },
-      maxLevel: 6,
-      coords: { x: 4, y: 1.5 }
+    sleepThrow: {
+      name_en: "Noxious Torpor",
+      //Sleep Bomb
+      //desc: "Deals ranged bash damage to one target. Attempts to inflict sleep. If at the end of the turn the enemy is still asleep, attempt to instantly kill it.",
+      desc: "Umbral skill. Deals ranged bash damage to one target. Attempts to inflict sleep. If at the end of the turn the enemy is still asleep, recover Force.",
+      stats: ["STR", "LUC"],
+      dep: { nerveThrow: 3 },
+      maxLevel: 8,
+      coords: { x: 3, y: 1.25 }
     },
-    howlingFist: {
-      //Fist God/
-      name_en: "Howling Fist",
-      //desc: "Enables Cestus skills to crit. Increase Critical Chance",  Increase Critical chance against bound enemies.
-      desc: "Enables Cestus skills to crit. Increase Critical chance against bound enemies.",
+    proficiency: {
+      name_en: "Creeping Darkness",
+      //Quickdraw, Shadow Remnant
+      //Trance/Increases damage dealt to enemies with ailments. /
+      desc: "Any enemies hit with Umbral skills (except Noxious Torpor) are hit again with a ranged stab attack at the end of the turn.",
       stats: [],
-      dep: { },
+      dep: { sleepThrow: 3 },
+      maxLevel: 8,
+      coords: { x: 4, y: 0.75 }
+    },
+    speedUp: {
+      //name_en: "Umbral Double",
+      //desc: "Gives a chance for an extra follow-up attack on Umbral skills.",
+      //Splash Palm?
+      //If the user hits an enemy's weakness with a palm skill, there is a chance that they will deal splash damage of the same element to adjacent enemies.
+      name_en: "Effluvium Burst",
+      desc: "When an enemy is killed with a Umbral skill, the user will attack another enemy with the same element.",
+      stats: [],
+      dep: { sleepThrow: 3 },
+      maxLevel: 8,
+      coords: { x: 4, y: 1.75 }
+    },
+    venomThrow: {
+      name_en: "Coldblooded Venom",
+      //, Venom Bomb, Deep Freeze Umbral Venom
+      //desc: "Attempt to inflict poison on one target. If the enemy is hit by a ice element, follow up with another ice attack.",
+      desc: "Umbral skill. Attempt to inflict poison on one target. If the enemy is hit by ice damage, follow up with ranged ice damage that increases poison duration by one.",
+      stats: ["STR", "LUC"],
+      dep: { proficiency: 3, speedUp: 3 },
+      maxLevel: 8,
+      coords: { x: 5, y: 1.25 }
+    },
+    bladeFlurry: {
+      name_en: "Masked Pain",
+      //cleanse, Detox Bomb
+      desc: "Umbral skill. Removes ailments and binds from one ally. Level up to increase number of binds and type of ailments removed.",
+      stats: ["Arms"],
+      dep: { curseThrow: 2 },
+      maxLevel: 4,
+      coords: { x: 1, y: 2.75 }
+    },
+    spreadThrow: {
+      name_en: "Eventide",
+      // Eventide / Nightfall
+      desc: "Until the end of the next turn, increases Umbral skills' range to all targets, and improves their infliction rate.",
+      stats: [],
+      dep: { bladeFlurry: 2 },
+      maxLevel: 6,
+      coords: { x: 2, y: 2.75 }
+    },
+    foulMastery: {
+      name_en: "Sadistic Ecstasy",
+      //delight
+      desc: "Increases attack every time the user inflicts an ailment. Bonus stacks up to 3 times, and is reset if the user dies.",
+      stats: [],
+      dep: { spreadThrow: 2 },
       maxLevel: 10,
-      coords: { x: 0, y: 4.5 }
+      coords: { x: 3, y: 2.25 }
     },
-    axeKick: {
-      name_en: "Axe Kick",
-      //name_en: "Breaking Waves",Crimson Rouge
-      desc: "Deals melee bash damage to one target, with splash damage. If the target has binds or paralysis, attempts to spread the them to adjacent enemies.",
+    autoSpread: {
+      name_en: "Impending Doom",
+      //*Perseverance, Relentless Night, Seeping Darkness, Twilight Force, Dark Malady, Eventide, Ebon Fury, Scourge of Darkness, Blackout, Dusk to Dawn, Dark Descent, Relentless Pursuit
+      desc: "Increases the chance of inflicting an ailment if the user failed to inflict one last turn.",
+      stats: [],
+      dep: { spreadThrow: 2 },
+      maxLevel: 6,
+      coords: { x: 3, y: 3.25 }
+    },
+    shadowBite: {
+      name_en: "Dusk to Dawn",
+      //(Increases ailment chance until the end of the next turn./
+      desc: "Deals melee cut damage to one target and removes an ailment. Damage is increased if the target has an ailment. Casts Eventide after use.",
       stats: ["STR"],
-      dep: { howlingFist: 2 },
-      maxLevel: 6,
-      coords: { x: 1, y: 3.5 }
-    },
-    faultBlocker: {
-      name_en: "*Fault Blocker",
-      desc: "For 3 turns, increases ailment/bind resistance and recovery for the user's row.",
-      stats: [],
-      dep: { axeKick: 2  },
-      maxLevel: 6,
-      coords: { x: 2, y: 3 }
-    },
-    adrenaline: {
-      name_en: "Adrenaline",
-      desc: "Restores TP to the user when they inflict a bind, ailment or stun. Inflicting something on multiple enemies will not increase the effect of this skill.",
-      stats: [],
-      dep: { faultBlocker: 2  },
-      maxLevel: 6,
-      coords: { x: 3, y: 3 }
-    },
-    meditation: {
-      name_en: "Meditation",
-      desc: "Until the end of the next turn, increases user's chance of inflicting binds and ailments.",
-      stats: [],
-      dep: { adrenaline: 2 },
+      dep: { foulMastery: 2, autoSpread: 2 },
       maxLevel: 8,
-      coords: { x: 4, y: 3 }
+      coords: { x: 4, y: 2.75 }
     },
-    thunderFist: {
-      name_en: "Thunder Fist",
-      //Unbrindled Strength Rushing Blood Punching Bag
-      //If it kills, recover TP. If the attack does not kill the target,
-      desc: "Deals melee bash+volt damage to one target. If that enemy was killed with Thunder Fist, attempt to inflict paralysis on all enemies, otherwise the user takes damage.",
-      stats: [],
-      dep: { meditation: 2 },
+    swiftEdge: {
+      name_en: "Ebon Frenzy",
+      desc: "Deals 3-5 instances of melee cut damage to one target. If the target has an ailment, maximum number of attacks is increased to 9 and increases Dusk to Dawn's damage until the end of the next turn.",
+      stats: ["STR"],
+      dep: { shadowBite: 3 },
       maxLevel: 8,
-      coords: { x: 5, y: 3 }
+      coords: { x: 5, y: 2.75 }
     },
-    doublePunch: {
-      name_en: "Double Punch",
-      desc: "When any single-action, single-target Pugilist skill is used, Corkscrew is used via Added Blow, or Cross Counter is used, if the skill fails to inflict their bind or ailment, there is a chance it will be repeated.",
-      // desc: "When any single-action, single-target Pugilist skill is used, or when Corkscrew is used via Added Blow, or when Cross Counter is used (despite what the description claims), if the skill fails to inflict their bind or ailment, there is a chance it will be repeated.",
+    shadowCloak: {
+      name_en: "Shadow Cloak",
+      desc: "Umbral skill. For 3 turns, negates one physical attack made against the user.",
       stats: [],
-      dep: { axeKick: 2 },
-      maxLevel: 6,
-      coords: { x: 2, y: 4 }
+      dep: { },
+      maxLevel: 4,
+      coords: { x: 0, y: 4.75 }
     },
-    breather: {
-      name_en: "?Breather",
-      desc: "Removes binds and ailment from an ally. If successful, increases the user's attack until the end of the next turn.",
-      //desc: "Removes binds and ailment from the user, and increases attack until the end of the next turn. Cannot be used if the user has no binds or ailments.",
+    decoySign: {
+      name_en: "?Decoy Sign",
+      desc: "For a set amount of turns, increases one ally's chance of being targeted and their evasion. Also increases their rows evasion.",
       stats: [],
-      dep: { doublePunch: 2 },
-      maxLevel: 6,
-      coords: { x: 3, y: 4 }
+      dep: { shadowCloak: 2 },
+      maxLevel: 4,
+      coords: { x: 1, y: 4.25 }
     },
-    crossCounter: {
-      name_en: "Cross Counter",
-      desc: "This turn, when a party member on the user's row is attacked, counterattacks with melee damage with the user's weapon and attempts to inflict the corresponding bind on the target. Does not activate if the counterattack cannot reach the enemy.",
+    autoCloak: {
+      name_en: "Auto-Cloak",
+      desc: "If Shadow Cloak is learned, there is a chance to automatically cast it at the start of battle. Cannot activate if another ally activated it first.",
+      stats: [],
+      dep: { decoySign: 1 },
+      maxLevel: 6,
+      coords: { x: 2, y: 4.25 }
+    },
+    returnCloak: {
+      name_en: "Shadow Remnant",
+      //Return Cloak
+      desc: "When Shadow Cloak negates an attack, there is a chance that Shadow Cloak will be automatically cast on the user.",
+      stats: [],
+      dep: { autoCloak: 3 },
+      maxLevel: 8,
+      coords: { x: 3, y: 4.25 }
+    },
+    followTrace: {
+      name_en: "Blackest Night",
+      //When Shadow Cloak negates an attack, there is a chance that the user will attack an enemy.",
+      desc: "For a set number of turns, increases evasion for one row.",
+      stats: [],
+      dep: { returnCloak: 3 },
+      maxLevel: 8,
+      coords: { x: 4, y: 4.25 }
+    },
+    bidingSlice: {
+      name_en: "*Biding Slice",
+      desc: "Deals melee cut damage to one target. If the user is not damaged until the end of the turn, deals melee cut damage to the same target with splash damage.",
+      stats: ["STR"],
+      dep: { shadowCloak: 1 },
+      maxLevel: 8,
+      coords: { x: 1, y: 5.25 }
+    },
+    attackBait: {
+      name_en: "Twilight Fury",
+      //Attack Bait
+      desc: "When the user or an adjacent ally is hit with an attack, the user will counter, with increased damage if they were the target. The chance of countering goes down with each successive counter.",
+      stats: ["STR"],
+      dep: { bidingSlice: 2 },
+      maxLevel: 8,
+      coords: { x: 2, y: 5.25 }
+    },
+    backstab: {
+      name_en: "Backstab",
+      desc: "Deals melee cut damage to one target. Attempts to inflict head bind. If the user has Shadow Cloak, add almighty element to the attack and increases damage.",
       stats: ["STR", "LUC"],
-      dep: { breather: 2 },
+      dep: { attackBait: 2 },
       maxLevel: 8,
-      coords: { x: 4, y: 4 }
+      coords: { x: 3, y: 5.25 }
     },
-    vajraForm: {
-      name_en: "Vajra Form",
-      //Raging Waves
-      //desc: "Increases damage dealt based on the number of binds and ailments the target has.",
-      desc: "For 3 turns, increase the user's critical chance and defence but decrease ailment/bind infliction chance.",
+    assassinate: {
+      name_en: "Assassinate",
+      desc: "Deals melee cut damage to one target. If the user has Shadow Cloak, attempts to inflict instant death.",
+      stats: ["STR"],
+      dep: { backstab: 3 },
+      maxLevel: 8,
+      coords: { x: 4, y: 5.25 }
+    },
+    sneakAttack: {
+      name_en: "*Sneak Attack",
+      //Dagger Fetish
+      desc: "For a set number of steps, increases the chance of preemptive attacks. Passively increases damage and TP while wielding daggers.",
       stats: [],
-      dep: { howlingFist: 2 },
+      dep: { },
       maxLevel: 6,
-      coords: { x: 1, y: 5.5 }
-    },
-   resonanceBlow: {
-      name_en: "*Resonance Blow",
-      desc: "Deals multiple instances of melee bash damage to one target. The number of hits increases based on the number of turns since Resonance Blow was last used.",
-      stats: ["STR"],
-      dep: { vajraForm: 2 },
-      maxLevel: 6,
-      coords: { x: 2, y: 5 }
-    },
-    flowingStrikes: {
-      name_en: "Greased Lightning",
-      //Relentless Strikes / Flowing Strikes
-      desc: "Increases damage dealt based on the number of attacks.",
-      stats: [],
-      dep: { resonanceBlow: 2 },
-      maxLevel: 8,
-      coords: { x: 3, y: 5 }
-    },
-    lashOut: {
-      name_en: "*Lash Out",
-      desc: "Deals multiple instances of melee bash damage to one target. The number of hits is equal to the number of hits made on the previous turn. No matter how many attacks Lash Out makes, it will always count as 1 attack for the purpose of this skill.",
-      stats: ["STR"],
-      dep: { flowingStrikes: 2 },
-      maxLevel: 8,
-      coords: { x: 4, y: 5 }
-    },
-    hundredFists: {
-      name_en: "Hundred Fists",
-      //Flurry of Fists
-      //desc: "When an enemy is killed with Breakfire Rush, the user will attack another enemy with melee bash damage.",
-      desc: "At the beginning of the next turn, deals multiple instances of melee bash damage to random enemies. Can hit the same target 4 times at most.",
-      stats: ["STR"],
-      dep: { vajraForm: 2 },
-      maxLevel: 8,
-      coords: { x: 2, y: 6 }
-    },
-    breakfireRush: {
-      name_en: "Breakfire Rush",
-      //Weaving Flurry
-      //desc: "After using an attack skill, if at least one of the skill's targets has a bind, there is a chance to repeat the skill.", Deals multiple instances of melee bash+fire damage to random targets.
-      //desc: "This turn, if the designated target is hit by a Fire or Bash attack, follow up with a melee Fire+Bash attack. The chance of a Chain activating starts at 100%, and decreases with each activation.",
-      desc: "Deals multiple instances of melee fire damage to an enemy row. Decreases the users critical rate for 1 turn after use.",
-      stats: ["STR"],
-      dep: { hundredFists: 2 },
-      maxLevel: 8,
-      coords: { x: 3, y: 6 }
-    },
-    haymaker: {
-      name_en: "Haymaker",
-      //Duplex Suplex (????)
-      //desc: "Gives a chance for an extra follow-up attack on Breakfire Rush activation.",
-      /// Activates Breakfire Rush, Resonance Blow, and Lash Out all at once. Applies a multiplier-based reduction to each skill's damage. The user's buffs are dispelled after Peerless Combo's use.
-      desc: "This turn, when the selected ally is attacked, counterattack with multiple instances of melee bash damage.",
-      stats: ["STR"],
-      dep: { breakfireRush: 2 },
-      maxLevel: 8,
-      coords: { x: 4, y: 6 }
+      coords: { x: 2, y: 0 }
     },
     chop: {
       name_en: "Chop",
@@ -806,12 +804,6 @@ let skills = {
       maxLevel: 1,
       coords: { x: 0, y: 6 }
     }
-      //Onslaught / Shoulder Tackle / Triple Strike / Cursed Fist
-      //desc: "Whenever an enemy gets inflicted by a bind, follow up with an attack.
-      // Deals 3 instances of melee bash damage to one enemy. Each hit attempts to inflict head/arm/leg bind. If the target is bound by one of the attacks, the remaining attacks will not be made.",
-      //Deals multiple instances of melee bash+fire damage to random targets. For 3 turns, increases the user's attack but decreases ailment/bind infliction.
-      //Deals melee bash damage to one target. Attempts to inflict curse on the target. Clears ailments and for 3 turns, the enemy will negate ailments and have their ailment recovery reduced.
-      //Toxic Jab |(Attempts to inflict poison on the target. 1% Chance and 200+ Poison damage)
   },
 
 
