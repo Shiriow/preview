@@ -2,7 +2,7 @@ let skills = {
 
   Shogun: {
     fullCombatForm: {
-      name_en: "Full Combat Form",
+      name_en: "*Full Combat Form",
       desc: "For 3 turns, increases maximum HP and attack for all party members.",
       stats: [],
       unique: true,
@@ -13,7 +13,6 @@ let skills = {
     },
     bodyDouble: {
       name_en: "Body Double",
-      name_jp: "影武者",
       desc: "This turn, all party members will negate any hostile action once.",
       stats: [],
       unique: true,
@@ -24,251 +23,198 @@ let skills = {
     },
     parryingBlade: {
       name_en: "*Parrying Blade",
-      name_jp: "払い弐刀",
-      desc: "Increases physical defense and normal attacks may hit 2-4 times when two weapons are equipped. Enables sub-weapon when this skill is learned.",
+      desc: "Increases physical defense and the user can attack with both weapons if two weapons are equipped. Damage of the second attack is based on this skill's level. Enables sub-weapon when this skill is learned.",
+      //desc: "Increases physical defense and normal attacks may hit 2-4 times when two weapons are equipped. Enables sub-weapon when this skill is learned.",
       stats: [],
       dep: { },
-      maxLevel: 6,
+      maxLevel: 8,
       coords: { x: 0, y: 1.85 }
-    },
-    spiritFlow: {
-      name_en: "Spirit Flow",
-      name_jp: "谺流し",
-      desc: "Deals melee damage to one target with the equipped katana at the start of turn. If two weapons are equipped, attacks again with the other weapon after the target acts.",
-      stats: ["STR"],
-      dep: { parryingBlade: 2 },
-      maxLevel: 10,
-      coords: { x: 1, y: 1 }
-    },
-    twinSparrow: {
-      name_en: "Twin Sparrow/???",
-      name_jp: "双燕",
-      desc: "Deals melee damage to one target with the user's weapon. If two weapons are equipped, this skill will hit twice. First hit will be from the katana, while the second hit will be from the other weapon.",
-      stats: ["STR"],
-      dep: { spiritFlow: 3 },
-      maxLevel: 10,
-      coords: { x: 2, y: 0.5 }
-    },
-    fiveRingSword: {
-      name_en: "Five-Ring Sword",
-      name_jp: "五輪の剣",
-      desc: "Deals multiple instances of melee damage to random targets with user's weapon. If two weapons are equipped, the maximum number of hits will double, and this attack will alternate between the katana and the other weapon.",
-      stats: ["STR"],
-      dep: { twinSparrow: 2 },
-      maxLevel: 10,
-      coords: { x: 3, y: 0.5 }
     },
     hawkSlice: {
       name_en: "Hawk Slice",
-      name_jp: "無明の極",
       desc: "Deals melee damage to one target with the user's weapon. If a second weapon is equipped, attack adjacent enemies.",
       stats: [],
-      dep: { spiritFlow: 3 },
-      maxLevel: 6,
-      coords: { x: 2, y: 1.5 }
+      dep: { parryingBlade: 3 },
+      maxLevel: 8,
+      coords: { x: 1, y: 1 }
     },
-    fellingBird: {
-      name_en: "Gnashing Fang",
-      name_jp: "飛鳥落とし",
-      desc: "Deals melee damage to one target with the user's weapon. If that enemy is killed and a second weapon is equipped, attack all enemies.",
-      stats: [],
+    fiveRingSword: {
+      name_en: "Five-Ring Sword",
+      desc: "Deals multiple instances of melee damage to random targets with user's weapon. If two weapons are equipped, the maximum number of hits will double, and this attack will alternate between the katana and the other weapon.",
+      stats: ["STR"],
       dep: { hawkSlice: 2 },
       maxLevel: 10,
-      coords: { x: 3, y: 1.5 }
+      coords: { x: 2, y: 1.5 }
     },
-    dissection: {
-      name_en: "*Dissection",
-      name_jp: "雷切",
+    gnashingFang: {
+      name_en: "Gnashing Fang",
+      //Same damage makes it semi-AoE, can "exploit" weakness on non-weak targets
+      desc: "Deals melee damage to one target with the user's weapon. If that enemy is killed and a second weapon is equipped, attack all enemies for the same damage.",
+      stats: [],
+      dep: { hawkSlice: 2 },
+      maxLevel: 8,
+      coords: { x: 2, y: 0.5 }
+    },
+    finalFlicker: {
+      name_en: "Final Flicker",
       desc: "When the user kills an enemy, restores Force to all party members.",
       stats: ["STR"],
-      dep: { fellingBird: 2 },
+      dep: { gnashingFang: 2 },
       maxLevel: 6,
-      coords: { x: 4, y: 1.5 }
+      coords: { x: 3, y: 0 }
+    },
+    soaringTempest: {
+      name_en: "Soaring Tempest",
+      desc: "Deals 3 instances of ranged weapon damage to all enemies with user's weapon. Damage decreases based on the number of enemies. Does 65% damage for 2 enemies, 45% for 3 enemies, and 35% for 4+ enemies. Recovers Force with each hit.",
+      // bind cuts seem to work per hit, could be useful for force gain
+      stats: ["STR"],
+      dep: { finalFlicker: 3 },
+      maxLevel: 8,
+      coords: { x: 4, y: 0 }
     },
     bloodyLance: {
       name_en: "Bloody Lance",
-      name_jp: "血染めの朱槍",
       desc: "When the user kills an enemy or ally, their attack is increased. The effect is reset when the user dies.",
       stats: [],
-      dep: { dissection: 2 },
+      dep: { gnashingFang: 2 },
       maxLevel: 6,
-      coords: { x: 5, y: 1 }
+      coords: { x: 3, y: 1 }
     },
     mercyKill: {
       name_en: "Mercy Kill",
-      name_jp: "介錯",
       desc: "When any enemy or ally is attacked, and their HP falls below a set percentage, there is a chance to inflict instant death to them.",
       stats: [],
-      dep: { dissection: 2 },
-      maxLevel: 4,
-      coords: { x: 5, y: 2 }
+      dep: { finalFlicker: 2 },
+      maxLevel: 8,
+      coords: { x: 4, y: 1 }
     },
-    trickStance: {
-      name_en: "*Trick Stance",
-      name_jp: "明星",
-      desc: "For the next three turns, when you attack your allies on the same row will also attack.",
+    savageClaw: {
+      name_en: "Savage Claw",
+      desc: "Normal attacks may hit 2-4 times.",
+      // desc: "Normal attacks recover TP and may hit 2-4 times.",
       stats: ["STR"],
       dep: { parryingBlade: 2 },
-      maxLevel: 6,
+      maxLevel: 8,
       coords: { x: 1, y: 2.65 }
     },
-    wickedTalons: {
-      name_en: "*Wicked Talons",
-      name_jp: "禍時",
-      desc: "Normal attacks now recover TP.",
-      stats: ["STR"],
-      dep: { trickStance: 2 },
+    soleFocus: {
+      name_en: "Sole Focus", //Spirit Blade, Focus, Domain, Field, Firm Spirit, Single Devote, Sole Lone
+      desc: "Increases damage when fewer elements are used in an attack.",
+      stats: [],
+      dep: { savageClaw: 2 },
       maxLevel: 6,
       coords: { x: 2, y: 2.65 }
     },
-    peerlessDemon: {
-      name_en: "Peerless Demon",
-      name_jp: "介錯",
-      desc: "Increases damage dealt based on the number of attacks.",
-      stats: [],
-      dep: { wickedTalons: 2 },
+    wickedTalons: {
+      name_en: "Wicked Talons",
+      desc: "Normal attacks recover TP.",
+      stats: ["STR"],
+      dep: { soleFocus: 2 },
       maxLevel: 4,
       coords: { x: 3, y: 2.65 }
     },
     blitzCommand: {
       name_en: "Blitz Command",
-      name_jp: "乱れ竜の陣",
       desc: "All allies other than the user will attack one target with their weapons.",
       stats: ["STR"],
       dep: { },
-      maxLevel: 10,
+      maxLevel: 8,
       coords: { x: 0, y: 3.85 }
     },
-    baitCommand: {
-      name_en: "Bait Command/???",
-      name_jp: "据え虎の陣",
-      desc: "This turn, when the user is attacked, all allies other than the user will counterattack with their weapons. Does not activate against counterattacks.",
-      stats: ["STR"],
+    galvanize: {
+      name_en: "Galvanize", //Heal Command
+      desc: "All allies other than the user will heal random party members a set number of times. Each party member can only be healed once per ally.",
+      // desc: "Command an ally to heal random party members a set number of times. Each party member can be healed a maximum of 2 times.",
+      stats: [],
       dep: { blitzCommand: 2 },
-      maxLevel: 6,
+      maxLevel: 8,
       coords: { x: 1, y: 3.85 }
     },
-    counterCommand: {
-      name_en: "*Counter Command",
-      name_jp: "斬月居合陣",
+    ambushStance: {
+      name_en: "Ambush Stance", //*Counter Command
       desc: "This turn, when the selected ally is attacked, all front row allies will counterattack with their weapons. Does not activate against counterattacks.",
       stats: ["STR"],
-      dep: { baitCommand: 2 },
+      dep: { galvanize: 2 },
       maxLevel: 8,
       coords: { x: 2, y: 3.85 }
     },
-    rushCommand: {
-      name_en: "*Rush Command",
-      name_jp: "報復射撃陣",
-      desc: "Deals melee damage to one target with the user's weapon. Allies on your row will chase after.",
-      stats: ["STR"],
-      dep: { counterCommand: 3 },
+    rearDignity: {
+      name_en: "Rear Dignity",  //Emergency Tactics
+      desc: "Reduces damage done and taken to a row for one turn.",
+      stats: [],
+      dep: { ambushStance: 2 },
       maxLevel: 6,
       coords: { x: 3, y: 3.85 }
     },
-    chaseStance: {
-      name_en: "*Chase Stance",
-      name_jp: "刺客寄せ",
-      desc: "For the next three turns you will chase attacks made by your allies on the same row.",
-      stats: [],
-      dep: { rushCommand: 3, peerlessDemon: 2 },
-      maxLevel: 6,
+    sanzuCross: {
+      name_en: "Sanzu Cross",
+      //desc: "This turn, the user will chase all attacks from all allies, but will lose HP for every chase. Links, chases and counterattacks cannot be chased. Only one chase will be made for each action.",
+      desc: "This turn, the user will chase attacks from all allies and enemies. Links, chases and counterattacks cannot be chased. Only one chase will be made for each action.",
+      stats: ["STR"],
+      dep: { wickedTalons: 2, rearDignity: 2 },
+      maxLevel: 10,
       coords: { x: 4, y: 3.25 }
     },
-    warriorMight: {
-      name_en: "*?Warrior Might",
-      name_jp: "一騎当千",
-      desc: "This turn, the user will chase all attacks from all allies, but will lose HP for every chase. Links, chases and counterattacks cannot be chased. Only one chase will be made for each action. / Chases all attacks made by allies and enemies this turn. Deals melee, STR-based Cut damage to targets.",
-      stats: ["STR"],
-      dep: { chaseStance: 2 },
-      maxLevel: 10,
-      coords: { x: 5, y: 3.25 }
-    },
-    moraleBoost: {
-      name_en: "Morale Boost",
-      name_jp: "士気回復",
-      desc: "When the user is revived, restores HP to all allies.",
+    blazeSpirit: {
+      name_en: "Blaze Spirit",
+      // desc: "For a set number of turns, imbues one row of allies' weapons with fire, and increases their fire defense.", Select one ally and, for a set number of turns, everytime they attack, they'll attack again with their weapon.
+      desc: "For a set number of turns, imbue an ally's weapon with fire and have them automatically counterattack enemies who attacks them. The ally's row is also imbued with fire.",
       stats: [],
-      dep: { },
-      maxLevel: 6,
-      coords: { x: 1, y: 6 }
-    },
-    ritualSuicide: {
-      name_en: "Ritual Suicide",
-      name_jp: "切腹",
-      desc: "Restores HP to all other allies with a chance to revive them, but the user dies. This self-inflicted death cannot be prevented via any means.",
-      stats: ["WIS"],
-      dep: { },
-      maxLevel: 8,
-      coords: { x: 2, y: 6 }
-    },
-    reincarnation: {
-      name_en: "Reincarnation",
-      name_jp: "仮死再生",
-      desc: "On the turn when the user's HP reaches 0, there is a chance that they may revive at the end of that turn.",
-      stats: [],
-      dep: { ritualSuicide: 2 },
-      maxLevel: 10,
-      coords: { x: 3, y: 6 }
-    },
-    foreHonor: {
-      name_en: "*Fore Honor",
-      name_jp: "先陣の名誉",
-      desc: "For a set number of turns, increases one ally's physical attack and action speed.",
-      stats: [],
-      dep: { },
+      dep: {  },
       maxLevel: 6,
       coords: { x: 0, y: 5 }
     },
-    // unifiedSpirit: {
-    //   name_en: "*Unified Spirit",
-    //   name_jp: "祟り打ち",
-    //   desc: "For a set number of turns, imbues one row of allies' weapons with fire/ice/volt, and increases their elemental defense.",
-    //   stats: [],
-    //   dep: { foreHonor: 2 },
-    //   maxLevel: 6,
-    //   coords: { x: 1, y: 5 }
-    // },
-    fireSpirit: {
-      name_en: "Blaze Spirit",
-      name_jp: "祟り打ち",
-      desc: "For a set number of turns, imbues one row of allies' weapons with fire, and increases their fire defense. / Select one ally and, for a set number of turns, everytime they attack, they'll attack again with their weapon. The ally's row is also imbued with volt.",
+    hailSpirit: {
+      name_en: "Hail Spirit",
+      desc: "For a set number of turns, imbue an ally's weapon with ice and have them automatically counterattack enemies who attacks them. The ally's row is also imbued with ice.",
       stats: [],
-      dep: { foreHonor: 2 },
-      maxLevel: 4,
+      dep: { blazeSpirit: 2 },
+      maxLevel: 6,
       coords: { x: 1, y: 5 }
     },
-    iceSpirit: {
-      name_en: "Hail Spirit",
-      name_jp: "祟り打ち",
-      desc: "For a set number of turns, imbues one row of allies' weapons with ice, and increases their ice defense. / Select one ally and, for a set number of turns, everytime they attack, they'll attack again with their weapon. The ally's row is also imbued with ice.",
-      stats: [],
-      dep: { fireSpirit: 2 },
-      maxLevel: 4,
-      coords: { x: 2, y: 5 }
-    },
-    voltSpirit: {
+    boltSpirit: {
       name_en: "Bolt Spirit",
-      name_jp: "祟り打ち",
-      desc: "For a set number of turns, imbues one row of allies' weapons with volt, and increases their volt defense. / Select one ally and, for a set number of turns, everytime they attack, they'll attack again with their weapon. The ally's row is also imbued with volt.",
+      desc: "For a set number of turns, imbue an ally's weapon with volt and have them automatically counterattack enemies who attacks them. The ally's row is also imbued with volt.",
       stats: [],
-      dep: { iceSpirit: 2 },
-      maxLevel: 4,
-      coords: { x: 3, y: 5 }
+      dep: { blazeSpirit: 2 },
+      maxLevel: 6,
+      coords: { x: 1, y: 6 }
     },
     greatGeneral: {
       name_en: "*Great General",
-      name_jp: "大武辺者",
-      //desc: "For a set number of turns, increases the users attack, defense and chance of being targeted.",
+      //desc: "For a set number of turns, increases the user's attack, defense and chance of being targeted.",
       desc: "For a set number of turns, increases one ally's physical attack and chance of being targeted.",
       stats: [],
-      dep: { voltSpirit: 2 },
+      dep: { hailSpirit: 2, boltSpirit: 2 },
+      maxLevel: 6,
+      coords: { x: 2, y: 5.5 }
+    },
+    moraleBoost: {
+      name_en: "Morale Boost",
+      desc: "When the user is revived, restores HP to all allies.",
+      stats: [],
+      dep: { greatGeneral: 2 },
+      maxLevel: 6,
+      coords: { x: 3, y: 5 }
+    },
+    ritualSuicide: {
+      name_en: "Ritual Suicide",
+      desc: "Restores HP to all other allies with a chance to revive them, but the user dies. This self-inflicted death cannot be prevented via any means.",
+      stats: ["WIS"],
+      dep: { greatGeneral: 2 },
       maxLevel: 8,
-      coords: { x: 4, y: 5 }
+      coords: { x: 3, y: 6 }
+    },
+    reincarnation: {
+      name_en: "Reincarnation",
+      desc: "On the turn when the user's HP reaches 0, there is a chance that they may revive at the end of that turn.",
+      stats: [],
+      dep: { ritualSuicide: 2, moraleBoost: 2 },
+      maxLevel: 10,
+      coords: { x: 4, y: 5.5 }
     },
     take: {
       name_en: "Take",
-      name_jp: "採取",
       desc: "Occasionally gains more items when using Take points.",
       stats: [],
       unique: true,
@@ -276,6 +222,80 @@ let skills = {
       maxLevel: 1,
       coords: { x: 0, y: 6 }
     }
+    // doubleAttack: {
+    //   name_en: "Double Attack/???",
+    //   desc: "Select an ally. The user and that ally will attack an enemy with their weapons. / Order an ally to chase all attacks.",
+    //   stats: [],
+    //   dep: {  },
+    //   maxLevel: 8,
+    //   coords: { x: 5, y: 5.5 }
+    // },
+    // guardCommand: {
+    //   name_en: "Guard Command/Strike Chaser",
+    //   desc: "Select an ally. Their rows defensive stats are replaced by the targets.",
+    //   stats: [],
+    //   dep: {  },
+    //   maxLevel: 4,
+    //   coords: { x: 5, y: 4.5 }
+    // },
+    // spiritFlow: {
+    //   name_en: "Spirit Flow/???",
+    //   desc: "Deals melee damage to one target with the equipped katana at the start of turn. If two weapons are equipped, attacks again with the other weapon after the target acts.",
+    //   stats: ["STR"],
+    //   dep: { parryingBlade: 2 },
+    //   maxLevel: 10,
+    //   coords: { x: 1, y: 1 }
+    // },
+    // baitCommand: {
+    //   name_en: "delet",
+    //   //Bait Command
+    //   desc: "This turn, when the user is attacked, all allies other than the user will counterattack with their weapons. Does not activate against counterattacks.",
+    //   stats: ["STR"],
+    //   dep: { blitzCommand: 2 },
+    //   maxLevel: 6,
+    //   coords: { x: 1, y: 3.85 }
+    // },
+    // rushCommand: {
+    //   name_en: "delet",
+    //   //*Rush Command
+    //   desc: "Deals melee damage to one target with the user's weapon. Allies on your row will chase after.",
+    //   stats: ["STR"],
+    //   dep: { counterCommand: 3 },
+    //   maxLevel: 6,
+    //   coords: { x: 3, y: 3.85 }
+    // },
+    // chaseStance: {
+    //   name_en: "*Chase Stance",
+    //   desc: "For the next three turns you will chase attacks made by your allies on the same row.",
+    //   stats: [],
+    //   dep: { counterCommand: 3, peerlessDemon: 2 },
+    //   maxLevel: 6,
+    //   coords: { x: 3, y: 3.25 }
+    // },
+    // trickStance: {
+    //   name_en: "*Trick Stance",
+    //   desc: "For the next three turns, when you attack your allies on the same row will also attack.",
+    //   stats: ["STR"],
+    //   dep: { counterCommand: 3, peerlessDemon: 2 },
+    //   maxLevel: 6,
+    //   coords: { x: 3, y: 3.25 }
+    // },
+    // foreHonor: {
+    //   name_en: "*Fore Honor/delet?",
+    //   desc: "For a set number of turns, increases one ally's physical attack and action speed.",
+    //   stats: [],
+    //   dep: { },
+    //   maxLevel: 6,
+    //   coords: { x: 0, y: 5 }
+    // },
+    // unifiedSpirit: {
+    //   name_en: "*Unified Spirit",
+    //   desc: "For a set number of turns, imbues one row of allies' weapons with fire/ice/volt, and increases their elemental defense.",
+    //   stats: [],
+    //   dep: { foreHonor: 2 },
+    //   maxLevel: 6,
+    //   coords: { x: 1, y: 5 }
+    // },
   },
   Protectorv2: {
     shieldProtect: {
