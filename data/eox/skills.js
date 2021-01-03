@@ -3,7 +3,6 @@ let skills = {
   Shogun: {
     fullCombatForm: {
       name_en: "Full Combat Form",
-      name_jp: "力戦陣形",
       desc: "For 3 turns, increases maximum HP and attack for all party members.",
       stats: [],
       unique: true,
@@ -565,10 +564,10 @@ let skills = {
       coords: { x: 0, y: 6 }
     }
   },
-  Nightseeker: {
-    killerStance: {
-      name_en: "Killer Stance",
-      desc: "For 3 turns, increases attack and ailment infliction chance for the user.",
+  Landsknecht: {
+    trinity: {
+      name_en: "Trinity",
+      desc: "For 3 turns, increases the user's attack, accuracy and action speed.",
       stats: [],
       unique: true,
       type: "Boost",
@@ -576,228 +575,250 @@ let skills = {
       maxLevel: 0,
       coords: { x: 0, y: 0 }
     },
-    disaster: {
-      name_en: "Disaster",
-      desc: "Deals melee cut damage to one target. If the target has an ailment, increases the ailment's duration.",
-      stats: ["STR"],
+    fullCharge: {
+      name_en: "Full Charge",
+      desc: "This turn, the user is fully immune to any hostile effects from enemies. Until the end of the next turn, increases the user's attack and action speed.",
+      stats: [],
       unique: true,
       type: "Break",
-      dep: { killerStance: 0 },
+      dep: { trinity: 0 },
       maxLevel: 0,
       coords: { x: 1, y: 0 }
     },
-    curseThrow: {
-      name_en: "?Abyssal Curse",
-      //powder, Flask, Phial, Vial / Curse Bomb, Umbral Curse
-      desc: "Umbral skill. Deals ranged bash damage to one target and increases Creeping Darkness's damage. Attempts to inflict curse.",
-      stats: ["STR", "LUC"],
+    blazingLink: {
+      name_en: "Blazing Link",//Strike Link
+      desc: "Deals melee fire damage to one target. If the target is attacked again after, follows up with another attack of the same element for a maximum of 9 times. {Decreases the targets fire resistance for the turn.}",
+      //Chance of follow-up decreases with each hit.  Replaces the element of the next skill with Fire.
+      stats: ["STR, Rapier"],
       dep: { },
-      maxLevel: 8,
+      maxLevel: 6,
+      coords: { x: 0, y: 1 }
+    },
+    freezingLink: {
+      name_en: "Freezing Link",
+      desc: "Deals melee ice damage to one target. If the target is attacked again after, follows up with another attack of the same element for a maximum of 9 times. {Decreases the targets ice resistance for the turn.}",
+      stats: ["STR, Rapier"],
+      dep: { },
+      maxLevel: 6,
       coords: { x: 0, y: 2 }
     },
-    sandThrow: {
-      name_en: "Shadowflame",
-      // Umbral Flare / Necrotic+ / +Sign / Noxious / Effluvium / Spark / Umbra / Smoke Bomb / Dark Haze / Shade / Obscurity / Paranoia / Nocturne / Oblivion / Abyssal / Nightmare
-      //desc: "Attempt to inflict blind on one target. If the enemy is hit by a fire element, follow up with another fire attack.",
-      desc: "Umbral skill. Attempt to inflict blind on one target. If the enemy is hit by fire damage, follow up with ranged fire damage that reduces their accuracy for 3 turns.",
-      stats: ["STR", "LUC"],
-      dep: { curseThrow: 3  },
-      maxLevel: 8,
-      coords: { x: 1, y: 1.25 }
-    },
-    nerveThrow: {
-      name_en: "Shockgrasp",
-      //, Nerve Bomb, Umbral Spark / Vacuum
-      //desc: "Attempt to inflict paralysis on one target. If the enemy is hit by a volt element, follow up with another volt attack that purges all buffs from hit targets. Damage is doubled for each buff removed, up to 6x for three buffs.",
-      //and the user's row has increased evasion for a set number of turns
-      desc: "Umbral skill. Attempt to inflict paralysis on one target. If the enemy is hit by volt damage, follow up with ranged volt damage that attempts to instantly empty their remaining HP if that enemy is at 40% HP or below. If the HP emptying succeeds, restores a percentage of the HP emptied to the user.",
-      stats: ["STR", "LUC"],
-      dep: { sandThrow: 3 },
-      maxLevel: 8,
-      coords: { x: 2, y: 1.25 }
-    },
-    sleepThrow: {
-      name_en: "Noxious Torpor",
-      //Sleep Bomb
-      //desc: "Deals ranged bash damage to one target. Attempts to inflict sleep. If at the end of the turn the enemy is still asleep, attempt to instantly kill it.",
-      desc: "Umbral skill. Deals ranged bash damage to one target. Attempts to inflict sleep. If at the end of the turn the enemy is still asleep, recover Force.",
-      stats: ["STR", "LUC"],
-      dep: { nerveThrow: 3 },
-      maxLevel: 8,
-      coords: { x: 3, y: 1.25 }
-    },
-    proficiency: {
-      name_en: "Creeping Darkness",
-      //Quickdraw, Shadow Remnant
-      //Trance/Increases damage dealt to enemies with ailments. /
-      desc: "Any enemies hit with Umbral skills (except Noxious Torpor) are hit again with a ranged stab attack at the end of the turn.",
-      stats: [],
-      dep: { sleepThrow: 3 },
-      maxLevel: 8,
-      coords: { x: 4, y: 0.75 }
-    },
-    speedUp: {
-      //name_en: "Umbral Double",
-      //desc: "Gives a chance for an extra follow-up attack on Umbral skills.",
-      //Splash Palm?
-      //If the user hits an enemy's weakness with a palm skill, there is a chance that they will deal splash damage of the same element to adjacent enemies.
-      name_en: "Effluvium Burst",
-      desc: "When an enemy is killed with a Umbral skill, the user will attack another enemy with the same element.",
-      stats: [],
-      dep: { sleepThrow: 3 },
-      maxLevel: 8,
-      coords: { x: 4, y: 1.75 }
-    },
-    venomThrow: {
-      name_en: "Coldblooded Venom",
-      //, Venom Bomb, Deep Freeze Umbral Venom
-      //desc: "Attempt to inflict poison on one target. If the enemy is hit by a ice element, follow up with another ice attack.",
-      desc: "Umbral skill. Attempt to inflict poison on one target. If the enemy is hit by ice damage, follow up with ranged ice damage that increases poison duration by one.",
-      stats: ["STR", "LUC"],
-      dep: { proficiency: 3, speedUp: 3 },
-      maxLevel: 8,
-      coords: { x: 5, y: 1.25 }
-    },
-    bladeFlurry: {
-      name_en: "Masked Pain",
-      //cleanse, Detox Bomb
-      desc: "Umbral skill. Removes ailments and binds from one ally. Level up to increase number of binds and type of ailments removed.",
-      stats: ["Arms"],
-      dep: { curseThrow: 2 },
-      maxLevel: 4,
-      coords: { x: 1, y: 2.75 }
-    },
-    spreadThrow: {
-      name_en: "Eventide",
-      // Eventide / Nightfall
-      desc: "Until the end of the next turn, increases Umbral skills' range to all targets, and improves their infliction rate.",
-      stats: [],
-      dep: { bladeFlurry: 2 },
+    electricLink: {
+      // name_en: "", //?Heal Link?, Aoe Link
+      // desc: "Deals melee stab damage to one row. If the targets are attacked again after, follows up with another attack of the same element for a maximum of 9 times.",
+      //desc: "Deals melee stab damage to one target. If the target is attacked again after, follows up with another stab attack for a maximum of ? times. Each follow up recovers the partys health. | Restores HP to the user's row. If the targets are attacked again after, follows up with another heal for a maximum of ? times.",
+      name_en: "Electric Link",
+      desc: "Deals melee volt damage to one target. If the target is attacked again after, follows up with another attack of the same element for a maximum of 9 times. {Decreases the targets volt resistance for the turn.}",
+      // / Gives normal attacks a chance to add an extra INT-based ice attack.
+      stats: ["STR, Rapier"],
+      dep: { },
       maxLevel: 6,
-      coords: { x: 2, y: 2.75 }
+      coords: { x: 0, y: 3 }
     },
-    foulMastery: {
-      name_en: "Sadistic Ecstasy",
-      //delight
-      desc: "Increases attack every time the user inflicts an ailment. Bonus stacks up to 3 times, and is reset if the user dies.",
+    // improvedLink: {
+    //   name_en: "???/Improved Link",
+    //   desc: "For 3 turns, increases the number and chance of follow-ups that can be made from link skills used by the user. Each action may trigger at most 4 link follow-ups.",
+    //   stats: [],
+    //   dep: { blazingLink: 3, freezingLink: 3, electricLink: 3 },
+    //   maxLevel: 4,
+    //   coords: { x: 1, y: 2 }
+    // },
+    improvedLink: {
+      // name_en: "Link Burst",
+      // desc: "When an enemy is killed with a Link skill, the user will attack another enemy with melee damage of the same element multiple times.",
+      name_en: "Splash Link",
+      desc: "If the user hits an enemy's weakness with a Link skill, there is a chance that they will deal splash damage of the same element to adjacent enemies.",
       stats: [],
-      dep: { spreadThrow: 2 },
+      dep: { blazingLink: 3, freezingLink: 3, electricLink: 3 },
+      maxLevel: 8,
+      coords: { x: 1, y: 1.5 }
+    },
+    linkSmash: {
+      name_en: "Link Smash",
+      desc: "Link follow-up attacks can deal critical hits. If an action triggered multiple follow-ups and one of them dealt a critical hit, all subsequent follow-ups triggered by that action will automatically deal critical hits as well.",
+      stats: [],
+      dep: { blazingLink: 3, freezingLink: 3, electricLink: 3 },
+      maxLevel: 8,
+      coords: { x: 1, y: 2.5 }
+    },
+    bindingForce: {
+      // name_en: "Link Chaser",
+      // desc: "Deals melee stab damage to one target. If the target is attacked again after, follows up with another stab attack for a maximum of ? times. Each follow up recovers the partys health. | Restores HP to the user's row. If the targets are attacked again after, follows up with another heal for a maximum of ? times.",
+      name_en: "Binding Force",
+      desc: "Deals melee stab damage to one target. If the target is attacked again after, follows up with another stab attack for a maximum of ? times. Each follow up has a chance of randomly binding.",
+      stats: ["STR, Rapier"],
+      dep: { improvedLink: 1, linkSmash: 1 },
+      maxLevel: 8,
+      coords: { x: 2, y: 2 }
+    },
+    linkMastery: {
+      name_en: "Link Mastery",
+      desc: "For each link follow-up made this turn, increases the damage of subsquent link follow-ups.",
+      stats: [],
+      dep: { bindingForce: 2 },
+      maxLevel: 8,
+      coords: { x: 3, y: 1.5 }
+    },
+    sylphScreen: {
+      name_en: "Sylphscreen",
+      desc: "Each time the user attacks or uses an attack skill, their defense increases for that turn.",
+      stats: [],
+      dep: { bindingForce: 2 },
+      maxLevel: 8,
+      coords: { x: 3, y: 2.5 }
+    },
+    linkEnd: {
+      name_en: "Glacial Finale",
+      desc: "Deals melee ice damage to one target. Damage is based on the number of link follow-ups made on the previous turn and if the target has a Break skill debuff. Casts Improved Link after use.",
+      stats: ["STR, Rapier"],
+      dep: { linkMastery: 2 },
+      maxLevel: 8,
+      coords: { x: 4, y: 1.5 }
+    },
+    swiftStab: {
+      name_en: "*Million Thrust",
+      desc: "Deals multiple instances of melee stab damage to random targets next turn. Counts as a Link skill.",
+      stats: ["STR, Rapier"],
+      dep: { sylphScreen: 2 },
+      maxLevel: 8,
+      coords: { x: 4, y: 2.5 }
+    },
+    fullBreak: {
+      name_en: "*Full Break",
+      //desc: "Deals melee cut/stab damage to one target. Damage is increased if the target has a Break skill debuff. Multiple Break debuffs will not increase damage further. Removes one debuff after use.",
+      desc: "Deals melee cut/stab damage to one target. If the target is attacked again after, follows up with another attack of the same element for a maximum of 6 times that decreases their attack, defense, evasion and action speed for 1 turn. Chance of follow-up decreases with each hit.",
+      stats: ["STR, Sword, Rapier"],
+      dep: { linkEnd: 3, swiftStab:3 },
+      maxLevel: 8,
+      coords: { x: 5, y: 2 }
+    },
+    powerBreak: {
+      name_en: "Icicle Crash", //Power Break
+      //desc: "Deals melee cut/stab damage to one target. Decreases their attack for 3 turns.",
+      desc: "Deals ranged ice damage to one target.",
+      // desc: "Deals melee cut/stab damage to one target. If the target is attacked again after, follows up with another attack of the same element for a maximum of 6 times that decreases their attack for 1 turn. Chance of follow-up decreases with each hit.",
+      stats: ["INT, Sword, Rapier"],
+      dep: { },
+      maxLevel: 6,
+      coords: { x: 0, y: 5 }
+    },
+    guardBreak: {
+      name_en: "Spellblade",//Guard Break
+      //desc: "Deals melee cut/stab damage to one target. Decreases their defense for 3 turns.",
+      // desc: "This turn, the user will chase all attacks from all allies. Only one chase will be made for each action and they decrease the enemy's defense for 1 turn.",
+      desc: "Deals melee ice damage to one target. Has a chance to follow-up with Icicle Crash with added damage.",
+      stats: ["STR, Sword, Rapier"],
+      dep: { powerBreak: 2 },
+      maxLevel: 8,
+      coords: { x: 1, y: 5 }
+    },
+    speedBreak: {
+      name_en: "Glaciate",// Scatter Speed Break
+      desc: "Deals melee ice damage to all targets. Has a chance to follow-up with Icicle Crash to a random enemy. Deals full damage to backrow enemies.", //Drop Shot
+      stats: ["INT, Sword, Rapier"],
+      dep: { guardBreak: 2 },
+      maxLevel: 8,
+      coords: { x: 2, y: 5 }
+    },
+    singleDevote: {
+      name_en: "Condensed Slash",  //Chain Link, Delayed Chase, Coruscant
+      desc: "Prepares Condensed Slash on the turn it's used. On the next turn, if the user uses an elemental skill, follows up with a melee STR-based Cut+Element attack on all enemies hit with an element by the user.",
+      stats: [],
+      dep: { speedBreak: 2 },
+      maxLevel: 8,
+      coords: { x: 3, y: 5 }
+    },
+    bladeRecall: {
+      name_en: "Blade Recall",  //Chain Link
+      desc: "Deals melee STR-based Cut damage to one enemy. If the user used an elemental attack on the last turn, also adds a ranged INT-based Element follow-up attack.",
+      stats: [],
+      dep: { speedBreak: 2 },
+      maxLevel: 8,
+      coords: { x: 4, y: 5 }
+    },
+    sonicRaid: {
+      name_en: "Vacuum Slice",  //*Sonic Raid
+      desc: "Deals melee cut damage to one target at the start of the turn. Increases speed for the user's row for the next turn.",
+      stats: ["STR, Sword"],
+      dep: { },
+      maxLevel: 8,
+      coords: { x: 0, y: 4 }
+    },
+    doubleStrike: {
+      name_en: "Levinforce",  //Focused Slice/Chaser
+      desc: "Deals melee cut damage to one row. Increases accuracy for the user's row until the end of the next turn.",
+      // This turn, increase accuracy for the user's row and the user will chase all attacks from all allies.
+      stats: ["STR, Sword"],
+      dep: { sonicRaid: 2 },
+      maxLevel: 8,
+      coords: { x: 1, y: 4 }
+    },
+    spiralSlice: {
+      name_en: "Earthen Fury",  //Riposte
+      desc: "Deals melee cut damage to one target. Increases defense for the user's row until the end of the next turn.",
+      stats: ["STR, Sword"],
+      dep: { doubleStrike: 3 },
+      maxLevel: 8,
+      coords: { x: 2, y: 4 }
+    },
+    penetrate: {
+      name_en: "Inferno Howl",  //Wild Strike, Conflag Strike
+      desc: "Deals melee cut damage to one target, with splash damage to the adjacent enemies. Increases damage for the user's row until the end of the next turn.",
+      stats: ["STR, Sword"],
+      dep: { spiralSlice: 3 },
+      maxLevel: 8,
+      coords: { x: 3, y: 4 }
+    },
+    swordTempest: {
+      name_en: "Rip Current",  //*Sword Tempest
+      desc: "Deals melee cut damage to one target with low accuracy. If it misses, deal melee cut damage to all enemies.",
+      stats: ["STR, Sword"],
+      dep: { penetrate: 2 },
+      maxLevel: 8,
+      coords: { x: 4, y: 4 }
+    },
+    vanguard: {
+      name_en: "?Vanguard",
+      desc: "For 5 turns, increases the user's attack, defense and action speed (and aggro). Has a chance of being used at the start of battle after level 6. (one ally's)",
+      stats: [],
+      dep: { },
       maxLevel: 10,
-      coords: { x: 3, y: 2.25 }
+      coords: { x: 1, y: 6 }
     },
-    autoSpread: {
-      name_en: "Impending Doom",
-      //*Perseverance, Relentless Night, Seeping Darkness, Twilight Force, Dark Malady, Eventide, Ebon Fury, Scourge of Darkness, Blackout, Dusk to Dawn, Dark Descent, Relentless Pursuit
-      desc: "Increases the chance of inflicting an ailment if the user failed to inflict one last turn.",
+    // autoVanguard: {
+    //   name_en: "???/Auto-Vanguard",
+    //   desc: "If Auto-Vanguard is learned, there is a chance to automatically cast it at the start of battle. Cannot activate if another ally activated it first.",
+    //   stats: [],
+    //   dep: { vanguard: 1 },
+    //   maxLevel: 8,
+    //   coords: { x: 3, y: 0 }
+    // },
+    proficiency: {
+      name_en: "Blitzkrieg",
+      desc: "After the user attacks this turn, all further attacks against enemies attacked by the user will have increased damage and accuracy.",
       stats: [],
-      dep: { spreadThrow: 2 },
+      dep: { vanguard: 2 },
       maxLevel: 6,
-      coords: { x: 3, y: 3.25 }
+      coords: { x: 2, y: 6 }
     },
-    shadowBite: {
-      name_en: "Dusk to Dawn",
-      //(Increases ailment chance until the end of the next turn./
-      desc: "Deals melee cut damage to one target and removes an ailment. Damage is increased if the target has an ailment. Casts Eventide after use.",
-      stats: ["STR"],
-      dep: { foulMastery: 2, autoSpread: 2 },
-      maxLevel: 8,
-      coords: { x: 4, y: 2.75 }
-    },
-    swiftEdge: {
-      name_en: "Ebon Frenzy",
-      desc: "Deals 3-5 instances of melee cut damage to one target. If the target has an ailment, maximum number of attacks is increased to 9 and increases Dusk to Dawn's damage until the end of the next turn.",
-      stats: ["STR"],
-      dep: { shadowBite: 3 },
-      maxLevel: 8,
-      coords: { x: 5, y: 2.75 }
-    },
-    shadowCloak: {
-      name_en: "Shadow Cloak",
-      desc: "Umbral skill. For 3 turns, negates one physical attack made against the user.",
+    initiative: {
+      name_en: "Initiative",
+      desc: "When attacking before any enemies act, increases damage and accuracy.",
       stats: [],
-      dep: { },
-      maxLevel: 4,
-      coords: { x: 0, y: 4.75 }
-    },
-    decoySign: {
-      name_en: "?Decoy Sign",
-      desc: "For a set amount of turns, increases one ally's chance of being targeted and their evasion. Also increases their rows evasion.",
-      stats: [],
-      dep: { shadowCloak: 2 },
-      maxLevel: 4,
-      coords: { x: 1, y: 4.25 }
-    },
-    autoCloak: {
-      name_en: "Auto-Cloak",
-      desc: "If Shadow Cloak is learned, there is a chance to automatically cast it at the start of battle. Cannot activate if another ally activated it first.",
-      stats: [],
-      dep: { decoySign: 1 },
+      dep: { proficiency: 2 },
       maxLevel: 6,
-      coords: { x: 2, y: 4.25 }
+      coords: { x: 3, y: 6 }
     },
-    returnCloak: {
-      name_en: "Shadow Remnant",
-      //Return Cloak
-      desc: "When Shadow Cloak negates an attack, there is a chance that Shadow Cloak will be automatically cast on the user.",
-      stats: [],
-      dep: { autoCloak: 3 },
-      maxLevel: 8,
-      coords: { x: 3, y: 4.25 }
-    },
-    followTrace: {
-      name_en: "Blackest Night",
-      //When Shadow Cloak negates an attack, there is a chance that the user will attack an enemy.",
-      desc: "For a set number of turns, increases evasion for one row.",
-      stats: [],
-      dep: { returnCloak: 3 },
-      maxLevel: 8,
-      coords: { x: 4, y: 4.25 }
-    },
-    bidingSlice: {
-      name_en: "*Biding Slice",
-      desc: "Deals melee cut damage to one target. If the user is not damaged until the end of the turn, deals melee cut damage to the same target with splash damage.",
+    physDefUp: {
+      name_en: "Spirit Sword",
+      desc: "When the user hits a target with a single-target attack, that target's damage is reduced for the rest of the turn.",
       stats: ["STR"],
-      dep: { shadowCloak: 1 },
+      dep: { singleDevote: 2 },
       maxLevel: 8,
-      coords: { x: 1, y: 5.25 }
+      coords: { x: 4, y: 6 }
     },
-    attackBait: {
-      name_en: "Twilight Fury",
-      //Attack Bait
-      desc: "When the user or an adjacent ally is hit with an attack, the user will counter, with increased damage if they were the target. The chance of countering goes down with each successive counter.",
-      stats: ["STR"],
-      dep: { bidingSlice: 2 },
-      maxLevel: 8,
-      coords: { x: 2, y: 5.25 }
-    },
-    backstab: {
-      name_en: "Backstab",
-      desc: "Deals melee cut damage to one target. Attempts to inflict head bind. If the user has Shadow Cloak, add almighty element to the attack and increases damage.",
-      stats: ["STR", "LUC"],
-      dep: { attackBait: 2 },
-      maxLevel: 8,
-      coords: { x: 3, y: 5.25 }
-    },
-    assassinate: {
-      name_en: "Assassinate",
-      desc: "Deals melee cut damage to one target. If the user has Shadow Cloak, attempts to inflict instant death.",
-      stats: ["STR"],
-      dep: { backstab: 3 },
-      maxLevel: 8,
-      coords: { x: 4, y: 5.25 }
-    },
-    sneakAttack: {
-      name_en: "*Sneak Attack",
-      //Dagger Fetish
-      desc: "For a set number of steps, increases the chance of preemptive attacks. Passively increases damage and TP while wielding daggers.",
-      stats: [],
-      dep: { },
-      maxLevel: 6,
-      coords: { x: 2, y: 0 }
-    },
-    chop: {
-      name_en: "Chop",
-      desc: "Occasionally gains more items when using Chop points.",
+    mine: {
+      name_en: "Mine",
+      desc: "Occasionally gains more items when using Mine points.",
       stats: [],
       unique: true,
       dep: { },
