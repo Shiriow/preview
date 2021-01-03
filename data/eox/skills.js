@@ -300,7 +300,6 @@ let skills = {
   Protectorv2: {
     shieldProtect: {
       name_en: "Tempered Will",
-      name_jp: "大盾の守護",
       desc: "For 3 turns, pauses the duration of all buffs on the party and prevents enemies from dispelling buffs. Increases aggro chance.",
       stats: [],
       unique: true,
@@ -311,7 +310,6 @@ let skills = {
     },
     perfectDefense: {
       name_en: "Perfect Defense",
-      name_jp: "完全防御",
       desc: "This turn, completely negates all damaging attacks against the party.",
       stats: [],
       unique: true,
@@ -322,8 +320,7 @@ let skills = {
     },
     shieldOath: {
       name_en: "Shield Oath",
-      name_jp: "渾身ディフェンス",
-      desc: "Apply a buff on the user that decreases damage taken of their row.",
+      desc: "Apply a buff on the user that decreases damage taken of their row. (Decreases user's attack?)",
       stats: [],
       dep: { },
       maxLevel: 8,
@@ -331,7 +328,6 @@ let skills = {
     },
     swordbreaker: {
       name_en: "Swordbreaker",
-      name_jp: "ファイアガード",
       desc: "Provides a chance to lower damage dealt to your row.",
       stats: [],
       dep: { shieldOath: 2 },
@@ -340,8 +336,7 @@ let skills = {
     },
     counterOath: {
       name_en: "Counter Oath",
-      name_jp: "バッグガード",
-      desc: "Apply a buff on the user that gives them a chance of countering attacks made against their row.",
+      desc: "Apply a buff on the user that gives them a chance of countering attacks made against their row. Increases the user's chance of being targeted for a set number of turns.",
       stats: [],
       dep: { },
       maxLevel: 6,
@@ -349,8 +344,7 @@ let skills = {
     },
     swordOath: {
       name_en: "Sword Oath",
-      name_jp: "ラインディバイド",
-      desc: "Apply a buff on the user that increases damage done of their row.",
+      desc: "Apply a buff on the user that increases damage done of their row.(Decreases user's defense?)",
       stats: [],
       dep: { counterOath: 2 },
       maxLevel: 8,
@@ -358,7 +352,6 @@ let skills = {
     },
     bullCharge: {
       name_en: "Intervention",
-      name_jp: "フルガード",
       desc: "Raises damage done and lowers damage taken for one ally until the end of the next turn.",
       stats: [],
       dep: { swordOath: 2, swordbreaker: 2 },
@@ -367,7 +360,6 @@ let skills = {
     },
     fireCircle: {
       name_en: "Fire Circle",
-      name_jp: "フロントガード",
       desc: "Reduces all Fire damage to the party, and increases all Fire damage to enemies for one turn.",
       stats: [],
       dep: { bullCharge: 2 },
@@ -376,7 +368,6 @@ let skills = {
     },
     iceCircle: {
       name_en: "Ice Circle",
-      name_jp: "フロントガード",
       desc: "Reduces all Ice damage to the party, and increases all Ice damage to enemies for one turn.",
       stats: [],
       dep: { bullCharge: 2 },
@@ -385,17 +376,25 @@ let skills = {
     },
     voltCircle: {
       name_en: "Volt Circle",
-      name_jp: "フロントガード",
       desc: "Reduces all Volt damage to the party, and increases all Volt damage to enemies for one turn.",
       stats: [],
       dep: { bullCharge: 2 },
       maxLevel: 6,
       coords: { x: 3, y: 2.5 }
     },
+    lightTincture: {
+      name_en: "Light Tincture",
+      desc: "Nullifies damage to the user/target for one turn. Each time Light Tincture activates, the chance if it activating again on that turn is reduced.",
+      stats: [],
+      dep: { fireCircle: 2, iceCircle: 2, voltCircle: 2 },
+      maxLevel: 6,
+      coords: { x: 4, y: 1.5 }
+    },
     healingWall: {
-      name_en: "Healing Wall",
-      name_jp: "ヒールウォール",
-      desc: "When the user defends, restores HP to allies on the user's row.",
+      //name_en: "Healing Wall",
+      //desc: "When the user defends, restores HP to allies on the user's row.",
+      name_en: "Energy Oath",
+      desc: "Apply a buff on the user that reduces the cost of their row's skills.",
       stats: [],
       dep: { },
       maxLevel: 8,
@@ -403,7 +402,6 @@ let skills = {
     },
     clemency: {
       name_en: "Clemency",
-      name_jp: "ヒールガード",
       desc: "Restores HP for one ally. Restore HP for the user's row for half the power.",
       stats: ["WIS"],
       dep: { healingWall: 2  },
@@ -412,61 +410,22 @@ let skills = {
     },
     regenOath: {
       name_en: "Regen Oath",
-      name_jp: "キープガード",
       desc: "Apply a buff on the user that restores their row's HP.",
       stats: [],
       dep: { clemency:2 },
       maxLevel: 6,
       coords: { x: 2, y: 3 }
     },
-    cellDivide: {
-      name_en: "Cell Divide",
-      name_jp: "セルディバイド",
-      desc: "Covers one ally until the end of the next turn.",
+    shieldSmite: {
+      name_en: "Shield Smite",
+      desc: "Deals melee bash damage to one target. Attempts to inflict arm bind. Damage is based on the user's shield's DEF.",
       stats: [],
       dep: { },
       maxLevel: 6,
       coords: { x: 0, y: 4 }
     },
-    aegis: {
-      name_en: "Aegis",
-      name_jp: "決死の覚悟",
-      desc: "There is a chance for the user to survive fatal damage at 1 HP. Can activate once per battle at most.",
-      stats: [],
-      dep: { cellDivide: 2 },
-      maxLevel: 8,
-      coords: { x: 1, y: 4 }
-    },
-    cover: {
-      name_en: "Cover",
-      name_jp: "リカバリーガード",
-      desc: "When an ally is attacked, the user has a chance of automatically covering them.",
-      stats: [],
-      dep: { aegis: 2 },
-      maxLevel: 6,
-      coords: { x: 2, y: 4 }
-    },
-    autoguard: {
-      name_en: "Autoguard",
-      name_jp: "オートガード",
-      desc: "When the user is attacked, there is a chance to automatically reduce the damage.",
-      stats: [],
-      dep: { cover: 2 },
-      maxLevel: 10,
-      coords: { x: 3, y: 4 }
-    },
-    shieldSmite: {
-      name_en: "Shield Smite",
-      name_jp: "ＨＰブースト",
-      desc: "Deals melee bash damage to one target. Attempts to inflict arm bind. Damage is based on the user's shield's DEF.",
-      stats: [],
-      dep: { },
-      maxLevel: 6,
-      coords: { x: 0, y: 5 }
-    },
     // shieldSiphon: {
     //   name_en: "Shield Siphon",
-    //   name_jp: "物理防御ブースト",
     //   desc: "Deals melee bash damage to one target. Doubles damage when lower health than your target and drains HP. Damage is based on the user's shield's DEF.",
     //   stats: ["STR"],
     //   dep: {  },
@@ -475,16 +434,14 @@ let skills = {
     // },
     shieldRush: {
       name_en: "*Shield Rush",
-      name_jp: "シールドラッシュ",
       desc: "Deals melee bash damage to all enemies, and reduces their physical attack for a set number of turns. Damage is based on the user's shield's DEF.",
       stats: ["STR"],
       dep: { shieldSmite: 3 },
       maxLevel: 8,
-      coords: { x: 1, y: 5 }
+      coords: { x: 1, y: 4 }
     },
     // shieldBreak: {
     //   name_en: "Shield Break",
-    //   name_jp: "属性防御ブースト",
     //   desc: "Deals melee bash damage to one target. Damages user. Damage is based on the user's shield's DEF.",
     //   stats: ["STR"],
     //   dep: { shieldRush: 3 },
@@ -493,52 +450,78 @@ let skills = {
     // },
     shieldTaboo: {
       name_en: "Shield Taboo",
-      name_jp: "シールドスマイト",
       desc: "Deals melee bash damage to one target. Increases the duration of the user's buffs. Damage is based on the user's shield's DEF.",
       stats: ["STR"],
       dep: { shieldRush: 3 },
       maxLevel: 6,
-      coords: { x: 2, y: 5 }
+      coords: { x: 2, y: 4 }
     },
     shieldFlare: {
       name_en: "Shield Flare",
-      name_jp: "シールドフレア",
       desc: "Until the end of the next turn, when the user is attacked, they will counterattack with ranged fire damage. Damage is based on the user's shield's DEF.",
       stats: ["STR"],
       dep: { shieldTaboo: 3 },
       maxLevel: 8,
-      coords: { x: 3, y: 5 }
+      coords: { x: 3, y: 4 }
     },
     firelight: {
-      name_en: "Firelight",
-      name_jp: "ＨＰブースト",
+      name_en: "Firelight/Blazing Aura",
       desc: "At the end of the turn, deals ranged fire damage to the target of \"Shield\" skills, to any enemies that activated Light Tincture, or whenever the user uses an Oath.",
       stats: [],
       dep: { shieldFlare: 2 },
       maxLevel: 6,
-      coords: { x: 4, y: 5 }
+      coords: { x: 4, y: 4 }
     },
-    lightTincture: {
-      name_en: "Light Tincture",
-      name_jp: "ＨＰブースト",
-      desc: "Nullifies damage to the user/target for one turn. Each time Light Tincture activates, the chance if it activating again on that turn is reduced.",
+    lastBastion: {
+      name_en: "Last Bastion",
+      desc: "Requires 3 buffs. Removes all of them and, in exchange, the user will attack an enemy dealing melee bash damage and reducing the target's damage until the end of the turn.",
       stats: [],
-      dep: { fireCircle: 2, iceCircle: 2, voltCircle: 2 },
+      dep: { lightTincture: 2, firelight: 2 },
       maxLevel: 6,
-      coords: { x: 4, y: 1.5 }
+      coords: { x: 5, y: 2.75 }
     },
-    provoke: {
-      name_en: "Provoke",
-      name_jp: "挑発",
-      desc: "Increases the user's defense and chance of being targeted for a set number of turns.",
+    cellDivide: {
+      name_en: "Cell Divide",
+      desc: "Covers one ally until the end of the next turn.",
       stats: [],
       dep: { },
+      maxLevel: 6,
+      coords: { x: 0, y: 5 }
+    },
+    aegis: {
+      name_en: "Aegis",
+      desc: "There is a chance for the user to survive fatal damage at 1 HP. Can activate once per battle at most.",
+      stats: [],
+      dep: { cellDivide: 2 },
+      maxLevel: 8,
+      coords: { x: 1, y: 5 }
+    },
+    cover: {
+      name_en: "Cover",
+      desc: "When an ally is attacked, the user has a chance of automatically covering them.",
+      stats: [],
+      dep: { aegis: 2 },
+      maxLevel: 6,
+      coords: { x: 2, y: 5 }
+    },
+    autoguard: {
+      name_en: "Autoguard",
+      desc: "When the user is attacked, there is a chance to automatically reduce the damage.",
+      stats: [],
+      dep: { cover: 2 },
+      maxLevel: 10,
+      coords: { x: 3, y: 5 }
+    },
+    provoke: {
+      name_en: "Provoke/???",
+      desc: "Increases the user's defense and chance of being targeted for a set number of turns.",
+      stats: [],
+      dep: { cellDivide: 2 },
       maxLevel: 8,
       coords: { x: 1, y: 6 }
     },
     preProvoke: {
       name_en: "Pre-Provoke",
-      name_jp: "先制挑発",
       desc: "If Provoke is learned, there is a chance to automatically cast it at the start of battle. Cannot activate if another ally activated it first.",
       stats: [],
       dep: { provoke: 2 },
@@ -547,7 +530,6 @@ let skills = {
     },
     wideOath: {
       name_en: "Wide Oath",
-      name_jp: "ショックガード",
       desc: "For one turn, the user's Oath buffs will affect the whole party.",
       stats: [],
       dep: { },
@@ -555,27 +537,16 @@ let skills = {
       coords: { x: 3, y: 6 }
     },
     autoOath: {
-      name_en: "Oath Mastery",
-      name_jp: "フリーズガード",
+      name_en: "Oath Mastery/Force Shield/Healing Rythm",
       //desc: "Has a chance to apply a random Oath skill that the user knows at the start of battle. The chance to activate depends on the number of Oath skills the user knows.",
-      desc: "Increases the speed of Oath skills, and reduces their TP costs based on a static amount and a percentage of the skill's TP cost. Increases their turn count by 1 at max.",
+      desc: "Increases the speed of Oath skills, and reduces their TP costs based on a static amount and a percentage of the skill's TP cost. Increases their turn count by 1 at max. / Only usable while the user is in the Force Boost state. Extends the duration of their Force Boost by 1 turn, and reduces all damage they take for that turn. Each cast increases the TP cost by a certain amount. TP cost increases are reset upon the user's death.",
       stats: [],
       dep: { wideOath: 2 },
       maxLevel: 10,
       coords: { x: 4, y: 6 }
     },
-    hpUp: {
-      name_en: "Last Bastion",
-      name_jp: "ＨＰブースト",
-      desc: "Requires 3 buffs. Removes all of them and, in exchange, the user will attack an enemy dealing melee bash damage and reducing the target's damage until the end of the turn.",
-      stats: [],
-      dep: { },
-      maxLevel: 6,
-      coords: { x: 5, y: 6 }
-    },
     chop: {
       name_en: "Chop",
-      name_jp: "伐採",
       desc: "Occasionally gains more items when using Chop points.",
       stats: [],
       unique: true,
