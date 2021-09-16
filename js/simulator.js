@@ -15,7 +15,7 @@ const treeHeight = nodeHeight * 7 + verticalPadding * 6 + nodeBorder * 2;
 
 class Simulator {
   get defaultClass() {
-    return "Landsknecht";
+    return "Vampire";
   }
 
   get levelCaps() {

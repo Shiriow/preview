@@ -1,302 +1,5 @@
 let skills = {
 
-  Shogun: {
-    fullCombatForm: {
-      name_en: "*Full Combat Form",
-      desc: "For 3 turns, increases maximum HP and attack for all party members.",
-      stats: [],
-      unique: true,
-      type: "Boost",
-      dep: { },
-      maxLevel: 0,
-      coords: { x: 0, y: 0 }
-    },
-    bodyDouble: {
-      name_en: "Body Double",
-      desc: "This turn, all party members will negate any hostile action once.",
-      stats: [],
-      unique: true,
-      type: "Break",
-      dep: { fullCombatForm: 0 },
-      maxLevel: 0,
-      coords: { x: 1, y: 0 }
-    },
-    parryingBlade: {
-      name_en: "*Parrying Blade",
-      desc: "Increases physical defense and the user can attack with both weapons if two weapons are equipped. Damage of the second attack is based on this skill's level. Enables sub-weapon when this skill is learned.",
-      //desc: "Increases physical defense and normal attacks may hit 2-4 times when two weapons are equipped. Enables sub-weapon when this skill is learned.",
-      stats: [],
-      dep: { },
-      maxLevel: 8,
-      coords: { x: 0, y: 1.85 }
-    },
-    hawkSlice: {
-      name_en: "Hawk Slice",
-      desc: "Deals melee damage to one target with the user's weapon. If a second weapon is equipped, attack adjacent enemies.",
-      stats: [],
-      dep: { parryingBlade: 3 },
-      maxLevel: 8,
-      coords: { x: 1, y: 1 }
-    },
-    fiveRingSword: {
-      name_en: "Five-Ring Sword",
-      desc: "Deals multiple instances of melee damage to random targets with user's weapon. If two weapons are equipped, the maximum number of hits will double, and this attack will alternate between the katana and the other weapon.",
-      stats: ["STR"],
-      dep: { hawkSlice: 2 },
-      maxLevel: 10,
-      coords: { x: 2, y: 1.5 }
-    },
-    gnashingFang: {
-      name_en: "Gnashing Fang",
-      //Same damage makes it semi-AoE, can "exploit" weakness on non-weak targets
-      desc: "Deals melee damage to one target with the user's weapon. If that enemy is killed and a second weapon is equipped, attack all enemies for the same damage.",
-      stats: [],
-      dep: { hawkSlice: 2 },
-      maxLevel: 8,
-      coords: { x: 2, y: 0.5 }
-    },
-    finalFlicker: {
-      name_en: "Final Flicker",
-      desc: "When the user kills an enemy, restores Force to all party members.",
-      stats: ["STR"],
-      dep: { gnashingFang: 2 },
-      maxLevel: 6,
-      coords: { x: 3, y: 0 }
-    },
-    soaringTempest: {
-      name_en: "Soaring Tempest",
-      desc: "Deals 3 instances of ranged weapon damage to all enemies with user's weapon. Damage decreases based on the number of enemies. Does 65% damage for 2 enemies, 45% for 3 enemies, and 35% for 4+ enemies. Recovers Force with each hit.",
-      // bind cuts seem to work per hit, could be useful for force gain
-      stats: ["STR"],
-      dep: { finalFlicker: 3 },
-      maxLevel: 8,
-      coords: { x: 4, y: 0 }
-    },
-    bloodyLance: {
-      name_en: "Bloody Lance",
-      desc: "When the user kills an enemy or ally, their attack is increased. The effect is reset when the user dies.",
-      stats: [],
-      dep: { gnashingFang: 2 },
-      maxLevel: 6,
-      coords: { x: 3, y: 1 }
-    },
-    mercyKill: {
-      name_en: "Mercy Kill",
-      desc: "When any enemy or ally is attacked, and their HP falls below a set percentage, there is a chance to inflict instant death to them.",
-      stats: [],
-      dep: { finalFlicker: 2 },
-      maxLevel: 8,
-      coords: { x: 4, y: 1 }
-    },
-    savageClaw: {
-      name_en: "Savage Claw",
-      desc: "Normal attacks may hit 2-4 times.",
-      // desc: "Normal attacks recover TP and may hit 2-4 times.",
-      stats: ["STR"],
-      dep: { parryingBlade: 2 },
-      maxLevel: 8,
-      coords: { x: 1, y: 2.65 }
-    },
-    soleFocus: {
-      name_en: "Sole Focus", //Spirit Blade, Focus, Domain, Field, Firm Spirit, Single Devote, Sole Lone
-      desc: "Increases damage when fewer elements are used in an attack.",
-      stats: [],
-      dep: { savageClaw: 2 },
-      maxLevel: 6,
-      coords: { x: 2, y: 2.65 }
-    },
-    wickedTalons: {
-      name_en: "Wicked Talons",
-      desc: "Normal attacks recover TP.",
-      stats: ["STR"],
-      dep: { soleFocus: 2 },
-      maxLevel: 4,
-      coords: { x: 3, y: 2.65 }
-    },
-    blitzCommand: {
-      name_en: "Blitz Command",
-      desc: "All allies other than the user will attack one target with their weapons.",
-      stats: ["STR"],
-      dep: { },
-      maxLevel: 8,
-      coords: { x: 0, y: 3.85 }
-    },
-    galvanize: {
-      name_en: "Galvanize", //Heal Command
-      desc: "All allies other than the user will heal random party members a set number of times. Each party member can only be healed once per ally.",
-      // desc: "Command an ally to heal random party members a set number of times. Each party member can be healed a maximum of 2 times.",
-      stats: [],
-      dep: { blitzCommand: 2 },
-      maxLevel: 8,
-      coords: { x: 1, y: 3.85 }
-    },
-    ambushStance: {
-      name_en: "Ambush Stance", //*Counter Command
-      desc: "This turn, when the selected ally is attacked, all front row allies will counterattack with their weapons. Does not activate against counterattacks.",
-      stats: ["STR"],
-      dep: { galvanize: 2 },
-      maxLevel: 8,
-      coords: { x: 2, y: 3.85 }
-    },
-    rearDignity: {
-      name_en: "Rear Dignity",  //Emergency Tactics
-      desc: "Reduces damage done and taken to a row for one turn.",
-      stats: [],
-      dep: { ambushStance: 2 },
-      maxLevel: 6,
-      coords: { x: 3, y: 3.85 }
-    },
-    sanzuCross: {
-      name_en: "Sanzu Cross",
-      //desc: "This turn, the user will chase all attacks from all allies, but will lose HP for every chase. Links, chases and counterattacks cannot be chased. Only one chase will be made for each action.",
-      desc: "This turn, the user will chase attacks from all allies and enemies. Links, chases and counterattacks cannot be chased. Only one chase will be made for each action.",
-      stats: ["STR"],
-      dep: { wickedTalons: 2, rearDignity: 2 },
-      maxLevel: 10,
-      coords: { x: 4, y: 3.25 }
-    },
-    blazeSpirit: {
-      name_en: "Blaze Spirit",
-      // desc: "For a set number of turns, imbues one row of allies' weapons with fire, and increases their fire defense.", Select one ally and, for a set number of turns, everytime they attack, they'll attack again with their weapon.
-      desc: "For a set number of turns, imbue an ally's weapon with fire and have them automatically counterattack enemies who attacks them. The ally's row is also imbued with fire.",
-      stats: [],
-      dep: {  },
-      maxLevel: 6,
-      coords: { x: 0, y: 5 }
-    },
-    hailSpirit: {
-      name_en: "Hail Spirit",
-      desc: "For a set number of turns, imbue an ally's weapon with ice and have them automatically counterattack enemies who attacks them. The ally's row is also imbued with ice.",
-      stats: [],
-      dep: { blazeSpirit: 2 },
-      maxLevel: 6,
-      coords: { x: 1, y: 5 }
-    },
-    boltSpirit: {
-      name_en: "Bolt Spirit",
-      desc: "For a set number of turns, imbue an ally's weapon with volt and have them automatically counterattack enemies who attacks them. The ally's row is also imbued with volt.",
-      stats: [],
-      dep: { blazeSpirit: 2 },
-      maxLevel: 6,
-      coords: { x: 1, y: 6 }
-    },
-    greatGeneral: {
-      name_en: "*Great General",
-      //desc: "For a set number of turns, increases the user's attack, defense and chance of being targeted.",
-      desc: "For a set number of turns, increases one ally's physical attack and chance of being targeted.",
-      stats: [],
-      dep: { hailSpirit: 2, boltSpirit: 2 },
-      maxLevel: 6,
-      coords: { x: 2, y: 5.5 }
-    },
-    moraleBoost: {
-      name_en: "Morale Boost",
-      desc: "When the user is revived, restores HP to all allies.",
-      stats: [],
-      dep: { greatGeneral: 2 },
-      maxLevel: 6,
-      coords: { x: 3, y: 5 }
-    },
-    ritualSuicide: {
-      name_en: "Ritual Suicide",
-      desc: "Restores HP to all other allies with a chance to revive them, but the user dies. This self-inflicted death cannot be prevented via any means.",
-      stats: ["WIS"],
-      dep: { greatGeneral: 2 },
-      maxLevel: 8,
-      coords: { x: 3, y: 6 }
-    },
-    reincarnation: {
-      name_en: "Reincarnation",
-      desc: "On the turn when the user's HP reaches 0, there is a chance that they may revive at the end of that turn.",
-      stats: [],
-      dep: { ritualSuicide: 2, moraleBoost: 2 },
-      maxLevel: 10,
-      coords: { x: 4, y: 5.5 }
-    },
-    take: {
-      name_en: "Take",
-      desc: "Occasionally gains more items when using Take points.",
-      stats: [],
-      unique: true,
-      dep: { },
-      maxLevel: 1,
-      coords: { x: 0, y: 6 }
-    }
-    // doubleAttack: {
-    //   name_en: "Double Attack/???",
-    //   desc: "Select an ally. The user and that ally will attack an enemy with their weapons. / Order an ally to chase all attacks.",
-    //   stats: [],
-    //   dep: {  },
-    //   maxLevel: 8,
-    //   coords: { x: 5, y: 5.5 }
-    // },
-    // guardCommand: {
-    //   name_en: "Guard Command/Strike Chaser",
-    //   desc: "Select an ally. Their rows defensive stats are replaced by the targets.",
-    //   stats: [],
-    //   dep: {  },
-    //   maxLevel: 4,
-    //   coords: { x: 5, y: 4.5 }
-    // },
-    // spiritFlow: {
-    //   name_en: "Spirit Flow/???",
-    //   desc: "Deals melee damage to one target with the equipped katana at the start of turn. If two weapons are equipped, attacks again with the other weapon after the target acts.",
-    //   stats: ["STR"],
-    //   dep: { parryingBlade: 2 },
-    //   maxLevel: 10,
-    //   coords: { x: 1, y: 1 }
-    // },
-    // baitCommand: {
-    //   name_en: "delet",
-    //   //Bait Command
-    //   desc: "This turn, when the user is attacked, all allies other than the user will counterattack with their weapons. Does not activate against counterattacks.",
-    //   stats: ["STR"],
-    //   dep: { blitzCommand: 2 },
-    //   maxLevel: 6,
-    //   coords: { x: 1, y: 3.85 }
-    // },
-    // rushCommand: {
-    //   name_en: "delet",
-    //   //*Rush Command
-    //   desc: "Deals melee damage to one target with the user's weapon. Allies on your row will chase after.",
-    //   stats: ["STR"],
-    //   dep: { counterCommand: 3 },
-    //   maxLevel: 6,
-    //   coords: { x: 3, y: 3.85 }
-    // },
-    // chaseStance: {
-    //   name_en: "*Chase Stance",
-    //   desc: "For the next three turns you will chase attacks made by your allies on the same row.",
-    //   stats: [],
-    //   dep: { counterCommand: 3, peerlessDemon: 2 },
-    //   maxLevel: 6,
-    //   coords: { x: 3, y: 3.25 }
-    // },
-    // trickStance: {
-    //   name_en: "*Trick Stance",
-    //   desc: "For the next three turns, when you attack your allies on the same row will also attack.",
-    //   stats: ["STR"],
-    //   dep: { counterCommand: 3, peerlessDemon: 2 },
-    //   maxLevel: 6,
-    //   coords: { x: 3, y: 3.25 }
-    // },
-    // foreHonor: {
-    //   name_en: "*Fore Honor/delet?",
-    //   desc: "For a set number of turns, increases one ally's physical attack and action speed.",
-    //   stats: [],
-    //   dep: { },
-    //   maxLevel: 6,
-    //   coords: { x: 0, y: 5 }
-    // },
-    // unifiedSpirit: {
-    //   name_en: "*Unified Spirit",
-    //   desc: "For a set number of turns, imbues one row of allies' weapons with fire/ice/volt, and increases their elemental defense.",
-    //   stats: [],
-    //   dep: { foreHonor: 2 },
-    //   maxLevel: 6,
-    //   coords: { x: 1, y: 5 }
-    // },
-  },
   Protectorv2: {
     shieldProtect: {
       name_en: "Tempered Will",
@@ -813,6 +516,234 @@ let skills = {
       stats: [],
       unique: true,
       dep: { },
+      maxLevel: 1,
+      coords: { x: 0, y: 6 }
+    }
+  },
+  Vampire: {
+    immortalFlesh: {
+      name_en: "Immortal Flesh",
+      desc: "For 3 turns, the user will endure all fatal damage at 1 HP. Does not work on instant death.",
+      stats: [],
+      unique: true,
+      type: "Boost",
+      dep: {},
+      maxLevel: 0,
+      coords: { x: 0, y: 0 }
+    },
+    deathMarch: {
+      name_en: "Death March",
+      desc: "Revives all dead party members at 1 HP. Deals 2 + x instances of ranged almighty damage to one enemy, where x is the amount of party members revived. The damage is based only on the user's level, and does not scale with STR, INT, or weapon ATK/MAT.",
+      stats: [],
+      unique: true,
+      type: "Break",
+      dep: { immortalFlesh: 0 },
+      maxLevel: 0,
+      coords: { x: 1, y: 0 }
+    },
+    bloodPact: {
+      name_en: "Blood Pact",
+      desc: "Places a buff on the user that makes them take damage in place of party members for a set amount of turns, and for a certain amount of times per turn. Every time the user takes damage for another party member, the chance of them taking damage again on that turn is reduced.",
+      stats: [],
+      dep: {},
+      maxLevel: 8,
+      coords: { x: 0, y: 1 }
+    },
+    bareFangs: {
+      name_en: "Bare Fangs",
+      desc: "This turn, whenever the user is attacked, counterattack with melee damage and restore their HP. Also increases the user's aggro for that turn.",
+      stats: [],
+      dep: { bloodPact: 3 },
+      maxLevel: 8,
+      coords: { x: 1, y: 1 }
+    },
+    crimsonShower: {
+      name_en: "Crimson Shower",
+      desc: "This turn, whenever the user is attacked, automatically restore their rows HP. Also increases the user's aggro for that turn.",
+      stats: [],
+      dep: { bareFangs: 3 },
+      maxLevel: 8,
+      coords: { x: 2, y: 1 }
+    },
+    unscathedBody: {
+      name_en: "Miserable Fate",
+      desc: "Covers the user's row for one turn.",
+      stats: [],
+      dep: { crimsonShower: 3 },
+      maxLevel: 6,
+      coords: { x: 3, y: 1 }
+    },
+    drainBite: {
+      name_en: "Drain Bite",
+      desc: "Deals melee stab damage to an enemy and restores the user's HP. This restoration can heal beyond maximum HP.",
+      stats: [],
+      dep: {},
+      maxLevel: 8,
+      coords: { x: 0, y: 2 }
+    },
+    iceVein: {
+      name_en: "Stigmanizer", //Unscathed Body/Scarlet (Earth Break for feeding Vengeance Bash)
+      desc: "Deals bash damage to one enemy with Splash effect, dealing 50% damage to its neighbors, and also deals bash damage to yourself.",
+      stats: [],
+      dep: { drainBite: 3 },
+      maxLevel: 6,
+      coords: { x: 1, y: 2 }
+    },
+    lifeSiphon: {
+      name_en: "Frozen Abyss",
+      desc: "Deals ranged ice damage to all enemies. Heals the user for 25% of the damage dealt.",
+      stats: [],
+      dep: { iceVein: 3 },
+      maxLevel: 8,
+      coords: { x: 2, y: 2 }
+    },
+    metamorphosis: {
+      name_en: "Metamorphosis",
+      desc: "The user is replaced by a substitute for the turn, if it is destroyed then the user returns to battle. If the substitute survives, then deal cut damage to one enemy at the end of the turn.",
+      stats: [],
+      dep: { lifeSiphon: 3 },
+      maxLevel: 8,
+      coords: { x: 3, y: 2 }
+    },
+    vampiricSpirit: {
+      name_en: "Under the Zenith",//Vampiric Spirit
+      // at the end of the turn
+      desc: "Grants the user a buff that increases their maximum HP, while also healing them.",
+      stats: ["STR", "LUC"],
+      dep: {},
+      maxLevel: 6,
+      coords: { x: 0, y: 3 }
+    },
+    sanguineTide: {
+      name_en: "Sanguine Tide",
+      desc: "Grants the user a buff that has a chance to nullify Ailments, Binds and Debuffs for a set number of turns and lose HP whenever they act. Also grants a buff to the rest of the party that restores HP at the end of their turn.",
+      stats: ["STR"],
+      dep: { vampiricSpirit: 3 },
+      maxLevel: 8,
+      coords: { x: 1, y: 3 }
+    },
+    umbralVeil: {
+      name_en: "Umbral Veil",
+      desc: "For a set number of turns, the allies on the user's row will have their chance of being targetted reduced. This skill is considered a debuff.",
+      stats: ["STR"],
+      dep: { sanguineTide: 3 },
+      maxLevel: 6,
+      coords: { x: 2, y: 3 }
+    },
+    feast: {
+      name_en: "Feast",
+      desc: "For a set number of turns, one ally ally will have increased attack, but lose HP every time they act. Also grants the user a buff that restores HP at the end of their turn.",
+      stats: ["STR"],
+      dep: { umbralVeil: 3 },
+      maxLevel: 6,
+      coords: { x: 3, y: 3 }
+    },
+    vitalityDrain: {
+      name_en: "Vitality Drain",
+      desc: "For a set number of turns, decreases an enemy's defense and increases the user's defense.",
+      stats: [],
+      dep: {},
+      maxLevel: 8,
+      coords: { x: 1, y: 4 }
+    },
+    vigorDrain: {
+      name_en: "Vigor Drain",
+      desc: "For a set number of turns, decreases an enemy's attack and increases the user's attack.",
+      stats: [],
+      dep: { vitalityDrain: 3 },
+      maxLevel: 8,
+      coords: { x: 2, y: 4 }
+    },
+    transfusion: {
+      name_en: "Scarlet Transfusion",
+      //Restores one party member's HP. Also removes a set amount of binds. / 
+      desc: "Consumes the user's HP to heal their allies.",
+      stats: [],
+      dep: {},
+      maxLevel: 6,
+      coords: { x: 0, y: 5 }
+    },
+    phlebotomy: {
+      name_en: "Silent Dusk",
+      desc: "Consumes the user's TP to restore TP to the user's row.",
+      stats: [],
+      dep: { transfusion: 3 },
+      maxLevel: 8,
+      coords: { x: 1, y: 5 }
+    },
+    rebirthRitual: {
+      //Unscathed Body
+      name_en: "Quickening Thirst",
+      desc: "If the user is in the front row and takes damage, their TP is restored.",
+      stats: [],
+      dep: { phlebotomy: 3 },
+      maxLevel: 8,
+      coords: { x: 2, y: 5 }
+    },
+    // rebirthRitual: {
+    //   name_en: "???",
+    //   desc: "Consumes the HP of the party to revive an ally with overhealed health.",
+    //   stats: [],
+    //   dep: { phlebotomy: 3 },
+    //   maxLevel: 8,
+    //   coords: { x: 2, y: 5 }
+    // },
+    riseFromTheDead: {
+      name_en: "Rise from the Dead",
+      desc: "At the end of the turn, the user has a chance of automatically reviving.",
+      stats: ["WIS"],
+      dep: { rebirthRitual: 3 },
+      maxLevel: 6,
+      coords: { x: 3, y: 5 }
+    },
+    briefImmortality: {
+      name_en: "Imperishable Night", //Brief Immortality/
+      desc: "For 3 turns, an ally will endure fatal damage once with a set amount of HP. This skill is considered a debuff.",
+      stats: [],
+      dep: { riseFromTheDead: 3 },
+      maxLevel: 6,
+      coords: { x: 4, y: 5 }
+    },
+    underTheZenith: {
+      name_en: "Healing Rythm/Self-Regenerate",
+      // Gives the user a chance to use Transfusion when damaged or when bound, at the end of the damage/bind source's turn.
+      desc: "Passively restores the user's HP at the end of every turn when they have a buff. Restores 20% of the user's max HP at the end of a turn during Transform.",
+      // At the end of the turn, if the user's HP is full, restores Force to all party members. might not work with royal veil? (two different people)
+      stats: [],
+      dep: { briefImmortality: 3 },
+      maxLevel: 10,
+      coords: { x: 5, y: 5 }
+    },
+    bloodyCatastrophe: {
+      name_en: "?Bloody Catastrophe",
+      desc: "Lowers all damage to the user for this turn. At the end of the turn, deals melee Cut damage to all enemies. Every time the user is damaged between the cast time and the attack, the damage is multiplied by 1.25x. The damage is capped at 3x the base damage. | After three turns deals bash damage against one foe with power depending on how many times you have taken damage. Has a -100 Speed modifier at all levels.",
+      stats: [],
+      dep: { metamorphosis: 3, unscathedBody: 3 },
+      maxLevel: 8,
+      coords: { x: 4, y: 1.5 }
+    },
+    vampiricGrace: {
+      name_en: "Vampiric Grace",
+      desc: "Gives a chance for the user to survive fatal damage at 1 HP if they have a buff on, in exchange for losing their oldest applied buff.",
+      stats: ["STR"],
+      dep: { feast: 3, vigorDrain: 3 },
+      maxLevel: 8,
+      coords: { x: 4, y: 3.5 }
+    },
+    crimsonOath: {
+      name_en: "Forbidden Offering",
+      desc: "Requires 3 buffs. Removes all of them and, in exchange, the user will attack an enemy dealing melee cut damage and reducing the target's damage until the end of the turn.",
+      stats: [],
+      dep: { bloodyCatastrophe: 3, vampiricGrace: 3 },
+      maxLevel: 6,
+      coords: { x: 5, y: 2.5 }
+    },
+    take: {
+      name_en: "Take",
+      desc: "Occasionally gains more items when using Take points.",
+      stats: [],
+      unique: true,
+      dep: {},
       maxLevel: 1,
       coords: { x: 0, y: 6 }
     }
