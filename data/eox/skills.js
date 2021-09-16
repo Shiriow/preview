@@ -265,7 +265,7 @@ let skills = {
       stats: [],
       unique: true,
       type: "Boost",
-      dep: { },
+      dep: {},
       maxLevel: 0,
       coords: { x: 0, y: 0 }
     },
@@ -280,19 +280,19 @@ let skills = {
       coords: { x: 1, y: 0 }
     },
     blazingLink: {
-      name_en: "Blazing Link",//Strike Link
-      desc: "Deals melee fire damage to one target. If the target is attacked again after, follows up with another attack of the same element for a maximum of 9 times. {Decreases the targets fire resistance for the turn.}",
+      name_en: "?Blazing Link",//Strike Link
+      desc: "Deals melee fire damage to one target. If the target/an enemy is attacked again after, follows up with another attack of the same element for a maximum of 9 times. {Decreases the targets fire resistance for the turn.}",
       //Chance of follow-up decreases with each hit.  Replaces the element of the next skill with Fire.
       stats: ["STR, Rapier"],
-      dep: { },
+      dep: {},
       maxLevel: 6,
       coords: { x: 0, y: 1 }
     },
     freezingLink: {
-      name_en: "Freezing Link",
-      desc: "Deals melee ice damage to one target. If the target is attacked again after, follows up with another attack of the same element for a maximum of 9 times. {Decreases the targets ice resistance for the turn.}",
+      name_en: "?Freezing Link",
+      desc: "Deals melee ice damage to one target. If the target/an enemy is attacked again after, follows up with another attack of the same element for a maximum of 9 times. {Decreases the targets ice resistance for the turn.}",
       stats: ["STR, Rapier"],
-      dep: { },
+      dep: {},
       maxLevel: 6,
       coords: { x: 0, y: 2 }
     },
@@ -300,11 +300,11 @@ let skills = {
       // name_en: "", //?Heal Link?, Aoe Link
       // desc: "Deals melee stab damage to one row. If the targets are attacked again after, follows up with another attack of the same element for a maximum of 9 times.",
       //desc: "Deals melee stab damage to one target. If the target is attacked again after, follows up with another stab attack for a maximum of ? times. Each follow up recovers the partys health. | Restores HP to the user's row. If the targets are attacked again after, follows up with another heal for a maximum of ? times.",
-      name_en: "Electric Link",
-      desc: "Deals melee volt damage to one target. If the target is attacked again after, follows up with another attack of the same element for a maximum of 9 times. {Decreases the targets volt resistance for the turn.}",
-      // / Gives normal attacks a chance to add an extra INT-based ice attack.
+      name_en: "?Electric Link/Guard Point",
+      desc: "Deals melee volt damage to one target. If the target/an enemy is attacked again after, follows up with another attack of the same element for a maximum of 9 times. / Major damage reduction + chance of nulling damage, leg binds user and removes it at end of turn. If an attack is blocked, increases the user's (row) attack until the end of the next turn.",
+      // / Gives normal attacks a chance to add an extra INT-based ice attack. , {Decreases the targets volt resistance for the turn.}
       stats: ["STR, Rapier"],
-      dep: { },
+      dep: {},
       maxLevel: 6,
       coords: { x: 0, y: 3 }
     },
@@ -361,8 +361,9 @@ let skills = {
       coords: { x: 3, y: 2.5 }
     },
     linkEnd: {
-      name_en: "Glacial Finale",
-      desc: "Deals melee ice damage to one target. Damage is based on the number of link follow-ups made on the previous turn and if the target has a Break skill debuff. Casts Improved Link after use.",
+      name_en: "Link Finale",
+      desc: "Deals melee stab damage to one target. Damage is based on the number of link follow-ups made on the previous turn and if the target has a Break skill debuff.",
+      // Casts Improved Link after use.
       stats: ["STR, Rapier"],
       dep: { linkMastery: 2 },
       maxLevel: 8,
@@ -381,37 +382,37 @@ let skills = {
       //desc: "Deals melee cut/stab damage to one target. Damage is increased if the target has a Break skill debuff. Multiple Break debuffs will not increase damage further. Removes one debuff after use.",
       desc: "Deals melee cut/stab damage to one target. If the target is attacked again after, follows up with another attack of the same element for a maximum of 6 times that decreases their attack, defense, evasion and action speed for 1 turn. Chance of follow-up decreases with each hit.",
       stats: ["STR, Sword, Rapier"],
-      dep: { linkEnd: 3, swiftStab:3 },
+      dep: { linkEnd: 3, swiftStab: 3 },
       maxLevel: 8,
       coords: { x: 5, y: 2 }
     },
     powerBreak: {
-      name_en: "Icicle Crash", //Power Break
+      name_en: "Icicle Impact", //Power Break   Crash
       //desc: "Deals melee cut/stab damage to one target. Decreases their attack for 3 turns.",
       desc: "Deals ranged ice damage to one target.",
       // desc: "Deals melee cut/stab damage to one target. If the target is attacked again after, follows up with another attack of the same element for a maximum of 6 times that decreases their attack for 1 turn. Chance of follow-up decreases with each hit.",
       stats: ["INT, Sword, Rapier"],
-      dep: { },
+      dep: {},
       maxLevel: 6,
-      coords: { x: 0, y: 5 }
+      coords: { x: 0, y: 4 }
     },
     guardBreak: {
-      name_en: "Spellblade",//Guard Break
+      name_en: "Icebrand",//Guard Break, Spellblade
       //desc: "Deals melee cut/stab damage to one target. Decreases their defense for 3 turns.",
       // desc: "This turn, the user will chase all attacks from all allies. Only one chase will be made for each action and they decrease the enemy's defense for 1 turn.",
-      desc: "Deals melee ice damage to one target. Has a chance to follow-up with Icicle Crash with added damage.",
+      desc: "Deals melee {ice?} damage to one target. Has a chance to follow-up with Icicle Impact with added damage.",   //unsure if ice or phys because of rng (condensed->icebrand->blade recall), although then diamond front can be useful on single targets, only "problem" then would be the extra chase from condensed (no chase from phys): cond->diamond->recall has less rng since diamond is ice, while icebrand would do more damage but have chance of not proccing condensed and following with recall
       stats: ["STR, Sword, Rapier"],
       dep: { powerBreak: 2 },
       maxLevel: 8,
-      coords: { x: 1, y: 5 }
+      coords: { x: 1, y: 4 }
     },
     speedBreak: {
-      name_en: "Glaciate",// Scatter Speed Break
-      desc: "Deals melee ice damage to all targets. Has a chance to follow-up with Icicle Crash to a random enemy. Deals full damage to backrow enemies.", //Drop Shot
+      name_en: "Diamond Frost",// Scatter, Speed Break,  Glaciate, Absolute Zero, Driving Frost, Biting Frost, Frigid Stone, Frigid Eruption, Twin Stillness, Thin Ice, Frost Blade, Icebrand, Glacier Bash, Hailstorm, Dreams Of Ice, Icicle Impact, Glass Dance, Avalanche, Permafrost
+      desc: "Deals melee ice damage to all targets. Has a chance to follow-up with Icicle Crash to a random enemy. Deals full damage to backrow enemies.", //Drop Shot OR Buster Cannon for full backrow dmg
       stats: ["INT, Sword, Rapier"],
       dep: { guardBreak: 2 },
       maxLevel: 8,
-      coords: { x: 2, y: 5 }
+      coords: { x: 2, y: 4 }
     },
     singleDevote: {
       name_en: "Condensed Slash",  //Chain Link, Delayed Chase, Coruscant
@@ -419,7 +420,7 @@ let skills = {
       stats: [],
       dep: { speedBreak: 2 },
       maxLevel: 8,
-      coords: { x: 3, y: 5 }
+      coords: { x: 3, y: 4 }
     },
     bladeRecall: {
       name_en: "Blade Recall",  //Chain Link
@@ -427,40 +428,41 @@ let skills = {
       stats: [],
       dep: { speedBreak: 2 },
       maxLevel: 8,
-      coords: { x: 4, y: 5 }
+      coords: { x: 4, y: 4 }
     },
     sonicRaid: {
       name_en: "Vacuum Slice",  //*Sonic Raid
       desc: "Deals melee cut damage to one target at the start of the turn. Increases speed for the user's row for the next turn.",
       stats: ["STR, Sword"],
-      dep: { },
-      maxLevel: 8,
-      coords: { x: 0, y: 4 }
+      dep: {},
+      maxLevel: 6,
+      coords: { x: 0, y: 5 }
     },
     doubleStrike: {
       name_en: "Levinforce",  //Focused Slice/Chaser
-      desc: "Deals melee cut damage to one row. Increases accuracy for the user's row until the end of the next turn.",
+      desc: "Deals melee cut damage to one row. Increases accuracy (and evasion) for the user's row for this turn.",
+      //until the end of the next
       // This turn, increase accuracy for the user's row and the user will chase all attacks from all allies.
       stats: ["STR, Sword"],
       dep: { sonicRaid: 2 },
       maxLevel: 8,
-      coords: { x: 1, y: 4 }
+      coords: { x: 1, y: 5 }
     },
     spiralSlice: {
       name_en: "Earthen Fury",  //Riposte
-      desc: "Deals melee cut damage to one target. Increases defense for the user's row until the end of the next turn.",
+      desc: "Deals melee cut damage to one target. Increases defense for the user's row for this turn.",
       stats: ["STR, Sword"],
       dep: { doubleStrike: 3 },
       maxLevel: 8,
-      coords: { x: 2, y: 4 }
+      coords: { x: 2, y: 5 }
     },
     penetrate: {
       name_en: "Inferno Howl",  //Wild Strike, Conflag Strike
-      desc: "Deals melee cut damage to one target, with splash damage to the adjacent enemies. Increases damage for the user's row until the end of the next turn.",
+      desc: "Deals melee cut damage to one target, with splash damage to the adjacent enemies. Increases damage for the user's row for this turn.",
       stats: ["STR, Sword"],
       dep: { spiralSlice: 3 },
       maxLevel: 8,
-      coords: { x: 3, y: 4 }
+      coords: { x: 3, y: 5 }
     },
     swordTempest: {
       name_en: "Rip Current",  //*Sword Tempest
@@ -468,13 +470,13 @@ let skills = {
       stats: ["STR, Sword"],
       dep: { penetrate: 2 },
       maxLevel: 8,
-      coords: { x: 4, y: 4 }
+      coords: { x: 4, y: 5 }
     },
     vanguard: {
       name_en: "?Vanguard",
       desc: "For 5 turns, increases the user's attack, defense and action speed (and aggro). Has a chance of being used at the start of battle after level 6. (one ally's)",
       stats: [],
-      dep: { },
+      dep: {},
       maxLevel: 10,
       coords: { x: 1, y: 6 }
     },
@@ -515,7 +517,7 @@ let skills = {
       desc: "Occasionally gains more items when using Mine points.",
       stats: [],
       unique: true,
-      dep: { },
+      dep: {},
       maxLevel: 1,
       coords: { x: 0, y: 6 }
     }
