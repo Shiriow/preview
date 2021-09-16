@@ -57,7 +57,7 @@ table {
 
 .skill-description {
   line-height: 1.4em;
-  white-space: initial;
+  white-space: break-spaces; /*initial*/
   text-align: left;
 }
 
