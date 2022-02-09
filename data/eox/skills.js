@@ -310,7 +310,7 @@ let skills = {
     },
     heatSink: {
       name_en: "<Heat Sink>",
-      desc: "Reduces overheat duration by a set number of turns. Each cast multiplies Natural Drive damage by ?%.There is a maximum of ? increases. Damage increases are reset upon the user's death.",
+      desc: "Reduces overheat duration by a set number of turns. Each cast multiplies Natural Drive damage by ?%. There is a maximum of ? increases. Damage increases are reset upon the user's death.",
       stats: ["Head", "Driveblade"],
       dep: { naturalDrive: 3 },
       maxLevel: 8,
@@ -350,7 +350,7 @@ let skills = {
     },
     bulwarkDrive: {
       name_en: "?Bulwark Drive",
-      desc: "Increases the party's defence until the end of the next turn. Places the user in the overheat state for 5 turns.\n / \nReduces all damage to all party members for one turn, and deals melee cut damage to one target at the end of the turn. Damage is based on the number of times damage is reduced. If no damage reduction took place, the attack will not happen. Places the user in the overheat state for 5 turns.\n / \nReduces all damage to all party members and sets their defensive values to the user's for one turn.",
+      desc: "Deals melee weapon damage to one target, and increases defense for all allies until it executes. Places the user in the overheat state for 5 turns. Cannot be used while overheated or when current TP is below the original TP cost. The TP cost is reduced based on the amount of TP used before this skill was cast.\n / \nReduces all damage to all party members for one turn, and deals melee cut damage to one target at the end of the turn. Damage is based on the number of times damage is reduced. If no damage reduction took place, the attack will not happen. Places the user in the overheat state for 5 turns.\n / \nReduces all damage to all party members and sets their defensive values to the user's for one turn.",
       stats: ["STR", "Arms", "Driveblade"],
       dep: { roughDivide: 2 },
       maxLevel: 8,

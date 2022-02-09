@@ -170,8 +170,7 @@ let levels = {
 
   Imperial: {
     conversion: {
-      Damage: ["450%", "900%", "1350%"],
-      "Damage Restored": ["15%", "15%", "15%"]
+      "Healing Power": ["?%"]
     },
     sunrazeTrip: {
       TP: ["5", "5", "5", "8", "8", "8", "8", "12"],
