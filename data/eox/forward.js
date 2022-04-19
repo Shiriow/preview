@@ -1,7 +1,38 @@
 let forward = {
-
-
   Landsknecht: {
+    trinity: { fullCharge: 0 },
+    fullCharge: {},
+    strikeLink: { linkSmash: 3, bindingForce: 3 },
+    bindingForce: { fortuneLink: 2 },
+    fortuneLink: { fullBreak: 3 },
+    fullBreak: {},
+    linkSmash: { millionThrust: 1 },
+    millionThrust: { linkFinale: 3 },
+    linkFinale: {},
+    icicleImpact: { icebrand: 2, earthenFury: 2 },
+    icebrand: { diamondFrost: 2 },
+    diamondFrost: { condensedSlash: 2 },
+    condensedSlash: { bladeRecall: 2 },
+    bladeRecall: {},
+    vacuumSlice: { icicleImpact: 3 },
+    levinforce: { icicleImpact: 3 },
+    infernoHowl: { icicleImpact: 2 },
+    earthenFury: { ripCurrent: 3 },
+    ripCurrent: {},
+    vanguard: { blitzkrieg: 2, vita: 2 },
+    vita: { sylphScreen: 3 },
+    sylphScreen: { spiritSword: 2 },
+    spiritSword: {},
+    blitzkrieg: { initiative: 2 },
+    initiative: {},
+    // autoVanguard: { },
+    // improvedLink: { bindingForce: 1 },
+    // linkMastery: { linkFinale: 2 },
+    mine: {}
+  },
+
+
+  OldLandsknecht: {
     trinity: { fullCharge: 0 },
     fullCharge: {},
     strikeLink: { linkSmash: 3, bindingForce: 3 },

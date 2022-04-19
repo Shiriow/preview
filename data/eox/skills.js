@@ -29,6 +29,224 @@ let skills = {
       coords: { x: 0, y: 2 }
     },
     bindingForce: {
+      name_en: "Binding Force/?",
+      desc: "Deals melee stab damage to one target. \nIf the target is attacked again after, follows up with another stab attack for a maximum of ? times. \nEach follow up has a chance of randomly binding.",
+      stats: ["STR, Arms, Rapier"],
+      dep: { strikeLink: 1 },
+      maxLevel: 8,
+      coords: { x: 1, y: 1 }
+    },
+    fortuneLink: {
+      name_en: "Maelstrom's Eye/?",
+      desc: "Deals melee stab damage to a random target. If the target is attacked again after, follows up with an AoE attack of the same element for a maximum of 9 times.",
+      stats: ["STR, Arms, Rapier"],
+      dep: { bindingForce: 2 },
+      maxLevel: 6,
+      coords: { x: 2, y: 1 }
+    },
+    fullBreak: {
+      name_en: "Full Break",
+      desc: "Deals melee cut/stab damage to one target. If the target is attacked again after, follows up with another attack of the same element for a maximum of 6 times that decreases their attack, defense, evasion and action speed for 1 turn. Chance of follow-up decreases with each hit.",
+      stats: ["STR, Arms, Rapier"],
+      dep: { fortuneLink: 3 },
+      maxLevel: 8,
+      coords: { x: 3, y: 1 }
+    },
+    linkSmash: {
+      name_en: "Critical Surge",
+      desc: "Link follow-up attacks can deal critical hits. If an action triggered multiple follow-ups and one of them dealt a critical hit, all subsequent follow-ups triggered by that action will automatically deal critical hits as well.",
+      stats: [],
+      dep: { strikeLink: 1 },
+      maxLevel: 8,
+      coords: { x: 1, y: 2 }
+    },
+    millionThrust: {
+      name_en: "Million Thrust",
+      desc: "Deals multiple instances of melee stab damage to random targets next turn. Counts as a Link skill.",
+      stats: ["STR, Arms, Rapier"],
+      dep: { linkSmash: 2 },
+      maxLevel: 6,
+      coords: { x: 2, y: 2 }
+    },
+    linkFinale: {
+      name_en: "Bitter End",
+      desc: "Deals melee stab damage to one target. Damage is based on the number of link follow-ups made on the previous turn and if the target has a Break skill debuff.",
+      stats: ["STR, Arms, Rapier"],
+      dep: { millionThrust: 2 },
+      maxLevel: 6,
+      coords: { x: 3, y: 2 }
+    },
+    vacuumSlice: {
+      name_en: "Diamond Frost", 
+      desc: "Deals melee cut damage to one row. For a set number of turns, imbue the user's attacks with ice and increase their attack + ice resistance. \nIf a shield is equipped, increases accuracy for the user's row until the end of the next turn.",
+      stats: ["STR, Arms"],
+      dep: {},
+      maxLevel: 6,
+      coords: { x: 0, y: 3 }
+    },
+    levinforce: {
+      name_en: "Levinforce", 
+      desc: "Deals melee cut damage to one target at the start of the turn. For a set number of turns, imbue the user's attacks with volt and increase their attack + volt resistance. \nIf a shield is equipped, increases speed for the user's row on the next turn.",
+      stats: ["STR, Arms"],
+      dep: {},
+      maxLevel: 8,
+      coords: { x: 0, y: 4 }
+    },
+    infernoHowl: {
+      name_en: "Inferno Howl",
+      desc: "Deals melee cut damage to one target, with splash damage to the adjacent enemies. For a set number of turns, imbue the user's attacks with fire and increase their attack + fire resistance. \nIf a shield is equipped, increases damage for the user's row for this turn.",
+      stats: ["STR, Arms"],
+      dep: {},
+      maxLevel: 8,
+      coords: { x: 0, y: 5 }
+    },
+    icicleImpact: {
+      name_en: "?Nova Lux", 
+      desc: "Deals ranged [weapon/imbuable almighty] damage to one target. Each Spellblade skill used multiplies the damage by 15% and is reset upon the user's death.",
+      stats: ["INT, Arms, Rapier"],
+      dep: { vacuumSlice: 2, levinforce: 2, infernoHowl: 2 },
+      maxLevel: 6,
+      coords: { x: 1, y: 4 }
+    },
+    icebrand: {
+      name_en: "Spell Resonance",
+      desc: "Deals melee [weapon/imbuable almighty] damage to one target. Has a chance to follow-up with Nova Lux with added damage.",   
+      stats: ["STR, Arms, Rapier"],
+      dep: { icicleImpact: 2 },
+      maxLevel: 8,
+      coords: { x: 2, y: 4 }
+    },
+    diamondFrost: {
+      name_en: "Ferostorm",
+      desc: "Deals melee [weapon/imbuable almighty] damage to all targets. Has a chance to follow-up with Nova Lux to a random enemy. Deals full damage to backrow enemies.",
+      stats: ["INT, Arms, Rapier"],
+      dep: { icebrand: 2 },
+      maxLevel: 8,
+      coords: { x: 3, y: 4 }
+    },
+    condensedSlash: {
+      name_en: "Condensed Ripple",  
+      desc: "Prepares Condensed Slash on the turn it's used. On the next turn, if the user uses an elemental skill, follows up with a melee STR-based Cut+Element attack on all enemies hit with an element by the user.",
+      stats: ["STR, Head, Rapier"],
+      dep: { diamondFrost: 2 },
+      maxLevel: 8,
+      coords: { x: 4, y: 4 }
+    },
+    bladeRecall: {
+      name_en: "Blade Recall",  
+      desc: "Deals melee STR-based Cut damage to one enemy. If the user used an elemental attack on the last turn, also adds a ranged INT-based Element follow-up attack.",
+      stats: ["STR, INT, Arms, Rapier"],
+      dep: { condensedSlash: 2 },
+      maxLevel: 8,
+      coords: { x: 5, y: 4 }
+    },
+    earthenFury: {
+      name_en: "Earthen Fury", 
+      desc: "Reduces physical damage taken for all allies this turn. When the user takes damage, counterattack against that enemy.",
+      
+      stats: ["STR, Arms, Shield"],
+      dep: { icicleImpact: 2 },
+      maxLevel: 8,
+      coords: { x: 2, y: 3 }
+    },
+    ripCurrent: {
+      name_en: "Infusion Sforzo", 
+      desc: "Cancels Blaze Cartridge, Hail Cartridge, or Bolt Cartridge on the user. \n( Deals melee damage of the canceled Cartridge's element to one enemy. ) | ( Deals melee fire+ice+volt damage to one enemy. )",
+      stats: ["STR, Arms"],
+      dep: { earthenFury: 2 },
+      maxLevel: 6,
+      coords: { x: 3, y: 3 }
+    },
+    vanguard: {
+      name_en: "Vallation",
+      desc: "For 5 turns, increases the user's attack, defense and action speed (and aggro). Has a chance of being used at the start of battle after level 6. (one ally's)",
+      stats: ["Head"],
+      dep: {},
+      maxLevel: 8,
+      coords: { x: 1, y: 5.5 }
+    },
+    blitzkrieg: {
+      name_en: "Saboteur",  
+      desc: "After the user attacks this turn, all further attacks against enemies attacked by the user will have increased damage and accuracy.",
+      stats: [],
+      dep: { vanguard: 2 },
+      maxLevel: 8,
+      coords: { x: 2, y: 5 }
+    },
+    initiative: {
+      name_en: "Initiative",
+      desc: "When attacking before any enemies act, increases damage and accuracy.",
+      stats: [],
+      dep: { blitzkrieg: 2 },
+      maxLevel: 8,
+      coords: { x: 3, y: 5 }
+    },
+    vita: {
+      name_en: "Vita", 
+      desc: "Restores one party member's HP. Also removes a set amount of binds.",
+      stats: ["WIS, Head, Rapier"],
+      dep: { vanguard: 2 },
+      maxLevel: 6,
+      coords: { x: 2, y: 6 }
+    },
+    sylphScreen: {
+      name_en: "Gale Force",   
+      desc: "Each time the user attacks or uses an attack skill, their defense increases for that turn.",
+      stats: [],
+      dep: { vita: 2 },
+      maxLevel: 6,
+      coords: { x: 3, y: 6 }
+    },
+    spiritSword: {
+      name_en: "Power Seal/Mana Ward/Immunize", 
+      desc: "When the user hits a target with a single-target attack, that target's damage is reduced for the rest of the turn.\n\nReduces elemental damage taken for all allies this turn. [And imbues their weapons with fire+ice+volt] \n\nCancels Blaze Cartridge, Hail Cartridge, or Bolt Cartridge on the user. \n[Until the end of the turn, all party members will absorb damage of the canceled Cartridge's element.] \n[Until the end of the turn, the user will absorb damage of the canceled Cartridge's element and cover the entire party. Increase damage taken by 3x for the turn.]\n\nIncreases the party's physical and bind defense for a set number of turns. Requires Shield\nIncreases the party's elemental and ailment defense for a set number of turns.",
+      stats: ["STR"],
+      dep: { sylphScreen: 2 },
+      maxLevel: 8,
+      coords: { x: 4, y: 6 }
+    },
+    mine: {
+      name_en: "Mine",
+      desc: "Occasionally gains more items when using Mine points.",
+      stats: [],
+      unique: true,
+      dep: {},
+      maxLevel: 1,
+      coords: { x: 0, y: 6 }
+    }
+  },
+
+
+  OldLandsknecht: {
+    trinity: {
+      name_en: "Trinity",
+      desc: "For 3 turns, increases the user's attack, accuracy and action speed.",
+      stats: [],
+      unique: true,
+      type: "Boost",
+      dep: {},
+      maxLevel: 0,
+      coords: { x: 0, y: 0 }
+    },
+    fullCharge: {
+      name_en: "Overcharge",
+      desc: "This turn, the user is fully immune to any hostile effects from enemies. Until the end of the next turn, increases the user's attack and action speed.",
+      stats: [],
+      unique: true,
+      type: "Break",
+      dep: { trinity: 0 },
+      maxLevel: 0,
+      coords: { x: 1, y: 0 }
+    },
+    strikeLink: {
+      name_en: "Strike Link",
+      desc: "Deals melee stab damage to one target. If the target/an enemy is attacked again after, follows up with another attack of the same element for a maximum of 9 times.",
+      stats: ["STR, Arms, Rapier"],
+      dep: {},
+      maxLevel: 8,
+      coords: { x: 0, y: 2 }
+    },
+    bindingForce: {
       name_en: "Binding Force",
       desc: "Deals melee stab damage to one target. \nIf the target is attacked again after, follows up with another stab attack for a maximum of ? times. \nEach follow up has a chance of randomly binding.",
       stats: ["STR, Arms, Rapier"],
