@@ -91,6 +91,34 @@ let forward = {
     ampedDischarge: {},
     mine: {}
   },
+  Harbinger: {
+    infiniteMiasma: { miasmaTorrent: 0 },
+    miasmaTorrent: {},
+    erodingReap: { slowingReap: 2 },
+    stiflingReap: { slowingReap: 2 },
+    slowingReap: { harrowingScythe: 3, maskingReap: 3 },
+    harrowingScythe: { ephemeralReap: 1 },
+    maskingReap: { ephemeralReap: 1 },
+    ephemeralReap: { reversalDecay: 1 },
+    reversalDecay: {},
+    paralyzingMiasma: { toxicMiasma: 3 },
+    toxicMiasma: { darknessMiasma: 2 },
+    darknessMiasma: { chaosMiasma: 3 },
+    chaosMiasma: { frigidReap: 2 },
+    frigidReap: { soulRend: 2 },
+    soulRend: {},
+    miasmaArmor: { endlessShroud: 2, blackShroud: 2 },
+    endlessShroud: { spiritAbsorb: 3 },
+    spiritAbsorb: {},
+    blackShroud: { atonement: 2 },
+    atonement: { soulTransfer: 3, deathsAsylum: 3 },
+    soulTransfer: { spectralSeep: 3 },
+    deathsAsylum: { soulFixation: 3 },
+    spectralSeep: { judgment: 3 },
+    soulFixation: { judgment: 3 },
+    judgment: {},
+    take: {}
+  },
 
 
 };
