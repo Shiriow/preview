@@ -77,7 +77,7 @@ let skills = {
 
       stats: ["Head", "Shield"],
       dep: {},
-      maxLevel: 8,
+      maxLevel: 6,
       coords: { x: 0, y: 3 }
     },
     vacuumSlice: {
@@ -97,7 +97,7 @@ let skills = {
       
       stats: ["Head", "Shield"],
       dep: {},
-      maxLevel: 8,
+      maxLevel: 6,
       coords: { x: 0, y: 5 }
     },
     icicleImpact: {
