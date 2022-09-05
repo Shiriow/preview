@@ -72,7 +72,7 @@ let skills = {
     },
     vacuumSlice: {
       name_en: "Glacies Claudere",  
-      desc: "Deals ranged ice damage to one target. For a set number of turns, imbue the party's attacks with ice and increase their ice resistance.",
+      desc: "For a set number of turns, imbue the party's attacks with ice and increase their ice resistance.",
       
       stats: ["STR, Arms", "Shield"],
       dep: {},
@@ -81,7 +81,7 @@ let skills = {
     },
     levinforce: {
       name_en: "Tonitrus Canere",  
-      desc: "Deals ranged volt damage to one target. For a set number of turns, imbue the party's attacks with volt and increase their volt resistance.",
+      desc: "For a set number of turns, imbue the party's attacks with volt and increase their volt resistance.",
       
       
       
@@ -92,7 +92,7 @@ let skills = {
     },
     infernoHowl: {
       name_en: "Ignis Ardere",
-      desc: "Deals ranged fire damage to one target. For a set number of turns, imbue the party's attacks with fire and increase their fire resistance.",
+      desc: "For a set number of turns, imbue the party's attacks with fire and increase their fire resistance.",
       
       
       stats: ["STR, Arms", "Shield"],
