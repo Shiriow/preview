@@ -70,14 +70,24 @@ let skills = {
       maxLevel: 6,
       coords: { x: 3, y: 2 }
     },
+    infernoHowl: {
+      name_en: "Ignis Ardere",
+      desc: "For a set number of turns, imbue the party's attacks with fire and increase their fire resistance.",
+
+
+      stats: ["Head", "Shield"],
+      dep: {},
+      maxLevel: 8,
+      coords: { x: 0, y: 3 }
+    },
     vacuumSlice: {
       name_en: "Glacies Claudere",  
       desc: "For a set number of turns, imbue the party's attacks with ice and increase their ice resistance.",
       
-      stats: ["STR, Arms", "Shield"],
+      stats: ["Head", "Shield"],
       dep: {},
       maxLevel: 6,
-      coords: { x: 0, y: 3 }
+      coords: { x: 0, y: 4 }
     },
     levinforce: {
       name_en: "Tonitrus Canere",  
@@ -85,17 +95,7 @@ let skills = {
       
       
       
-      stats: ["STR, Arms", "Shield"],
-      dep: {},
-      maxLevel: 8,
-      coords: { x: 0, y: 4 }
-    },
-    infernoHowl: {
-      name_en: "Ignis Ardere",
-      desc: "For a set number of turns, imbue the party's attacks with fire and increase their fire resistance.",
-      
-      
-      stats: ["STR, Arms", "Shield"],
+      stats: ["Head", "Shield"],
       dep: {},
       maxLevel: 8,
       coords: { x: 0, y: 5 }
