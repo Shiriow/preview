@@ -1,4 +1,225 @@
 let skills = {
+
+  "War Magus": {
+    warEdgePower: {
+      name_en: "Spellsword",
+      
+      desc: "For 3 turns, War Edge skills have additional effects and the user's speed is increased.",
+      stats: [],
+      unique: true,
+      type: "Boost",
+      dep: {},
+      maxLevel: 0,
+      coords: { x: 0, y: 0 }
+    },
+    fairyRobe: {
+      name_en: "Fairy Robe",
+      desc: "Removes ailments, binds and debuffs from all party members, and restores their HP. This turn, negates all binds, ailments, stun, instant death and debuffs against all party members.",
+      stats: ["WIS", "Head"],
+      unique: true,
+      type: "Break",
+      dep: { warEdgePower: 0 },
+      maxLevel: 0,
+      coords: { x: 1, y: 0 }
+    },
+    warHealLine: {
+      name_en: "!Blossom Sketch",
+      desc: "Restores HP to one row at the start of the turn, then at the end of the turn. \nSpellsword: Dispel one debuff.",
+      stats: ["WIS", "Head"],
+      dep: {},
+      maxLevel: 8,
+      coords: { x: 0, y: 4 }
+    },
+    displace: {
+      name_en: "!Displace",
+      desc: "Removes ailments and binds from one ally, and attempts to inflict them on one enemy. \nSpellsword: Remove from their row allies afterwards.",
+      stats: ["LUC", "Head"],
+      dep: { warHealLine: 2 },
+      maxLevel: 4,
+      coords: { x: 1, y: 4.5 }
+    },
+    warRevive: {
+      name_en: "War Revive",
+      desc: "Revives one ally at the start of the turn, then attempts to revive them again at the end of the turn.\nSpellsword: Recover the row's HP if the second revive triggers.",
+      stats: ["Head"],
+      dep: { warHealLine: 2 },
+      maxLevel: 10,
+      coords: { x: 1, y: 3.5 }
+    },
+    artery: {
+      name_en: "Artery",
+      desc: "For a set number of turns, a row of party members will heal the party when they act, once per turn.\nSpellsword: Slightly increase party damage the turn cast.\nSpellsword: Increases the user's HP recovery this turn before cast, increasing Artery's healing.",
+      
+      stats: ["WIS", "Head"],
+      dep: { warRevive: 2 },
+      maxLevel: 6,
+      coords: { x: 2, y: 3.5 }
+    },
+    warResponse: {
+      name_en: "War Response",
+      desc: "For a set number of turns, automatically restores HP for all party members when the debuffed enemy acts, once per turn.\nSpellsword: Slightly decrease the targets defence the turn cast.",
+      stats: ["WIS", "Head"],
+      dep: { displace: 2 },
+      maxLevel: 6,
+      coords: { x: 2, y: 4.5 }
+    },
+    pandemonium: {
+      name_en: "!Pandemonium",
+      desc: "Increases the targets attack and defense for 3 turns. \nSpellsword: Increased to 7 turns.",
+      stats: ["Head"],
+      dep: { artery: 2, warResponse: 2 },
+      maxLevel: 6,
+      coords: { x: 3, y: 3 }
+    },
+    barrier: {
+      name_en: "Barrier",
+      desc: "For one turn, there is a chance to nullify binds and ailments against all party members, up to a set number of times. \nSpellsword: Decrease damage taken.",
+      stats: ["Arms"],
+      dep: { artery: 2, warResponse: 2 },
+      maxLevel: 10,
+      coords: { x: 3, y: 4 }
+    },
+    drippingSlash: {
+      name_en: "Viral Vector",
+      desc: "Deals melee cut+almighty damage to one target. Attempts to inflict one of poison, paralyze, blind, sleep or curse.",
+      stats: ["STR", "LUC", "Arms", "Sword"],
+      dep: {},
+      maxLevel: 8,
+      coords: { x: 2, y: 0 }
+    },
+    strengthSlash: {
+      name_en: "!Strength Blight",
+      desc: "Deals melee cut+almighty damage to one target, decreasing their attack for 3 turns. \nSpellsword: Increased to 7 turns.\n\nSpellsword: Attempts to inflict leg bind.",
+      stats: ["STR", "Arms", "Sword"],
+      dep: {},
+      maxLevel: 8,
+      coords: { x: 0, y: 1 }
+    },
+    guardSlash: {
+      name_en: "!Guard Blight",
+      desc: "Deals melee cut+almighty damage to one target, decreasing their defense for 3 turns. \nSpellsword: Increased to 7 turns.\n\nDeals melee cut+almighty damage to one target, decreasing their physical/elemental defense for 3 turns.\nSpellsword: Attempts to inflict arm/head bind.",
+      stats: ["STR", "Arms", "Sword"],
+      dep: {},
+      maxLevel: 10,
+      coords: { x: 0, y: 2 }
+    },
+    headcut: {
+      name_en: "!Thorn Chains",      
+      desc: "Deals melee cut+almighty damage to one target, attempts to inflict head bind. \nSpellsword: Attempt to inflict again on their row.",
+      stats: ["STR", "LUC", "Arms", "Sword"],
+      dep: { guardSlash: 2, strengthSlash: 2 },
+      maxLevel: 8,
+      coords: { x: 1, y: 1.5 }
+    },
+    armcut: {
+      name_en: "!Thorn Cuffs",      
+      desc: "Deals melee cut+almighty damage to one target, attempts to inflict arm bind. \nSpellsword: Attempt to inflict again on their row.",
+      stats: ["STR", "LUC", "Arms", "Sword"],
+      dep: { headcut: 2 },
+      maxLevel: 8,
+      coords: { x: 2, y: 1 }
+    },
+    legcut: {
+      name_en: "!Thorn Shackles",      
+      desc: "Deals melee cut+almighty damage to one target, attempts to inflict leg bind. \nSpellsword: Attempt to inflict again on their row.",
+      stats: ["STR", "LUC", "Arms", "Sword"],
+      dep: { headcut: 2 },
+      maxLevel: 6,
+      coords: { x: 2, y: 2 }
+    },
+    ailingSlash: {
+      name_en: "!Maledict Bristle",
+      desc: "Deals melee cut+almighty damage to one target. \nSpellsword: Increase damage dealt.",
+      stats: ["STR", "Arms", "Sword"],
+      dep: { drippingSlash: 2, legcut: 2, armcut: 2 },
+      maxLevel: 8,
+      coords: { x: 3, y: 1.5 }
+    },
+    blindLaughter: {
+      name_en: "?Blind Laughter",
+      desc: "This turn, if the targetted enemy is afflicted with any ailments, binds, or stun, the user will perform a follow up attack.", 
+      stats: ["STR", "Arms", "Sword"],
+      dep: { drippingSlash: 2, legcut: 2, armcut: 2 },
+      maxLevel: 8,
+      coords: { x: 3, y: 0.5 }
+    },
+    scorpion: {
+      name_en: "Demise Burst", 
+      desc: "Deals melee cut+almighty damage to one target, removing one debuff. \nIf a debuff was removed, recover the user's row HP and overheal them.\nSpellsword: Increased recovery.", 
+      stats: ["STR", "Arms", "Sword"],
+      dep: { pandemonium: 2, ailingSlash: 2, blindLaughter: 2 },
+      maxLevel: 8,
+      coords: { x: 4, y: 1.5 }
+    },
+    bindCut: {
+      name_en: "Aspir Gash",
+      desc: "Deals melee cut+almighty damage to one target, recovering the user's Force.",
+      stats: ["STR", "LUC", "Arms", "Sword"],
+      dep: {},
+      maxLevel: 6,
+      coords: { x: 1, y: 6 }
+    },
+    rouse: {
+      name_en: "Rouse",
+      desc: "Increases the user's Force gain based on the number of enemies with binds.",
+      stats: [],
+      dep: { bindCut: 2 },
+      maxLevel: 6,
+      coords: { x: 2, y: 6 }
+    },
+    leeches: {
+      name_en: "!Hollow Scourge",
+      desc: "Restores Force to the user's row allies. \nIncreased recovery during Spellsword.", 
+      stats: ["WIS"],
+      dep: { rouse: 2 },
+      maxLevel: 8,
+      coords: { x: 3, y: 6 }
+    },
+    curseCut: {
+      name_en: "Nature's Will",
+      
+      desc: "When the user is dealt mortal damage, they will survive the hit once per Force Boost.", 
+      stats: ["STR", "LUC", "Arms", "Sword"],
+      dep: { spiritDrain: 3 },
+      maxLevel: 8,
+      coords: { x: 3, y: 5 }
+    },
+    spiritDrain: {
+      name_en: "Spirit Mirror",
+      desc: "During Force Boost, recover the user's row TP.", 
+      stats: ["WIS"],
+      dep: { curseCut: 2, leeches: 2, barrier: 2 },
+      maxLevel: 8,
+      coords: { x: 4, y: 5 }
+    },
+    corpseAsh: {
+      name_en: "Corpse Ash",
+      
+      desc: "Usable once per Force Boost. \nReduces an ally's damage taken this turn, and at max level, also pauses the duration of their Force Boost.", 
+      stats: [],
+      dep: { scorpion: 2, spiritDrain: 2 },
+      maxLevel: 8,
+      coords: { x: 5, y: 2.5 }
+    },
+    looseThread: {
+      name_en: "Loose Thread",
+      desc: "Usable once per Force Boost. \nQuickly cancel an ally's Force Boost, setting their Force to a specific amount.", 
+      stats: ["STR", "LUC", "Arms", "Sword"],
+      dep: { scorpion: 2, spiritDrain: 2 },
+      maxLevel: 8,
+      coords: { x: 5, y: 4 }
+    },
+    take: {
+      name_en: "Take",
+      desc: "Occasionally gains more items when using Take points.",
+      stats: [],
+      unique: true,
+      dep: {},
+      maxLevel: 1,
+      coords: { x: 0, y: 6 }
+    }
+  },
+
   Landsknecht: {
     trinity: {
       name_en: "Trinity",
@@ -237,7 +458,7 @@ let skills = {
     },
     conversion: {
       name_en: "Conversion",
-      desc: "Restores HP and TP to the user. \nEnds Force Boost but does not break the Force gauge.",//This can restore TP over maximum TP. The overhealed TP will disappear at the end of battle, or when the user dies.
+      desc: "Restores HP and TP to the user. \nEnds Force Boost but does not break the Force gauge.",
       stats: ["STR"],
       unique: true,
       type: "Break",
@@ -246,7 +467,7 @@ let skills = {
       coords: { x: 1, y: 0 }
     },
     sunrazeTrip: {
-      name_en: "Return Stroke",  //Sunraze Smash, Heavy Trip   Sunraze Trip
+      name_en: "Return Stroke",  
       desc: "Starter skill. Deals melee weapon damage to one target. \nFast. \nRecovers 15% Force on hit.",
       stats: ["STR", "LUC", "Arms", "Driveblade"],
       dep: {},
@@ -254,7 +475,7 @@ let skills = {
       coords: { x: 0, y: 1 }
     },
     galeOnslaught: {
-      name_en: "Spinning Slash", //Gale Onslaught
+      name_en: "Spinning Slash", 
       desc: "Fusion skill. Deals melee cut damage to one target. \nReduces damage taken this turn. \nRecovers 25% Force on hit.\nReduces overheat duration by 2 turns. ",
       stats: ["STR", "Arms", "Driveblade"],
       dep: {},
@@ -262,7 +483,7 @@ let skills = {
       coords: { x: 0, y: 2 }
     },
     busterBeat: {
-      name_en: "Double Charge", //Buster Beat
+      name_en: "Double Charge", 
       desc: "Deals 2 instances of melee cut damage to one target. \nReduces overheat duration by 3 turns.",
       stats: ["STR", "Arms", "Driveblade"],
       dep: {},
@@ -270,7 +491,7 @@ let skills = {
       coords: { x: 0, y: 3 }
     },
     bloodrake: {
-      name_en: "Element Discharge",//Bloodrake
+      name_en: "Element Discharge",
       desc: "Fusion skill. Deals melee cut damage to one target, and places the user in the overheat state for 1 turn. Pauses Force Boost duration this turn.\nCannot be used while overheated. \nThe TP cost is reduced based on the amount of TP used before this skill was cast. \nThe user will take 2x more damage until the skill activates.",
       stats: ["STR", "Arms", "Driveblade"],
       dep: { naturalDrive: 2 },
@@ -278,15 +499,15 @@ let skills = {
       coords: { x: 2, y: 1 }
     },
     impulseBreak: {
-      name_en: "Amped Discharge",//?Impulse Break
-      desc: "Starter skill. Deals melee cut damage to one target, then deal multiple instances of imbuable damage. \nPlaces the user in the overheat state for 6 turns.\nCannot be used while overheated. \nThe TP cost is reduced based on the amount of TP used before this skill was cast. \nThe user will take 2x more damage until the skill activates.", //Starter and Combo skill. Deals melee cut damage to one target. \nRestores TP and Force to the user. \nReduces overheat duration by 1 turn. \nCan only be used if an Starter skill was used on the previous turn.\n\n
+      name_en: "Amped Discharge",
+      desc: "Starter skill. Deals melee cut damage to one target, then deal multiple instances of imbuable damage. \nPlaces the user in the overheat state for 6 turns.\nCannot be used while overheated. \nThe TP cost is reduced based on the amount of TP used before this skill was cast. \nThe user will take 2x more damage until the skill activates.", 
       stats: ["STR", "Arms", "Driveblade"],
       dep: { bloodrake: 2 },
       maxLevel: 8,
       coords: { x: 3, y: 1 }
     },
     burstStrike: {
-      name_en: "SAED",  //!Smash/     Burst Strike
+      name_en: "SAED",  
       desc: "Finisher skill. Deals melee cut damage to one front row target, then follow-up with imbuable damage on the same target and the back row. \nPlaces the user in the overheat state for 9 turns. \nCannot be used while overheated. \nThe TP cost is reduced based on the amount of TP used before this skill was cast. \nThe user will take 2x more damage until the skill activates.",
       stats: ["STR", "Arms", "Driveblade"],
       dep: { impulseBreak: 2 },
@@ -294,15 +515,15 @@ let skills = {
       coords: { x: 4, y: 0.5 }
     },
     doubleDown: {
-      name_en: "Thermal Aura",   //imbueable    Double Down
-      desc: "Passively restores a percentage of the user's maximum HP plus a static amount while they are in the Force Boost state.", //\n\nGives a chance to reduce the TP cost of Drive skills on the first turn.
+      name_en: "Thermal Aura",   
+      desc: "Passively restores a percentage of the user's maximum HP plus a static amount while they are in the Force Boost state.", 
       stats: ["STR", "Arms", "Driveblade"],
       dep: { impulseBreak: 2 },
       maxLevel: 8,
       coords: { x: 4, y: 1.5 }
     },
     naturalDrive: {
-      name_en: "Energy Blade", //Bloodrake
+      name_en: "Energy Blade", 
       desc: "Combo skill. Deals melee cut damage to one target. \nRestores HP to the user based on the amount of damage dealt. \nPlaces the user in the overheat state for 6 turns.",
       stats: ["STR", "Arms", "Driveblade"],
       dep: { sunrazeTrip: 3, galeOnslaught: 3, busterBeat: 3 },
@@ -310,10 +531,10 @@ let skills = {
       coords: { x: 1, y: 2 }
     },
     chaosCartridge: {
-      name_en: "Condensed Slash",  //Chaos Cartridge   Powder Mark
-      desc: "Finisher skill. Deals melee cut damage to one target. \nIncreases attack for non-Drive Imperial skills for the next two turns. \nUsable only while overheated.",   //(Heavy Smash 1stack | delayed priority charge)
-      //sunraze->powder->drive->powder->burst->powder
-      //Can only be used during overheat. \nFor 3 turns, increase the user's stats. \nSet Overheat state to 9 turns.
+      name_en: "Condensed Slash",  
+      desc: "Finisher skill. Deals melee cut damage to one target. \nIncreases attack for non-Drive Imperial skills for the next two turns. \nUsable only while overheated.",   
+      
+      
       stats: [],
       dep: { naturalDrive: 2 },
       maxLevel: 8,
@@ -329,7 +550,7 @@ let skills = {
     },
     heatSink: {
       name_en: "Heat Sink",
-      // desc: "Reduces overheat duration by a set number of turns and increases the user's defense until the end of the next turn. Can only be used while overheated.",    Starter skill. Reduces overheat duration by a set number of turns and restores ??? to the user. \nCan only be used while overheated.\n\n
+      
       desc: "Reduces overheat duration by a set number of turns. Each cast multiplies Natural Drive damage by ?%. There is a maximum of ? increases. Damage increases are reset upon the user's death.",
       stats: ["Head", "Driveblade"],
       dep: { naturalDrive: 3 },
@@ -339,8 +560,8 @@ let skills = {
     overdrive: {
       name_en: "Overdrive",
       desc: "Can only be used during Force Boost and outside of Overheat. Deals melee cut damage to all enemies. \nEnds Force Boost after cast.",
-      //desc: "When the user uses a skill, restore HP.", When an ally dies, restore HP and TP.
-      //desc: For a set number of turns, increases the user's attack, defence, and accuracy. Places the user in the overheat state for 3 turns. / 
+      
+      
       stats: [],
       dep: { heatSink: 3 },
       maxLevel: 6,
@@ -363,7 +584,7 @@ let skills = {
       coords: { x: 0, y: 5 }
     },
     bulwarkDrive: {
-      name_en: "Counter Morph",//Bulwark Drive
+      name_en: "Counter Morph",
       desc: "Reduces physical damage done to all party members for one turn. If damage was mitigated, decrease damage taken next turn. Places the user in the overheat state for 5 turns.",
       stats: ["STR", "Arms", "Driveblade"],
       dep: { roughDivide: 2 },
@@ -379,7 +600,7 @@ let skills = {
       coords: { x: 1, y: 5.5 }
     },
     overheatShield: {
-      name_en: "Overheat Shield", //Overheat Guard    Barrier
+      name_en: "Overheat Shield", 
       desc: "While overheated, increases the user's defense.",
       stats: [],
       dep: { bulwarkDrive: 2, rearGuard: 2 },
@@ -387,15 +608,15 @@ let skills = {
       coords: { x: 2, y: 4 }
     },
     thermalCell: {
-      name_en: "Cooling Cell", //Thermal Cell, Aurora, Refraction, Anchor Chain, Searing Breeze, Cooling/Shining Cell,  Reflux Aura   Avenger
-      desc: "Starter skill. Restores one ally's HP, and reduces all physical damage directed at them for one turn.",   //Passively restores a percentage of the user's maximum TP plus a static amount while they are in the Force Boost state. \n\n When an ally dies, restores HP and TP to the user.
+      name_en: "Cooling Cell", 
+      desc: "Starter skill. Restores one ally's HP, and reduces all physical damage directed at them for one turn.",   
       stats: ["STR", "Arms", "Driveblade"],
       dep: { bulwarkDrive: 2, rearGuard: 2 },
       maxLevel: 8,
       coords: { x: 2, y: 5 }
     },
     avenger: {
-      name_en: "Avenger/?",//Zero Sum
+      name_en: "Avenger/?",
       desc: "When an ally dies, restores HP and TP to the user.",
       stats: ["STR", "Arms", "Driveblade"],
       dep: { bulwarkDrive: 2, rearGuard: 2 },
@@ -427,8 +648,8 @@ let skills = {
       coords: { x: 3, y: 5.5 }
     },
     ampedDischarge: {
-      //Amped Blade, Condensed/Compressed Heat, Heated Blade, Discharge
-      name_en: "Guard Point", //Amped Discharge
+      
+      name_en: "Guard Point", 
       desc: "Increases the damage of Drive skills after activating Rough Divide, Keen Flurry or Sentinel Shell.",
       stats: [],
       dep: { solidBarrel: 2 },
