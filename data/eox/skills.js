@@ -163,7 +163,7 @@ let skills = {
         },
         deflectorField: {
             name_en: "Deflector Field",
-            desc: "Reduces physical damage taken to all party members for one turn. \nIf damage was mitigated, decrease damage taken next turn. \nPlaces the user in the overheat state for 5 turns and cannot be used while overheated.",  
+            desc: "Reduces physical damage taken to all party members for one turn. \nIf user received damage, repeat with half potency next turn. \nPlaces the user in the overheat state for 5 turns and cannot be used while overheated.",  
             stats: ["Arms", "Driveblade"],
             dep: { rearGuard: 2 },
             maxLevel: 10,
