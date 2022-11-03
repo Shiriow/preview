@@ -108,7 +108,7 @@ let skills = {
             desc: "When the user kills an enemy, their TP is restored.",
             stats: [],
             dep: { doubleDown: 4 },
-            maxLevel: 10,
+            maxLevel: 8,
             coords: { x: 3, y: 2.75 }
         },
         overdrive: {
@@ -118,7 +118,7 @@ let skills = {
             
             stats: [],
             dep: { finisher: 3, wideEffect: 3 },
-            maxLevel: 10,
+            maxLevel: 8,
             coords: { x: 4, y: 2.25 }
         },
         roughDivide: {
@@ -150,7 +150,7 @@ let skills = {
             desc: "Final skill. Attempts to nullify physical attacks directed at the user's row for one turn. Each time an attack is nullified, the chance of it triggering again on that ally is reduced.",
             stats: ["Arms", "Driveblade"],
             dep: { solidBarrel: 2 },
-            maxLevel: 10,
+            maxLevel: 8,
             coords: { x: 3, y: 4 }
         },
         rearGuard: {
@@ -166,7 +166,7 @@ let skills = {
             desc: "Reduces physical damage taken to all party members for one turn. \nIf user received damage, repeat with half potency next turn. \nPlaces the user in the overheat state for 5 turns and cannot be used while overheated.",  
             stats: ["Arms", "Driveblade"],
             dep: { rearGuard: 2 },
-            maxLevel: 10,
+            maxLevel: 8,
             coords: { x: 1, y: 5 }
         },
         overheatShield: {
@@ -192,7 +192,7 @@ let skills = {
             
             stats: [],
             dep: { avenger: 2 },
-            maxLevel: 10,
+            maxLevel: 8,
             coords: { x: 2, y: 6 }
         },
         guardPoint: {
