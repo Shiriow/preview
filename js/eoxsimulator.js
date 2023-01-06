@@ -6,7 +6,7 @@ class EOXSimulator extends Simulator {
   get defaultClass() {
     return "Imperial";
   }
-
+//
   get levelCaps() {
     return [99, 109, 119, 130];
   }
